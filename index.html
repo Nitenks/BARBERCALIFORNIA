@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>California Barber</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --gold: #c9a84c; --gold-dim: #8a6f30; --red: #e05252; --green: #4caf7d;
+    --blue: #5c9bd4; --text: #f0ece4; --muted: #888; --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; }
+
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--gold); }
+  .header-date { font-size: 11px; color: var(--muted); }
+
+  .tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 53px; z-index: 99; }
+  .tab { flex: 1; padding: 12px 4px; text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; text-transform: uppercase; }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .page { display: none; padding: 16px; }
+  .page.active { display: block; }
+
+  .deuda-banner { background: #2a1a0a; border: 1px solid var(--gold-dim); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .deuda-banner-amount { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); }
+  .deuda-banner-sub { font-size: 11px; color: var(--muted); }
+
+  .add-form { background: var(--surface); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border); margin-bottom: 14px; }
+  .form-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--gold); margin-bottom: 14px; }
+  .field { margin-bottom: 12px; }
+  label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  input[type="number"], input[type="text"] { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 600; padding: 12px 14px; outline: none; transition: border-color 0.2s; }
+  input:focus { border-color: var(--gold); }
+  input::placeholder { color: #444; font-weight: 400; }
+
+  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pay-btn { padding: 12px 6px; border-radius: 8px; border: 2px solid var(--border); background: var(--surface2); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .pay-btn.sel-efectivo      { border-color: var(--green); color: var(--green); background: #1a2e22; }
+  .pay-btn.sel-tarjeta       { border-color: var(--blue);  color: var(--blue);  background: #1a2233; }
+  .pay-btn.sel-transferencia { border-color: var(--gold);  color: var(--gold);  background: #2a2010; }
+  .emoji { font-size: 18px; display: block; margin-bottom: 2px; }
+
+  .add-btn { width: 100%; padding: 16px; background: var(--gold); color: #0e0e0e; border: none; border-radius: var(--radius); font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; cursor: pointer; margin-top: 4px; transition: opacity 0.15s, transform 0.1s; }
+  .add-btn:active { transform: scale(0.97); opacity: 0.85; }
+
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { padding: 8px 14px; border-radius: 20px; border: 2px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .chip.active { border-color: var(--gold); color: var(--gold); background: #2a2010; }
+
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+  .sum-card.full { grid-column: 1/-1; }
+  .sum-card.hi { border-color: var(--gold-dim); background: #1e1a0f; }
+  .sum-label { font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .sum-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; }
+  .gold { color: var(--gold); } .green { color: var(--green); } .blue { color: var(--blue); }
+  .sum-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .section-hd { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .clear-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; color: var(--red); background: none; border: 1px solid var(--red); border-radius: 6px; padding: 4px 10px; cursor: pointer; opacity: 0.7; }
+
+  .entry-list { display: flex; flex-direction: column; gap: 8px; }
+  .entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; animation: slideIn 0.2s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  @keyframes slideIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+  .eicon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .ei-ef { background:#1a2e22; } .ei-ta { background:#1a2233; } .ei-tr { background:#2a2010; } .ei-pr { background:#1a1a2e; }
+  .e-type { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .e-desc { font-size: 13px; color: var(--text); margin-top: 1px; }
+  .e-amount { font-family: 'Bebas Neue', sans-serif; font-size: 22px; }
+  .e-com { font-size: 11px; color: var(--muted); }
+  .c-ef { color:var(--green); } .c-ta { color:var(--blue); } .c-tr { color:var(--gold); } .c-pr { color:#a984e0; }
+  .del-btn { background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; padding: 4px 6px; opacity: 0.6; margin-left: 6px; }
+
+  .barber-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+  .bc-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--gold); margin-bottom: 12px; }
+  .bc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bc-cell { background: var(--surface2); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border); }
+  .bc-cell.alert { border-color: var(--red); background: #1e0e0e; }
+  .bc-cell-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 3px; }
+  .bc-cell-val { font-family: 'Bebas Neue', sans-serif; font-size: 24px; }
+
+  .export-btn { width: 100%; padding: 16px; background: #1a3a20; color: var(--green); border: 2px solid var(--green); border-radius: var(--radius); font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; cursor: pointer; margin-top: 20px; }
+  .export-btn:active { transform: scale(0.97); }
+
+  .empty { text-align: center; color: var(--muted); padding: 30px 0; font-size: 14px; }
+  .empty-ico { font-size: 36px; margin-bottom: 8px; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: flex-end; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px 20px 0 0; padding: 24px 20px 40px; width: 100%; max-width: 480px; animation: slideUp 0.25s ease; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--red); letter-spacing: 1px; margin-bottom: 8px; }
+  .modal-desc  { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+  .modal-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 20px; font-size: 14px; color: var(--text); line-height: 1.6; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-cancel { flex:1; padding:14px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; cursor:pointer; }
+  .modal-confirm { flex:1; padding:14px; background:#3a1010; border:2px solid var(--red); border-radius:10px; color:var(--red); font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:1px; cursor:pointer; }
+
+  .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--surface); border:1px solid var(--border); border-radius:30px; padding:12px 22px; font-size:14px; font-weight:600; color:var(--text); z-index:999; transition:transform 0.3s ease,opacity 0.3s ease; opacity:0; white-space:nowrap; pointer-events:none; }
+  .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  .toast.red  { border-color:var(--red);   color:var(--red);   background:#1e0e0e; }
+  .toast.green{ border-color:var(--green); color:var(--green); background:#0e1e14; }
+  .toast.gold { border-color:var(--gold);  color:var(--gold);  background:#1e1a0a; }
+
+  /* ─── OWNER PANEL ─── */
+  .pin-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; min-height:60vh; }
+  .pin-title { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; color:var(--gold); margin-bottom:6px; }
+  .pin-sub { font-size:13px; color:var(--muted); margin-bottom:30px; }
+  .pin-dots { display:flex; gap:14px; margin-bottom:30px; }
+  .pin-dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--border); background:transparent; transition:all 0.15s; }
+  .pin-dot.filled { background:var(--gold); border-color:var(--gold); }
+  .pin-pad { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; width:100%; max-width:280px; }
+  .pin-key { padding:18px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--text); cursor:pointer; text-align:center; transition:all 0.1s; }
+  .pin-key:active { background:var(--surface2); transform:scale(0.94); }
+  .pin-key.del { color:var(--red); font-size:20px; }
+  .pin-error { color:var(--red); font-size:13px; font-weight:600; margin-top:16px; opacity:0; transition:opacity 0.2s; }
+  .pin-error.show { opacity:1; }
+  .owner-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .owner-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1px; color:var(--gold); }
+  .lock-btn { font-size:12px; font-weight:600; color:var(--muted); background:none; border:1px solid var(--border); border-radius:8px; padding:6px 12px; cursor:pointer; }
+  .month-selector { display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:12px 16px; margin-bottom:16px; }
+  .month-nav { background:none; border:none; color:var(--gold); font-size:22px; cursor:pointer; padding:4px 10px; }
+  .month-label { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:1px; color:var(--text); }
+  .owner-totals { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .ot-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px; }
+  .ot-card.hi { border-color:var(--gold-dim); background:#1e1a0f; grid-column:1/-1; }
+  .ot-label { font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+  .ot-val { font-family:'Bebas Neue',sans-serif; font-size:30px; }
+  .day-row { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+  .day-date { font-size:13px; font-weight:600; color:var(--text); }
+  .day-moves { font-size:11px; color:var(--muted); margin-top:2px; }
+  .day-nums { text-align:right; }
+  .day-bruto { font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold); }
+  .day-neto  { font-size:11px; color:var(--green); margin-top:2px; }
+  .owner-export { width:100%; padding:14px; background:#1a3a20; color:var(--green); border:2px solid var(--green); border-radius:var(--radius); font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; cursor:pointer; margin-top:4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">✂ California Barber</div>
+  <div class="header-date" id="headerDate"></div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-page="agregar">➕ Agregar</div>
+  <div class="tab" data-page="resumen">📊 Resumen</div>
+  <div class="tab" data-page="deudas">⚠️ Deudas</div>
+  <div class="tab" data-page="owner">🔐 Dueño</div>
+</div>
+
+<!-- AGREGAR -->
+<div class="page active" id="page-agregar">
+  <div id="deudaBanner" style="display:none" class="deuda-banner">
+    <div style="font-size:22px">⚠️</div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.5px">Deuda pendiente</div>
+      <div class="deuda-banner-amount" id="deudaAmt"></div>
+      <div class="deuda-banner-sub">Se descuenta automáticamente del próximo corte</div>
+    </div>
+  </div>
+
+  <div class="add-form">
+    <div class="form-title">✂ NUEVO CORTE</div>
+    <div class="field"><label>Barbero</label><div class="chips" id="chips1"></div></div>
+    <div class="field"><label>Precio ($)</label><input type="number" id="cortePrice" placeholder="0" inputmode="numeric" min="0"></div>
+    <div class="field">
+      <label>Método de pago</label>
+      <div class="pay-grid">
+        <button class="pay-btn" id="btn-ef"><span class="emoji">💵</span>Efectivo</button>
+        <button class="pay-btn" id="btn-ta"><span class="emoji">💳</span>Tarjeta</button>
+        <button class="pay-btn" id="btn-tr"><span class="emoji">📲</span>Transferencia</button>
+      </div>
+    </div>
+    <button class="add-btn" onclick="addCorte()">+ AGREGAR CORTE</button>
+  </div>
+
+  <div class="add-form">
+    <div class="form-title">🧴 VENTA PRODUCTO</div>
+    <div class="field"><label>Barbero</label><div class="chips" id="chips2"></div></div>
+    <div class="field"><label>Producto</label><input type="text" id="prodName" placeholder="Ej: Pomada..."></div>
+    <div class="field"><label>Precio ($)</label><input type="number" id="prodPrice" placeholder="0" inputmode="numeric" min="0"></div>
+    <button class="add-btn" onclick="addProducto()" style="background:#1a0a2e;color:#a984e0;border:2px solid #a984e0;">+ AGREGAR PRODUCTO</button>
+  </div>
+</div>
+
+<!-- RESUMEN -->
+<div class="page" id="page-resumen">
+  <div class="summary-grid" id="sumCards"></div>
+  <div class="section-hd">Movimientos del día <button class="clear-btn" onclick="clearAll()">🗑 Borrar todo</button></div>
+  <div class="entry-list" id="entryList"><div class="empty"><div class="empty-ico">✂️</div>Sin registros hoy</div></div>
+  <button class="export-btn" onclick="exportWA()">📲 EXPORTAR POR WHATSAPP</button>
+</div>
+
+<!-- DEUDAS -->
+<div class="page" id="page-deudas">
+  <div id="deudasContent"></div>
+</div>
+
+
+<!-- OWNER -->
+<div class="page" id="page-owner">
+  <!-- PIN SCREEN -->
+  <div class="pin-screen" id="pinScreen">
+    <div class="pin-title">🔐 ZONA DUEÑO</div>
+    <div class="pin-sub">Ingresá tu contraseña</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
+      <div class="pin-dot" id="pd4"></div>
+      <div class="pin-dot" id="pd5"></div>
+      <div class="pin-dot" id="pd6"></div>
+      <div class="pin-dot" id="pd7"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key del" onclick="pinDel()">⌫</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key del" onclick="pinClear()">✕</button>
+    </div>
+    <div class="pin-error" id="pinError">Contraseña incorrecta</div>
+  </div>
+  <!-- OWNER DASHBOARD -->
+  <div id="ownerDash" style="display:none">
+    <div class="owner-header">
+      <div class="owner-title">📊 RESUMEN</div>
+      <button class="lock-btn" onclick="lockOwner()">🔒 Cerrar</button>
+    </div>
+    <div class="month-selector">
+      <button class="month-nav" onclick="changeMonth(-1)">‹</button>
+      <div class="month-label" id="monthLabel"></div>
+      <button class="month-nav" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="owner-totals" id="ownerTotals"></div>
+    <div id="ownerDays"></div>
+    <button class="owner-export" onclick="exportOwnerWA()">📲 EXPORTAR MES</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <div class="modal-title">⚠️ CONFIRMAR ELIMINACIÓN</div>
+    <div class="modal-desc">¿Seguro que querés eliminar este servicio? Los efectos sobre deudas también se revierten.</div>
+    <div class="modal-preview" id="modalPreview"></div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">✕ Cancelar</button>
+      <button class="modal-confirm" onclick="confirmDelete()">🗑 BORRAR</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  const BARBEROS = ['Kendident','Fernando','Rodrigo'];
+  let selB = null, selBP = null, selPay = null, pendingId = null;
+  let entries  = JSON.parse(localStorage.getItem('cb_entries')  || '[]');
+  let deleted  = JSON.parse(localStorage.getItem('cb_deleted')  || '[]');
+  let deudas   = JSON.parse(localStorage.getItem('cb_deudas')   || '{}');
+
+  function init() {
+    // Tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() { showPage(this.getAttribute('data-page'), this); });
+    });
+    document.getElementById('headerDate').textContent =
+      new Date().toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'short'});
+    renderChips('chips1', selB,  'selBarber');
+    renderChips('chips2', selBP, 'selBarberP');
+    // Attach pay button listeners robustly
+    document.getElementById('btn-ef').addEventListener('click', function(){ selectPay('efectivo'); });
+    document.getElementById('btn-ta').addEventListener('click', function(){ selectPay('tarjeta'); });
+    document.getElementById('btn-tr').addEventListener('click', function(){ selectPay('transferencia'); });
+    document.getElementById('btn-ef').onclick = null;
+    document.getElementById('btn-ta').onclick = null;
+    document.getElementById('btn-tr').onclick = null;
+    renderSummary(); renderEntries(); renderDeudas();
+  }
+
+  function renderChips(id, active, fn) {
+    const el = document.getElementById(id);
+    el.innerHTML = BARBEROS.map(b =>
+      `<div class="chip ${active===b?'active':''}" data-fn="${fn}" data-b="${b}">${b}</div>`
+    ).join('');
+    el.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        const fnName = this.getAttribute('data-fn');
+        const b = this.getAttribute('data-b');
+        if (fnName === 'selBarber') selBarber(b);
+        else selBarberP(b);
+      });
+    });
+  }
+
+  function selBarber(b) {
+    selB = b; renderChips('chips1', b, 'selBarber'); updateBanner(b);
+  }
+  function selBarberP(b) {
+    selBP = b; renderChips('chips2', b, 'selBarberP');
+  }
+
+  function updateBanner(b) {
+    const d = deudas[b] || 0;
+    const banner = document.getElementById('deudaBanner');
+    document.getElementById('deudaAmt').textContent = '$' + fmt(d);
+    banner.style.display = d > 0 ? 'flex' : 'none';
+  }
+
+  function selectPay(m) {
+    selPay = m;
+    ['ef','ta','tr'].forEach(k => {
+      const map = {ef:'efectivo',ta:'tarjeta',tr:'transferencia'};
+      document.getElementById('btn-'+k).className = 'pay-btn' + (map[k]===m ? ' sel-'+map[k] : '');
+    });
+  }
+
+  function showPage(id, tab) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const pg = document.getElementById('page-'+id);
+    if (pg) pg.classList.add('active');
+    if (tab) tab.classList.add('active');
+    if (id==='resumen') { renderSummary(); renderEntries(); }
+    if (id==='deudas')  renderDeudas();
+  }
+
+  function addCorte() {
+    const price = parseFloat(document.getElementById('cortePrice').value);
+    if (!selB)    return toast('⚠️ Elegí un barbero','red');
+    if (!price||price<=0) return toast('⚠️ Ingresá el precio','red');
+    if (!selPay)  return toast('⚠️ Elegí método de pago','red');
+
+    let commission = price * 0.5;
+    let casaRecibe = price * 0.5;
+    let deudaDesc  = 0;
+    let nota       = '';
+
+    if (selPay === 'transferencia') {
+      // Barbero recibe 100% → le debe 50% a la casa
+      deudas[selB] = (deudas[selB]||0) + price * 0.5;
+      casaRecibe   = 0;
+      nota = `+$${fmt(price*0.5)} deuda generada`;
+    } else {
+      // Descontar deuda pendiente de la comisión
+      const dActual = deudas[selB] || 0;
+      if (dActual > 0) {
+        deudaDesc      = Math.min(dActual, commission);
+        deudas[selB]   = dActual - deudaDesc;
+        commission     = commission - deudaDesc;
+        casaRecibe     = price - commission;
+        nota = `-$${fmt(deudaDesc)} deuda descontada`;
+      }
+    }
+
+    entries.unshift({
+      id:Date.now(), type:'corte', barbero:selB, price,
+      method:selPay, commission, casaRecibe, deudaDesc, nota,
+      time:new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),
+      date:new Date().toLocaleDateString('es-AR')
+    });
+    saveAll();
+
+    document.getElementById('cortePrice').value = '';
+    selPay = null;
+    ['ef','ta','tr'].forEach(k => {
+      document.getElementById('btn-'+k).className = 'pay-btn';
+    });
+    updateBanner(selB);
+    flash();
+    if (deudaDesc > 0)
+      setTimeout(()=>toast(`💸 Se descontaron $${fmt(deudaDesc)} de deuda de ${selB}`,'gold'),900);
+  }
+
+  function addProducto() {
+    const price = parseFloat(document.getElementById('prodPrice').value);
+    const name  = document.getElementById('prodName').value.trim();
+    if (!selBP)          return toast('⚠️ Elegí un barbero','red');
+    if (!name)           return toast('⚠️ Ingresá el nombre','red');
+    if (!price||price<=0)return toast('⚠️ Ingresá el precio','red');
+    entries.unshift({
+      id:Date.now(), type:'producto', barbero:selBP, price, desc:name,
+      method:'efectivo', commission:price*0.10, casaRecibe:price*0.90,
+      deudaDesc:0, nota:'',
+      time:new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}),
+      date:new Date().toLocaleDateString('es-AR')
+    });
+    saveAll();
+    document.getElementById('prodPrice').value='';
+    document.getElementById('prodName').value='';
+    flash('🧴');
+  }
+
+  function renderSummary() {
+    const today = new Date().toLocaleDateString('es-AR');
+    const te = entries.filter(e=>e.date===today);
+    let tot={ef:0,ta:0,tr:0,pr:0}, com={}, casa={};
+    BARBEROS.forEach(b=>{com[b]=0;casa[b]=0;});
+    te.forEach(e=>{
+      if(e.type==='corte'){
+        if(e.method==='efectivo')     tot.ef+=e.price;
+        else if(e.method==='tarjeta') tot.ta+=e.price;
+        else                          tot.tr+=e.price;
+      } else tot.pr+=e.price;
+      com[e.barbero]  =(com[e.barbero] ||0)+e.commission;
+      casa[e.barbero] =(casa[e.barbero]||0)+e.casaRecibe;
+    });
+    const bruto=tot.ef+tot.ta+tot.tr+tot.pr;
+    const neto=Object.values(casa).reduce((a,b)=>a+b,0);
+
+    document.getElementById('sumCards').innerHTML=`
+      <div class="sum-card full hi">
+        <div class="sum-label">💰 Total del día</div>
+        <div class="sum-val gold">$${fmt(bruto)}</div>
+        <div class="sum-sub">${te.length} movimiento${te.length!==1?'s':''}</div>
+      </div>
+      <div class="sum-card"><div class="sum-label">💵 Efectivo</div><div class="sum-val green">$${fmt(tot.ef)}</div></div>
+      <div class="sum-card"><div class="sum-label">💳 Tarjeta</div><div class="sum-val blue">$${fmt(tot.ta)}</div></div>
+      <div class="sum-card"><div class="sum-label">📲 Transferencias</div><div class="sum-val gold">$${fmt(tot.tr)}</div></div>
+      <div class="sum-card"><div class="sum-label">🧴 Productos</div><div class="sum-val" style="color:#a984e0">$${fmt(tot.pr)}</div></div>
+      <div class="sum-card full hi">
+        <div class="sum-label">🏠 Para la casa (neto)</div>
+        <div class="sum-val green">$${fmt(neto)}</div>
+        <div class="sum-sub">Después de comisiones y descuentos de deuda</div>
+      </div>
+      ${BARBEROS.filter(b=>com[b]>0).map(b=>`
+        <div class="sum-card">
+          <div class="sum-label">✂ ${b}</div>
+          <div class="sum-val gold">$${fmt(com[b])}</div>
+          <div class="sum-sub">comisión</div>
+        </div>`).join('')}
+    `;
+  }
+
+  function renderEntries() {
+    const today = new Date().toLocaleDateString('es-AR');
+    const te = entries.filter(e=>e.date===today);
+    const el = document.getElementById('entryList');
+    if (!te.length) { el.innerHTML='<div class="empty"><div class="empty-ico">✂️</div>Sin registros hoy</div>'; return; }
+    const ic={efectivo:'💵',tarjeta:'💳',transferencia:'📲',producto:'🧴'};
+    const cc={efectivo:'c-ef',tarjeta:'c-ta',transferencia:'c-tr',producto:'c-pr'};
+    const ei={efectivo:'ei-ef',tarjeta:'ei-ta',transferencia:'ei-tr',producto:'ei-pr'};
+    el.innerHTML=te.map(e=>{
+      const k=e.type==='producto'?'producto':e.method;
+      const desc=e.type==='producto'?e.desc:'Corte';
+      const pct=e.type==='producto'?'10%':'50%';
+      const notaHtml=e.nota?`<span style="font-size:10px;color:${e.method==='transferencia'?'var(--gold)':'var(--green)'}"> · ${e.nota}</span>`:'';
+      return `<div class="entry" id="e-${e.id}">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="eicon ${ei[k]}">${ic[k]}</div>
+          <div>
+            <div class="e-type">${e.time} · ${e.barbero}${notaHtml}</div>
+            <div class="e-desc">${desc}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div style="text-align:right">
+            <div class="e-amount ${cc[k]}">$${fmt(e.price)}</div>
+            <div class="e-com">${pct} → $${fmt(e.commission)}</div>
+          </div>
+          <button class="del-btn" onclick="deleteEntry(${e.id})">×</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderDeudas() {
+    const hayDeuda = BARBEROS.some(b=>(deudas[b]||0)>0);
+    document.getElementById('deudasContent').innerHTML=`
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:16px;font-size:13px;color:var(--muted);line-height:1.7">
+        📲 Si un cliente transfiere al barbero, él recibe el <strong style="color:var(--text)">100%</strong> pero el 50% es de la casa.<br>
+        ✂ En el <strong style="color:var(--text)">próximo corte</strong> del barbero su comisión va a la casa hasta saldar la deuda.
+      </div>
+      ${BARBEROS.map(b=>{
+        const d=deudas[b]||0;
+        return `<div class="barber-card" style="border-color:${d>0?'var(--gold-dim)':'var(--border)'}">
+          <div class="bc-name">✂ ${b}</div>
+          <div class="bc-grid">
+            <div class="bc-cell ${d>0?'alert':''}">
+              <div class="bc-cell-lbl">Le debe a la casa</div>
+              <div class="bc-cell-val" style="color:${d>0?'var(--red)':'var(--muted)'}">$${fmt(d)}</div>
+            </div>
+            <div class="bc-cell">
+              <div class="bc-cell-lbl">Estado</div>
+              <div style="font-size:13px;font-weight:600;margin-top:4px;color:${d>0?'var(--gold)':'var(--green)'}">
+                ${d>0?'⚠️ Pendiente':'✅ Al día'}
+              </div>
+            </div>
+          </div>
+          ${d>0?`<div style="margin-top:10px;font-size:12px;color:var(--muted);text-align:center">Se descuenta solo en el próximo corte de ${b}</div>`:''}
+        </div>`;
+      }).join('')}
+      ${!hayDeuda?'<div class="empty"><div class="empty-ico">✅</div>Todos al día</div>':''}
+    `;
+  }
+
+  function deleteEntry(id) {
+    const e=entries.find(x=>x.id===id); if(!e) return;
+    pendingId=id;
+    const ic={efectivo:'💵',tarjeta:'💳',transferencia:'📲',producto:'🧴'};
+    const k=e.type==='producto'?'producto':e.method;
+    document.getElementById('modalPreview').innerHTML=
+      `${ic[k]} <strong>${e.barbero}</strong> · ${e.type==='producto'?e.desc:'Corte'}<br>💰 $${fmt(e.price)} · ${e.method}<br>🕐 ${e.time}`;
+    document.getElementById('deleteModal').classList.add('open');
+  }
+
+  function closeModal() { pendingId=null; document.getElementById('deleteModal').classList.remove('open'); }
+
+  function confirmDelete() {
+    const id=pendingId; closeModal();
+    const e=entries.find(x=>x.id===id); if(!e) return;
+    // Revertir deuda
+    if (e.type==='corte') {
+      if (e.method==='transferencia') {
+        deudas[e.barbero]=Math.max(0,(deudas[e.barbero]||0)-e.price*0.5);
+      }
+      if (e.deudaDesc>0) {
+        deudas[e.barbero]=(deudas[e.barbero]||0)+e.deudaDesc;
+      }
+    }
+    e.deletedAt=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    deleted.unshift(e);
+    entries=entries.filter(x=>x.id!==id);
+    saveAll();
+    updateBanner(selB);
+    renderSummary(); renderEntries(); renderDeudas();
+    toast('🗑 Servicio eliminado','red');
+  }
+
+  document.getElementById('deleteModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+  function clearAll() {
+    if(!confirm('¿Borrar TODOS los registros de hoy?')) return;
+    const today=new Date().toLocaleDateString('es-AR');
+    entries.filter(e=>e.date===today&&e.type==='corte').forEach(e=>{
+      if(e.method==='transferencia') deudas[e.barbero]=Math.max(0,(deudas[e.barbero]||0)-e.price*0.5);
+      if(e.deudaDesc>0) deudas[e.barbero]=(deudas[e.barbero]||0)+e.deudaDesc;
+    });
+    deleted=[...deleted,...entries.filter(e=>e.date===today)];
+    entries=entries.filter(e=>e.date!==today);
+    saveAll();
+    renderSummary(); renderEntries(); renderDeudas();
+    toast('🗑 Registros eliminados','red');
+  }
+
+  function exportWA() {
+    const today=new Date().toLocaleDateString('es-AR');
+    const te=entries.filter(e=>e.date===today);
+    const td=deleted.filter(e=>e.date===today);
+    if(!te.length&&!td.length){toast('⚠️ No hay registros hoy','red');return;}
+
+    let tot={ef:0,ta:0,tr:0,pr:0},com={},casa={};
+    BARBEROS.forEach(b=>{com[b]=0;casa[b]=0;});
+    te.forEach(e=>{
+      if(e.type==='corte'){
+        if(e.method==='efectivo')tot.ef+=e.price;
+        else if(e.method==='tarjeta')tot.ta+=e.price;
+        else tot.tr+=e.price;
+      } else tot.pr+=e.price;
+      com[e.barbero]=(com[e.barbero]||0)+e.commission;
+      casa[e.barbero]=(casa[e.barbero]||0)+e.casaRecibe;
+    });
+    const bruto=tot.ef+tot.ta+tot.tr+tot.pr;
+    const neto=Object.values(casa).reduce((a,b)=>a+b,0);
+
+    let msg=`✂️ *CALIFORNIA BARBER* ✂️\n📅 Cierre ${today}\n━━━━━━━━━━━━━━━\n\n`;
+    msg+=`💰 *TOTAL BRUTO: $${fmt(bruto)}*\n\n`;
+    msg+=`💵 Efectivo: $${fmt(tot.ef)}\n💳 Tarjeta: $${fmt(tot.ta)}\n📲 Transferencias: $${fmt(tot.tr)}\n🧴 Productos: $${fmt(tot.pr)}\n\n`;
+    msg+=`━━━━━━━━━━━━━━━\n🏠 *PARA LA CASA: $${fmt(neto)}*\n\n*COMISIONES:*\n`;
+    BARBEROS.forEach(b=>{ if(com[b]>0) msg+=`✂ ${b}: $${fmt(com[b])}\n`; });
+    const dp=BARBEROS.filter(b=>(deudas[b]||0)>0);
+    if(dp.length){ msg+=`\n⚠️ *DEUDAS PENDIENTES:*\n`; dp.forEach(b=>msg+=`${b}: $${fmt(deudas[b])}\n`); }
+    msg+=`\n━━━━━━━━━━━━━━━\n*DETALLE (${te.length}):*\n`;
+    te.forEach(e=>{
+      const ic=e.type==='producto'?'🧴':e.method==='efectivo'?'💵':e.method==='tarjeta'?'💳':'📲';
+      const desc=e.type==='producto'?e.desc:'Corte';
+      const nota=e.nota?` (${e.nota})`:'';
+      msg+=`${ic} ${e.time} ${e.barbero} - ${desc}: $${fmt(e.price)}${nota}\n`;
+    });
+    if(td.length){ msg+=`\n❌ *CANCELADOS (${td.length}):*\n`; td.forEach(e=>{ const ic=e.type==='producto'?'🧴':e.method==='efectivo'?'💵':e.method==='tarjeta'?'💳':'📲'; msg+=`${ic} ${e.time} ${e.barbero}: $${fmt(e.price)} ❌\n`; }); }
+
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(()=>{
+        toast('✅ Copiado! Pegalo en WhatsApp','green');
+        setTimeout(()=>{ window.location.href='https://wa.me/?text='+encodeURIComponent(msg); },1200);
+      }).catch(()=>{ window.location.href='https://wa.me/?text='+encodeURIComponent(msg); });
+    } else { window.location.href='https://wa.me/?text='+encodeURIComponent(msg); }
+  }
+
+  function fmt(n){ return Number(n||0).toLocaleString('es-AR',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+  function saveAll(){
+    localStorage.setItem('cb_entries',JSON.stringify(entries));
+    localStorage.setItem('cb_deudas', JSON.stringify(deudas));
+    localStorage.setItem('cb_deleted',JSON.stringify(deleted));
+  }
+  function flash(icon='✂️'){
+    const d=document.createElement('div');
+    d.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#1a2e22;border:2px solid #4caf7d;border-radius:16px;padding:20px 30px;font-size:40px;z-index:999;animation:pop 0.35s ease';
+    d.textContent=icon+' ✓';
+    const s=document.createElement('style');
+    s.textContent='@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(0.4)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}';
+    document.head.appendChild(s); document.body.appendChild(d);
+    setTimeout(()=>d.remove(),850);
+  }
+  function toast(msg,type='green'){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.className='toast '+type+' show';
+    setTimeout(()=>{ t.className='toast'; },2800);
+  }
+
+
+  // ─── OWNER / PIN ───
+  const PIN = '82302528';
+  let pinVal = '';
+  let ownerUnlocked = false;
+  let viewMonth = new Date().getMonth();
+  let viewYear  = new Date().getFullYear();
+
+  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function pinPress(d) {
+    if (pinVal.length >= PIN.length) return;
+    pinVal += d;
+    updatePinDots();
+    if (pinVal.length === PIN.length) {
+      setTimeout(() => {
+        if (pinVal === PIN) {
+          ownerUnlocked = true;
+          document.getElementById('pinScreen').style.display = 'none';
+          document.getElementById('ownerDash').style.display = 'block';
+          renderOwner();
+        } else {
+          document.getElementById('pinError').classList.add('show');
+          // Shake dots
+          document.getElementById('pinDots').style.animation = 'shake 0.3s ease';
+          setTimeout(() => {
+            pinVal = '';
+            updatePinDots();
+            document.getElementById('pinError').classList.remove('show');
+            document.getElementById('pinDots').style.animation = '';
+          }, 800);
+        }
+      }, 150);
+    }
+  }
+
+  function pinDel() { pinVal = pinVal.slice(0,-1); updatePinDots(); }
+  function pinClear() { pinVal = ''; updatePinDots(); }
+
+  function updatePinDots() {
+    for (let i=0; i<PIN.length; i++) {
+      document.getElementById('pd'+i).classList.toggle('filled', i < pinVal.length);
+    }
+  }
+
+  function lockOwner() {
+    ownerUnlocked = false;
+    pinVal = '';
+    updatePinDots();
+    document.getElementById('pinScreen').style.display = 'flex';
+    document.getElementById('ownerDash').style.display = 'none';
+    // Go back to agregar tab
+    showPage('agregar', document.querySelector('.tab'));
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  }
+
+  function changeMonth(dir) {
+    viewMonth += dir;
+    if (viewMonth > 11) { viewMonth=0; viewYear++; }
+    if (viewMonth < 0)  { viewMonth=11; viewYear--; }
+    renderOwner();
+  }
+
+  function renderOwner() {
+    document.getElementById('monthLabel').textContent = MONTHS[viewMonth] + ' ' + viewYear;
+    // Filter entries for selected month/year
+    const monthEntries = entries.filter(e => {
+      const parts = e.date.split('/'); // dd/mm/yyyy
+      return parseInt(parts[1])-1 === viewMonth && parseInt(parts[2]) === viewYear;
+    });
+
+    // Group by day
+    const byDay = {};
+    monthEntries.forEach(e => {
+      if (!byDay[e.date]) byDay[e.date] = [];
+      byDay[e.date].push(e);
+    });
+
+    // Monthly totals
+    let totalBruto = 0, totalNeto = 0;
+    monthEntries.forEach(e => { totalBruto += e.price; totalNeto += e.casaRecibe; });
+
+    document.getElementById('ownerTotals').innerHTML = `
+      <div class="ot-card hi">
+        <div class="ot-label">💰 Total bruto del mes</div>
+        <div class="ot-val gold">$${fmt(totalBruto)}</div>
+      </div>
+      <div class="ot-card">
+        <div class="ot-label">🏠 Para la casa</div>
+        <div class="ot-val green">$${fmt(totalNeto)}</div>
+      </div>
+      <div class="ot-card">
+        <div class="ot-label">✂ Días trabajados</div>
+        <div class="ot-val gold">${Object.keys(byDay).length}</div>
+      </div>
+      <div class="ot-card">
+        <div class="ot-label">🔢 Total cortes/ventas</div>
+        <div class="ot-val" style="color:var(--blue)">${monthEntries.length}</div>
+      </div>
+    `;
+
+    // Sort days descending
+    const sortedDays = Object.keys(byDay).sort((a,b) => {
+      const pa = a.split('/'), pb = b.split('/');
+      return new Date(pa[2],pa[1]-1,pa[0]) - new Date(pb[2],pb[1]-1,pb[0]);
+    }).reverse();
+
+    if (!sortedDays.length) {
+      document.getElementById('ownerDays').innerHTML = '<div class="empty"><div class="empty-ico">📅</div>Sin registros este mes</div>';
+      return;
+    }
+
+    document.getElementById('ownerDays').innerHTML = sortedDays.map(day => {
+      const de = byDay[day];
+      const bruto = de.reduce((a,e)=>a+e.price, 0);
+      const neto  = de.reduce((a,e)=>a+e.casaRecibe, 0);
+      const parts = day.split('/');
+      const fecha = new Date(parts[2], parts[1]-1, parts[0]);
+      const nombreDia = fecha.toLocaleDateString('es-AR',{weekday:'short'});
+      return `<div class="day-row">
+        <div>
+          <div class="day-date">${nombreDia.toUpperCase()} ${parts[0]} ${MONTHS[parseInt(parts[1])-1].slice(0,3).toUpperCase()}</div>
+          <div class="day-moves">${de.length} movimiento${de.length!==1?'s':''}</div>
+        </div>
+        <div class="day-nums">
+          <div class="day-bruto">$${fmt(bruto)}</div>
+          <div class="day-neto">casa: $${fmt(neto)}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function exportOwnerWA() {
+    const monthEntries = entries.filter(e => {
+      const parts = e.date.split('/');
+      return parseInt(parts[1])-1 === viewMonth && parseInt(parts[2]) === viewYear;
+    });
+    if (!monthEntries.length) { toast('⚠️ Sin registros este mes','red'); return; }
+
+    const byDay = {};
+    monthEntries.forEach(e => {
+      if (!byDay[e.date]) byDay[e.date] = [];
+      byDay[e.date].push(e);
+    });
+
+    let totalBruto=0, totalNeto=0;
+    monthEntries.forEach(e => { totalBruto+=e.price; totalNeto+=e.casaRecibe; });
+
+    let comPorBarbero = {};
+    BARBEROS.forEach(b => comPorBarbero[b]=0);
+    monthEntries.forEach(e => { comPorBarbero[e.barbero]=(comPorBarbero[e.barbero]||0)+e.commission; });
+
+    let msg = `✂️ *CALIFORNIA BARBER*
+`;
+    msg += `📅 *${MONTHS[viewMonth].toUpperCase()} ${viewYear}*
+`;
+    msg += `━━━━━━━━━━━━━━━
+
+`;
+    msg += `💰 *BRUTO DEL MES: $${fmt(totalBruto)}*
+`;
+    msg += `🏠 *PARA LA CASA: $${fmt(totalNeto)}*
+
+`;
+    msg += `✂ *COMISIONES:*
+`;
+    BARBEROS.forEach(b => { if(comPorBarbero[b]>0) msg+=`${b}: $${fmt(comPorBarbero[b])}
+`; });
+    msg += `
+━━━━━━━━━━━━━━━
+*DETALLE POR DÍA:*
+
+`;
+
+    const sortedDays = Object.keys(byDay).sort((a,b) => {
+      const pa=a.split('/'),pb=b.split('/');
+      return new Date(pa[2],pa[1]-1,pa[0]) - new Date(pb[2],pb[1]-1,pb[0]);
+    });
+
+    sortedDays.forEach(day => {
+      const de = byDay[day];
+      const bruto = de.reduce((a,e)=>a+e.price,0);
+      const neto  = de.reduce((a,e)=>a+e.casaRecibe,0);
+      msg += `📅 *${day}*  bruto $${fmt(bruto)} · casa $${fmt(neto)}
+`;
+    });
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(msg).then(() => {
+        toast('✅ Copiado! Pegalo en WhatsApp','green');
+        setTimeout(()=>{ window.location.href='https://wa.me/?text='+encodeURIComponent(msg); },1200);
+      }).catch(()=>{ window.location.href='https://wa.me/?text='+encodeURIComponent(msg); });
+    } else { window.location.href='https://wa.me/?text='+encodeURIComponent(msg); }
+  }
+
+  init();
+</script>
+</body>
+</html>
