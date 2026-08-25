@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reportes California Barber</title>
+<style>
+body{margin:0;background:#0a0b0d;color:#f5f2ea;font-family:Arial,sans-serif;padding:20px}.card{background:#15171b;border:1px solid #292e36;border-radius:18px;padding:18px;margin-bottom:15px}.title{font-size:28px;font-weight:900}.sub{color:#999;margin:8px 0}.input,select,button{width:100%;height:48px;border-radius:12px;border:1px solid #333;background:#1b1e23;color:white;padding:0 12px;margin-top:8px}button{background:#e0b85b;color:#111;font-weight:900}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.kpi{background:#101216;border-radius:14px;padding:14px}.k{font-size:11px;color:#999}.v{font-size:22px;font-weight:900;margin-top:5px}.gold{color:#f2d27d}.green{color:#5dca92}.row{display:flex;justify-content:space-between;border-bottom:1px solid #292e36;padding:12px 0}.money{font-weight:900}@media(max-width:600px){.grid,.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="title">📄 Reportes por Barbero</div>
+<div class="sub">Cierre y análisis para pago de comisiones</div>
+<div class="card">
+<select id="barber"><option>Seleccionar barbero</option><option>Fernando</option><option>Erick</option><option>Bastian</option><option>Cristian</option><option>Jairo</option><option>Sebastian</option><option>Vicente</option></select>
+<div class="grid"><input id="from" class="input" type="date"><input id="to" class="input" type="date"></div>
+<button onclick="generar()">Generar reporte</button>
+</div>
+<div id="resultado"></div>
+<script>
+const URL='https://wzrakdrgsknargtjxwlj.supabase.co';const KEY='sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';
+const money=n=>'$'+Number(n||0).toLocaleString('es-CL');
+async function q(t){let r=await fetch(URL+'/rest/v1/'+t,{headers:{apikey:KEY}});return r.json()}
+async function generar(){let b=document.getElementById('barber').value;if(!b)return;let cuts=await q('cuts?select=*&order=business_date');let products=await q('products?select=*&order=business_date');
+let c=cuts.filter(x=>String(x.barber_name||x.barber_id).toLowerCase().includes(b.toLowerCase()));let p=products.filter(x=>String(x.barber_name||x.barber_id).toLowerCase().includes(b.toLowerCase()));let cv=c.reduce((a,x)=>a+Number(x.price),0),pv=p.reduce((a,x)=>a+Number(x.price),0);
+let cash=[...c,...p].filter(x=>x.payment_method==='cash').reduce((a,x)=>a+Number(x.price),0);let debit=[...c,...p].filter(x=>x.payment_method==='debit').reduce((a,x)=>a+Number(x.price),0);let transfer=[...c,...p].filter(x=>x.payment_method==='transfer').reduce((a,x)=>a+Number(x.price),0);
+document.getElementById('resultado').innerHTML=`<div class='card'><h2>${b}</h2><div class='kpis'><div class='kpi'><div class='k'>Cortes</div><div class='v'>${c.length}</div></div><div class='kpi'><div class='k'>Venta total</div><div class='v gold'>${money(cv+pv)}</div></div><div class='kpi'><div class='k'>Productos</div><div class='v'>${money(pv)}</div></div><div class='kpi'><div class='k'>Comisión estimada</div><div class='v green'>${money(cv*.5+p.filter(x=>x.price>=7000).reduce((a,x)=>a+x.price*.1,0))}</div></div></div><h3>Medios de pago</h3><div class='row'>💵 Efectivo <b>${money(cash)}</b></div><div class='row'>💳 Tarjeta <b>${money(debit)}</b></div><div class='row'>📲 Transferencia <b>${money(transfer)}</b></div></div>`}
+</script>
+</body></html>
