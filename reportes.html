@@ -1,3 +1,421 @@
 <!doctype html>
-<html lang="es-CL"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reportes California Barber</title><style>body{background:#090b0e;color:#fff;font-family:Arial;padding:20px}.card{background:#15181d;border-radius:18px;padding:18px;margin-bottom:15px;border:1px solid #292d35}.title{font-size:28px;font-weight:900}.grid,.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:#101216;border-radius:14px;padding:15px}.num{font-size:24px;font-weight:900;color:#e5c16b}select,input,button{width:100%;height:48px;border-radius:12px;margin:5px 0;background:#1c2026;color:white;border:1px solid #333;padding:0 12px}button{background:#e5c16b;color:#111;font-weight:bold}.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #333}@media(max-width:600px){.grid,.kpis{grid-template-columns:1fr}}</style></head><body><div class="title">📄 Reportes por Barbero</div><p>Cierre completo para pagos y análisis</p><div class="card"><select id="barber"></select><div class="grid"><input id="from" type="date"><input id="to" type="date"></div><button onclick="generar()">Generar reporte</button></div><div id="resultado"></div><script>
-const URL='https://wzrakdrgsknargtjxwlj.supabase.co',KEY='sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';const token=JSON.parse(sessionStorage.getItem('cb_session')||'{}').access_token;let barbers=[];const money=n=>'$'+Number(n||0).toLocaleString('es-CL');async function api(p){let r=await fetch(URL+'/rest/v1/'+p,{headers:{apikey:KEY,Authorization:'Bearer '+token}});return r.json()}async function init(){barbers=await api('barbers?select=id,name&order=name');barber.innerHTML=barbers.map(x=>`<option value="${x.id}">${x.name}</option>`).join('')}async function generar(){let id=barber.value,f=from.value,t=to.value;let fl=(f?'&business_date=gte.'+f:'')+(t?'&business_date=lte.'+t:'');let cuts=await api('cuts?select=*&barber_id=eq.'+id+fl),products=await api('products?select=*&barber_id=eq.'+id+fl);let all=[...cuts,...products],ct=cuts.reduce((a,x)=>a+Number(x.price||0),0),pt=products.reduce((a,x)=>a+Number(x.price||0),0);let cash=all.filter(x=>x.payment_method==='cash').reduce((a,x)=>a+Number(x.price||0),0),card=all.filter(x=>['debit','card'].includes(x.payment_method)).reduce((a,x)=>a+Number(x.price||0),0),trans=all.filter(x=>x.payment_method==='transfer').reduce((a,x)=>a+Number(x.price||0),0);let com=ct*.5+products.filter(x=>x.price>=7000).reduce((a,x)=>a+x.price*.1,0);let name=barbers.find(x=>x.id==id)?.name;resultado.innerHTML=`<div class="card"><h2>${name}</h2><div class="kpis"><div class="box">✂️ Cortes<div class="num">${cuts.length}</div></div><div class="box">💰 Total<div class="num">${money(ct+pt)}</div></div><div class="box">🥤 Productos<div class="num">${money(pt)}</div></div><div class="box">💸 Comisión<div class="num">${money(com)}</div></div></div><h3>Medios de pago</h3><div class="row">💵 Efectivo <b>${money(cash)}</b></div><div class="row">💳 Tarjeta <b>${money(card)}</b></div><div class="row">📲 Transferencia <b>${money(trans)}</b></div><h3>Detalle diario</h3>${all.map(x=>`<div class="row">${x.business_date||''} ${x.payment_method||''}<b>${money(x.price)}</b></div>`).join('')}</div>`}init();</script></body></html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0d">
+<title>Reportes · California Barber</title>
+<style>
+:root{--bg:#0a0b0d;--p:#131519;--p2:#1a1d22;--line:#292e36;--text:#f5f2ea;--muted:#8c939d;--gold:#f2d27d;--gold2:#bd8f35;--red:#ef7676;--green:#5dca92;--blue:#7fb2f0;--purple:#b79cf0;--r:17px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100%;-webkit-text-size-adjust:100%}
+button,input,select{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:900px;margin:auto;padding:0 16px 70px}
+.top{position:sticky;top:0;z-index:20;background:rgba(10,11,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid #20242a;margin:0 -16px;padding:13px 16px}
+.toprow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-weight:950;font-size:15px}
+.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px;font-weight:600}
+.btn{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--p2);color:var(--text);padding:0 13px;font-weight:850;cursor:pointer}
+.btn.gold{border-color:rgba(242,210,125,.4);color:var(--gold)}
+.btn:disabled{opacity:.5}
+.page{padding-top:18px}
+.title{font-size:27px;font-weight:980;letter-spacing:-.7px}
+.sub{color:var(--muted);font-size:12px;line-height:1.5;margin-top:4px}
+.card{background:var(--p);border:1px solid var(--line);border-radius:var(--r);padding:15px;margin-top:12px}
+.label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.7px;margin:12px 0 7px}
+.input,.select{width:100%;height:50px;border:1px solid var(--line);background:var(--p2);color:var(--text);border-radius:12px;padding:0 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.presets{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.presets button{border:1px solid var(--line);background:#181b20;color:#a5abb3;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:850;cursor:pointer}
+.presets button.active{border-color:var(--gold);color:var(--gold)}
+.primary{width:100%;min-height:52px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;font-weight:950;margin-top:14px;cursor:pointer}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.kpi{background:var(--p);border:1px solid var(--line);border-radius:15px;padding:13px}
+.kpi.wide{grid-column:span 2}
+.kpi .k{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:900;letter-spacing:.6px}
+.kpi .v{font-size:22px;font-weight:950;margin-top:5px}
+.kpi .s{font-size:10px;color:var(--muted);margin-top:3px}
+.goldtxt{color:var(--gold)}.greentxt{color:var(--green)}.redtxt{color:var(--red)}.bluetxt{color:var(--blue)}.purpletxt{color:var(--purple)}
+.section{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:22px 2px 9px;font-size:14px;font-weight:950}
+.section small{color:var(--muted);font-weight:650;font-size:11px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:14px;padding:11px 13px;margin-bottom:7px}
+.row strong{display:block;font-size:13px}
+.row small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:3px}
+.money{font-size:16px;font-weight:950;white-space:nowrap}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--muted);font-size:12px}
+.err{border:1px solid rgba(239,118,118,.45);background:rgba(239,118,118,.08);color:var(--red);border-radius:13px;padding:13px;font-size:12px;line-height:1.5;margin-top:12px;word-break:break-word}
+.warn{border:1px solid rgba(242,210,125,.35);background:rgba(242,210,125,.07);color:var(--gold);border-radius:13px;padding:11px;font-size:11px;line-height:1.5;margin-top:10px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,90px);opacity:0;transition:.25s;background:#171a1f;border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-size:12px;font-weight:850;z-index:100;max-width:92%;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast.ok{color:var(--green);border-color:rgba(93,202,146,.45)}
+.toast.err{color:var(--red);border-color:rgba(239,118,118,.45)}
+.login{max-width:430px;margin:50px auto 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.25);border-top-color:#111;border-radius:50%;animation:r .7s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes r{to{transform:rotate(360deg)}}
+@media(min-width:680px){.kpis{grid-template-columns:repeat(4,1fr)}.kpi.wide{grid-column:span 2}}
+</style>
+</head>
+<body>
+
+<div id="loginView" class="wrap">
+  <div class="login">
+    <div class="title">📄 Reportes</div>
+    <div class="sub">Inicia sesión para ver el cierre por barbero.</div>
+    <div class="card">
+      <div class="label" style="margin-top:0">Correo</div>
+      <input id="email" class="input" type="email" autocomplete="email" placeholder="nombre@gmail.com">
+      <div class="label">Contraseña</div>
+      <input id="password" class="input" type="password" autocomplete="current-password">
+      <button id="loginBtn" class="primary">Entrar</button>
+    </div>
+    <div id="loginErr" class="err hidden"></div>
+  </div>
+</div>
+
+<div id="appView" class="wrap hidden">
+  <header class="top">
+    <div class="toprow">
+      <div class="brand">✂ California Barber<small id="sessionLabel">Reportes</small></div>
+      <div><button id="backBtn" class="btn gold">← App</button> <button id="logoutBtn" class="btn">Salir</button></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="title">Reporte por barbero</div>
+    <div class="sub">Cierre de pagos y análisis por período.</div>
+
+    <div class="card">
+      <div class="label" style="margin-top:0">Barbero</div>
+      <select id="barber" class="select"></select>
+      <div class="label">Período</div>
+      <div class="grid2">
+        <input id="from" class="input" type="date">
+        <input id="to" class="input" type="date">
+      </div>
+      <div class="presets" id="presets">
+        <button data-p="today">Hoy</button>
+        <button data-p="week">Últimos 7 días</button>
+        <button data-p="month" class="active">Este mes</button>
+        <button data-p="lastmonth">Mes pasado</button>
+      </div>
+      <button id="goBtn" class="primary">Generar reporte</button>
+    </div>
+
+    <div id="error" class="err hidden"></div>
+    <div id="resultado"></div>
+
+    <div id="exportWrap" class="actions hidden">
+      <button id="copyBtn" class="btn gold">📋 Copiar resumen</button>
+      <button id="csvBtn" class="btn">⬇️ Descargar CSV</button>
+    </div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ─────────── Configuración ─────────── */
+const SUPA = 'https://wzrakdrgsknargtjxwlj.supabase.co';
+const KEY  = 'sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';
+const PAGE = 1000;                     // límite por página de PostgREST
+const COMISION_CORTE    = 0.5;         // fallback si la BD no trae la columna
+const COMISION_PRODUCTO = 0.10;
+const MINIMO_PRODUCTO   = 7000;
+
+const $ = id => document.getElementById(id);
+let session = null, profile = null, barbers = [], branches = [], lastReport = null;
+
+/* ─────────── Utilidades ─────────── */
+const money = n => '$' + Math.round(Number(n || 0)).toLocaleString('es-CL');
+const esc = (s = '') => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const isoOf = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const dayLabel = s => { const [y,m,d] = String(s).split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('es-CL',{day:'2-digit',month:'short'}); };
+const methodName = v => v === 'cash' ? 'Efectivo' : (v === 'debit' || v === 'card') ? 'Débito' : v === 'transfer' ? 'Transferencia' : (v || '—');
+const sum = (arr, f) => arr.reduce((a, x) => a + Number((typeof f === 'function' ? f(x) : x[f]) || 0), 0);
+
+function toast(msg, type = 'ok') {
+  const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + type;
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.className = 'toast', 2800);
+}
+function showError(msg) { const e = $('error'); e.textContent = msg; e.classList.remove('hidden'); }
+function clearError() { $('error').classList.add('hidden'); }
+
+/* ─────────── Sesión ─────────── */
+function storeSession(v) {
+  session = v;
+  try {
+    if (v) { sessionStorage.setItem('cb_session', JSON.stringify(v)); localStorage.setItem('cb_session', JSON.stringify(v)); }
+    else   { sessionStorage.removeItem('cb_session'); localStorage.removeItem('cb_session'); }
+  } catch (_) {}
+}
+function loadSession() {
+  // sessionStorage NO se comparte con pestañas nuevas: por eso también leemos localStorage.
+  for (const store of [sessionStorage, localStorage]) {
+    try { const v = JSON.parse(store.getItem('cb_session') || 'null'); if (v && v.access_token) return v; } catch (_) {}
+  }
+  return null;
+}
+
+async function raw(url, opt = {}) {
+  const r = await fetch(url, opt);
+  const txt = await r.text();
+  let data = null;
+  try { data = txt ? JSON.parse(txt) : null; } catch (_) { data = txt; }
+  if (!r.ok) {
+    const msg = data?.message || data?.msg || data?.error_description || data?.error || ('Error HTTP ' + r.status);
+    const err = new Error(msg); err.status = r.status; err.detail = data?.details || data?.hint || ''; throw err;
+  }
+  return data;
+}
+
+async function refreshToken() {
+  if (!session?.refresh_token) return false;
+  try {
+    const d = await raw(SUPA + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    storeSession(d); return true;
+  } catch (_) { return false; }
+}
+
+// Llama a la API REST. Si el token expiró (401) lo renueva una vez y reintenta.
+async function api(path, opt = {}, retry = true) {
+  if (!session?.access_token) throw new Error('Sesión no iniciada');
+  try {
+    return await raw(SUPA + '/rest/v1/' + path, {
+      ...opt,
+      headers: { apikey: KEY, Authorization: 'Bearer ' + session.access_token, 'Content-Type': 'application/json', ...(opt.headers || {}) }
+    });
+  } catch (e) {
+    if (e.status === 401 && retry && await refreshToken()) return api(path, opt, false);
+    throw e;
+  }
+}
+
+// PostgREST corta en 1000 filas. Esto pagina hasta traerlo todo.
+async function apiAll(path) {
+  const out = [];
+  for (let offset = 0; ; offset += PAGE) {
+    const chunk = await api(`${path}&limit=${PAGE}&offset=${offset}`);
+    if (!Array.isArray(chunk)) throw new Error('Respuesta inesperada del servidor');
+    out.push(...chunk);
+    if (chunk.length < PAGE) break;
+    if (offset > 50000) break; // tope de seguridad
+  }
+  return out;
+}
+
+/* ─────────── Login ─────────── */
+async function login() {
+  const email = $('email').value.trim(), password = $('password').value;
+  $('loginErr').classList.add('hidden');
+  if (!email || !password) return toast('Ingresa correo y contraseña', 'err');
+  $('loginBtn').disabled = true; $('loginBtn').textContent = 'Entrando…';
+  try {
+    const d = await raw(SUPA + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    storeSession(d);
+    await boot();
+  } catch (e) {
+    $('loginErr').textContent = e.message; $('loginErr').classList.remove('hidden');
+  } finally {
+    $('loginBtn').disabled = false; $('loginBtn').textContent = 'Entrar';
+  }
+}
+
+/* ─────────── Arranque ─────────── */
+function showLogin() { $('loginView').classList.remove('hidden'); $('appView').classList.add('hidden'); }
+function showApp()   { $('loginView').classList.add('hidden');   $('appView').classList.remove('hidden'); }
+
+async function boot() {
+  session = loadSession();
+  if (!session?.access_token) return showLogin();
+  try {
+    const uid = session.user?.id || session.user_id;
+    if (!uid) throw new Error('Sesión inválida, vuelve a entrar');
+
+    const ps = await api('profiles?select=*&user_id=eq.' + encodeURIComponent(uid));
+    profile = Array.isArray(ps) ? ps[0] : null;
+    if (!profile) throw new Error('Tu cuenta no tiene un perfil asignado');
+
+    const [bs, brs] = await Promise.all([
+      api('barbers?select=id,name,branch_id,active&order=name'),
+      api('branches?select=id,name,code&order=name').catch(() => [])
+    ]);
+    barbers = Array.isArray(bs) ? bs : [];
+    branches = Array.isArray(brs) ? brs : [];
+
+    // Control de acceso: un barbero solo puede verse a sí mismo.
+    if (profile.role === 'barber') {
+      barbers = barbers.filter(b => b.id === profile.barber_id);
+      $('barber').disabled = true;
+    }
+    if (!barbers.length) throw new Error('No hay barberos visibles para tu cuenta');
+
+    $('barber').innerHTML = barbers.map(b =>
+      `<option value="${esc(b.id)}">${esc(b.name)}${b.branch_id ? ' · ' + esc(branchName(b.branch_id)) : ''}</option>`
+    ).join('');
+    $('sessionLabel').textContent = (profile.role === 'owner' ? 'Dueño' : 'Barbero') + ' · Reportes';
+
+    setPreset('month');
+    showApp();
+    await generar();
+  } catch (e) {
+    storeSession(null);
+    showLogin();
+    $('loginErr').textContent = e.message;
+    $('loginErr').classList.remove('hidden');
+  }
+}
+function branchName(id) { return branches.find(b => b.id === id)?.name || ''; }
+function barberName(id) { return barbers.find(b => b.id === id)?.name || 'Barbero'; }
+
+/* ─────────── Presets de fecha ─────────── */
+function setPreset(p) {
+  const now = new Date(); let from, to = now;
+  if (p === 'today')          { from = now; }
+  else if (p === 'week')      { from = new Date(now); from.setDate(now.getDate() - 6); }
+  else if (p === 'month')     { from = new Date(now.getFullYear(), now.getMonth(), 1); }
+  else if (p === 'lastmonth') { from = new Date(now.getFullYear(), now.getMonth() - 1, 1); to = new Date(now.getFullYear(), now.getMonth(), 0); }
+  $('from').value = isoOf(from); $('to').value = isoOf(to);
+  $('presets').querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.p === p));
+}
+
+/* ─────────── Reporte ─────────── */
+async function generar() {
+  const id = $('barber').value, f = $('from').value, t = $('to').value;
+  if (!id) return toast('Selecciona un barbero', 'err');
+  if (f && t && f > t) return toast('La fecha inicial es posterior a la final', 'err');
+
+  clearError();
+  $('exportWrap').classList.add('hidden');
+  $('goBtn').disabled = true; $('goBtn').innerHTML = '<span class="spin"></span>Generando…';
+  $('resultado').innerHTML = '';
+
+  const range = (f ? '&business_date=gte.' + f : '') + (t ? '&business_date=lte.' + t : '');
+  try {
+    const [cuts, products] = await Promise.all([
+      apiAll(`cuts?select=*&barber_id=eq.${encodeURIComponent(id)}${range}&order=business_date.desc,created_at.desc`),
+      apiAll(`products?select=*&barber_id=eq.${encodeURIComponent(id)}${range}&order=business_date.desc,created_at.desc`)
+    ]);
+    render(id, f, t, cuts, products);
+  } catch (e) {
+    showError('No se pudo generar el reporte: ' + e.message + (e.detail ? ' — ' + e.detail : ''));
+  } finally {
+    $('goBtn').disabled = false; $('goBtn').textContent = 'Generar reporte';
+  }
+}
+
+function render(id, f, t, cuts, products) {
+  const all = [...cuts, ...products].sort((a, b) =>
+    String(b.business_date || '').localeCompare(String(a.business_date || '')) ||
+    String(b.created_at || '').localeCompare(String(a.created_at || ''))
+  );
+
+  const cutSales = sum(cuts, 'price'), prodSales = sum(products, 'price'), gross = cutSales + prodSales;
+
+  // Usa la comisión que calcula la base de datos. Solo si la columna no existe
+  // cae al cálculo local (50% cortes / 10% productos desde $7.000).
+  const dbCutCom  = cuts.some(c => c.commission_paid != null);
+  const dbProdCom = products.some(p => p.commission != null);
+  const cutCom  = dbCutCom  ? sum(cuts, 'commission_paid') : cutSales * COMISION_CORTE;
+  const prodCom = dbProdCom ? sum(products, 'commission')
+                            : sum(products.filter(p => Number(p.price) >= MINIMO_PRODUCTO), x => x.price * COMISION_PRODUCTO);
+  const commission = cutCom + prodCom;
+  const estimada = (cuts.length && !dbCutCom) || (products.length && !dbProdCom);
+
+  const by = m => sum(all.filter(x => m.includes(x.payment_method)), 'price');
+  const cash = by(['cash']), card = by(['debit', 'card']), trans = by(['transfer']);
+  const enManos = sum(all.filter(x => x.received_by === 'barber'), 'price');
+  const casa    = sum(all.filter(x => x.received_by === 'house'), 'price');
+
+  const days = new Set(all.map(x => x.business_date).filter(Boolean)).size;
+  const ticket = cuts.length ? cutSales / cuts.length : 0;
+
+  lastReport = { name: barberName(id), f, t, cuts, products, gross, cutSales, prodSales, commission, cash, card, trans, enManos, all };
+
+  $('resultado').innerHTML = `
+    <div class="section"><span>${esc(barberName(id))}</span><small>${f ? dayLabel(f) : '—'} al ${t ? dayLabel(t) : '—'} · ${days} día${days === 1 ? '' : 's'} con movimiento</small></div>
+    <div class="kpis">
+      <div class="kpi wide"><div class="k">Facturación total</div><div class="v goldtxt">${money(gross)}</div><div class="s">Cortes + productos</div></div>
+      <div class="kpi"><div class="k">Cortes</div><div class="v">${cuts.length}</div><div class="s">${money(cutSales)}</div></div>
+      <div class="kpi"><div class="k">Productos</div><div class="v purpletxt">${products.length}</div><div class="s">${money(prodSales)}</div></div>
+      <div class="kpi"><div class="k">Comisión a pagar</div><div class="v greentxt">${money(commission)}</div><div class="s">${estimada ? 'Estimada en pantalla' : 'Calculada por el sistema'}</div></div>
+      <div class="kpi"><div class="k">Ticket promedio</div><div class="v">${money(ticket)}</div><div class="s">por corte</div></div>
+      <div class="kpi"><div class="k">Recibió el barbero</div><div class="v bluetxt">${money(enManos)}</div></div>
+      <div class="kpi"><div class="k">Recibió la casa</div><div class="v">${money(casa)}</div></div>
+    </div>
+    ${estimada ? '<div class="warn">⚠️ La comisión se calculó en esta pantalla, no en la base de datos, así que puede no coincidir con la app principal. Revisa que existan las columnas <b>commission_paid</b> (cortes) y <b>commission</b> (productos).</div>' : ''}
+
+    <div class="section"><span>Medios de pago</span><small>${money(gross)}</small></div>
+    <div class="row"><div><strong>💵 Efectivo</strong><small>${gross ? Math.round(cash / gross * 100) : 0}% del total</small></div><span class="money greentxt">${money(cash)}</span></div>
+    <div class="row"><div><strong>💳 Débito</strong><small>${gross ? Math.round(card / gross * 100) : 0}% del total</small></div><span class="money bluetxt">${money(card)}</span></div>
+    <div class="row"><div><strong>📲 Transferencia</strong><small>${gross ? Math.round(trans / gross * 100) : 0}% del total</small></div><span class="money">${money(trans)}</span></div>
+
+    <div class="section"><span>Detalle</span><small>${all.length} movimiento${all.length === 1 ? '' : 's'}</small></div>
+    ${all.length ? all.map(x => `
+      <div class="row">
+        <div><strong>${x.product_name ? '🥤 ' + esc(x.product_name) : '✂️ Corte'}</strong>
+        <small>${x.business_date ? dayLabel(x.business_date) : '—'} · ${methodName(x.payment_method)} · recibió ${x.received_by === 'house' ? 'la casa' : 'el barbero'}</small></div>
+        <span class="money">${money(x.price)}</span>
+      </div>`).join('') : '<div class="empty">No hay movimientos en este período.</div>'}
+  `;
+  $('exportWrap').classList.remove('hidden');
+}
+
+/* ─────────── Exportar ─────────── */
+function resumenTexto() {
+  const r = lastReport; if (!r) return '';
+  return `✂️ *CALIFORNIA BARBER*\n👤 ${r.name}\n📅 ${r.f} al ${r.t}\n━━━━━━━━━━━━━━━\n💰 Facturación: ${money(r.gross)}\n✂ Cortes: ${r.cuts.length} · ${money(r.cutSales)}\n🥤 Productos: ${r.products.length} · ${money(r.prodSales)}\n💵 Efectivo: ${money(r.cash)}\n💳 Débito: ${money(r.card)}\n📲 Transferencia: ${money(r.trans)}\n🖐 Recibió el barbero: ${money(r.enManos)}\n━━━━━━━━━━━━━━━\n✅ *Comisión a pagar: ${money(r.commission)}*`;
+}
+async function copiar() {
+  const txt = resumenTexto(); if (!txt) return;
+  try { await navigator.clipboard.writeText(txt); toast('Resumen copiado'); }
+  catch (_) { prompt('Copia el resumen:', txt); }
+}
+function descargarCsv() {
+  const r = lastReport; if (!r) return;
+  const head = ['fecha', 'tipo', 'detalle', 'precio', 'medio_pago', 'recibio'];
+  const rows = r.all.map(x => [
+    x.business_date || '',
+    x.product_name ? 'producto' : 'corte',
+    String(x.product_name || 'Corte').replace(/[";\n]/g, ' '),
+    Number(x.price || 0),
+    methodName(x.payment_method),
+    x.received_by === 'house' ? 'casa' : 'barbero'
+  ]);
+  const body = [head, ...rows].map(l => l.join(';')).join('\n');
+  const blob = new Blob(['\uFEFF' + body], { type: 'text/csv;charset=utf-8;' });
+  const href = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = `reporte_${r.name.replace(/\s+/g, '_')}_${r.f}_${r.t}.csv`;
+  a.click();
+  window.URL.revokeObjectURL(href);
+}
+
+/* ─────────── Eventos ─────────── */
+$('loginBtn').onclick = login;
+$('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+$('goBtn').onclick = generar;
+$('copyBtn').onclick = copiar;
+$('csvBtn').onclick = descargarCsv;
+$('presets').querySelectorAll('button').forEach(b => b.onclick = () => { setPreset(b.dataset.p); generar(); });
+$('backBtn').onclick = () => { location.href = './'; };
+$('logoutBtn').onclick = () => { storeSession(null); location.reload(); };
+
+boot();
+})();
+</script>
+</body>
+</html>
