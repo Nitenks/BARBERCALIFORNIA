@@ -417,5 +417,33 @@ $('logoutBtn').onclick = () => { storeSession(null); location.reload(); };
 boot();
 })();
 </script>
+
+<script>
+/* Mantiene la sesión viva: renueva el token antes de que expire */
+(function(){
+  function get(){for(const st of [sessionStorage,localStorage]){try{const v=JSON.parse(st.getItem('cb_session')||'null');if(v&&v.access_token)return v}catch(_){}}return null}
+  function put(v){try{sessionStorage.setItem('cb_session',JSON.stringify(v));localStorage.setItem('cb_session',JSON.stringify(v))}catch(_){}}
+  async function renew(){
+    const s=get(); if(!s||!s.refresh_token) return null;
+    try{
+      const r=await fetch('https://wzrakdrgsknargtjxwlj.supabase.co/auth/v1/token?grant_type=refresh_token',
+        {method:'POST',headers:{apikey:'sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p','Content-Type':'application/json'},
+         body:JSON.stringify({refresh_token:s.refresh_token})});
+      if(!r.ok) return null;
+      const d=await r.json(); if(d&&d.access_token){put(d);if(window.session)window.session=d;return d}
+    }catch(_){}
+    return null;
+  }
+  function near(){const s=get();if(!s||!s.expires_at)return false;return s.expires_at*1000-Date.now()<5*60e3}
+  function loop(){
+    const s=get(); if(!s) return setTimeout(loop,60e3);
+    const exp=s.expires_at?s.expires_at*1000:Date.now()+3600e3;
+    setTimeout(async()=>{await renew();loop()},Math.max(30e3,exp-Date.now()-5*60e3));
+  }
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&near())renew()});
+  window.addEventListener('online',()=>{if(near())renew()});
+  loop();
+})();
+</script>
 </body>
 </html>

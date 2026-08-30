@@ -6,29 +6,628 @@
 <meta name="theme-color" content="#0a0b0d">
 <title>Correcciones · California Barber</title>
 <style>
-:root{--bg:#0a0b0d;--p:#131519;--p2:#1a1d22;--line:#292e36;--text:#f5f2ea;--muted:#8c939d;--gold:#f2d27d;--red:#ef7676;--green:#5dca92;--r:17px}*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100%}button,input,select{font:inherit}.hidden{display:none!important}.wrap{max-width:820px;margin:auto;padding:0 16px 60px}.top{position:sticky;top:0;z-index:20;background:rgba(10,11,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid #20242a;margin:0 -16px;padding:13px 16px}.toprow{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-weight:950}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.btn{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--p2);color:var(--text);padding:0 13px;font-weight:850}.btn.gold{border-color:rgba(242,210,125,.4);color:var(--gold)}.btn.red{border-color:rgba(239,118,118,.46);background:rgba(239,118,118,.08);color:var(--red)}.page{padding-top:18px}.title{font-size:28px;font-weight:980;letter-spacing:-.7px}.sub{color:var(--muted);font-size:13px;line-height:1.5;margin-top:4px}.card{background:var(--p);border:1px solid var(--line);border-radius:var(--r);padding:15px;margin-top:12px}.label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.7px;margin:12px 0 7px}.input,.select{width:100%;height:51px;border:1px solid var(--line);background:var(--p2);color:var(--text);border-radius:12px;padding:0 13px}.grid{display:grid;grid-template-columns:1fr;gap:8px}.note{font-size:11px;line-height:1.5;color:var(--muted);background:#0f1114;border:1px solid #242930;border-radius:12px;padding:10px;margin-top:10px}.section{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:20px 2px 9px;font-size:14px;font-weight:950}.section small{color:var(--muted);font-weight:650}.list{display:flex;flex-direction:column;gap:8px}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:14px;padding:12px}.row strong{display:block;font-size:13px}.row small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:3px}.money{font-size:17px;font-weight:950;white-space:nowrap}.empty{border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted);font-size:12px}.pill{border:1px solid rgba(242,210,125,.25);background:rgba(242,210,125,.07);color:var(--gold);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:850}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,90px);opacity:0;transition:.25s;background:#171a1f;border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-size:12px;font-weight:850;z-index:100;max-width:92%;text-align:center}.toast.show{transform:translate(-50%,0);opacity:1}.toast.ok{color:var(--green);border-color:rgba(93,202,146,.45)}.toast.err{color:var(--red);border-color:rgba(239,118,118,.45)}.login{max-width:450px;margin:50px auto 0}.primary{width:100%;min-height:54px;border:0;border-radius:13px;background:linear-gradient(135deg,#f2d27d,#bd8f35);color:#111;font-weight:950;margin-top:15px}@media(min-width:650px){.grid{grid-template-columns:1fr 1fr auto}.grid .btn{height:51px;align-self:end}}
+:root{--bg:#0a0b0d;--p:#131519;--p2:#1a1d22;--line:#292e36;--text:#f5f2ea;--muted:#8c939d;--gold:#f2d27d;--gold2:#bd8f35;--red:#ef7676;--green:#5dca92;--blue:#7fb2f0;--r:17px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100%;-webkit-text-size-adjust:100%}
+button,input,select{font:inherit}
+.hidden{display:none!important}
+.wrap{max-width:860px;margin:auto;padding:0 16px 70px}
+.top{position:sticky;top:0;z-index:20;background:rgba(10,11,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid #20242a;margin:0 -16px;padding:13px 16px}
+.toprow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-weight:950;font-size:15px}
+.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px;font-weight:600}
+.btn{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--p2);color:var(--text);padding:0 13px;font-weight:850;cursor:pointer}
+.btn.gold{border-color:rgba(242,210,125,.4);color:var(--gold)}
+.btn.red{border-color:rgba(239,118,118,.46);background:rgba(239,118,118,.08);color:var(--red)}
+.btn.green{border-color:rgba(93,202,146,.46);background:rgba(93,202,146,.09);color:var(--green)}
+.btn:disabled{opacity:.5}
+.tabs4{grid-template-columns:repeat(4,1fr)}.tabs4 button{font-size:11px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#101216;border:1px solid var(--line);border-radius:14px;padding:5px;margin-top:16px}
+.tabs button{border:0;background:transparent;color:var(--muted);border-radius:10px;min-height:46px;font-weight:900;font-size:13px;cursor:pointer}
+.tabs button.active{background:var(--p2);color:var(--gold)}
+.tabpage{display:none}.tabpage.on{display:block}
+.page{padding-top:18px}
+.title{font-size:26px;font-weight:980;letter-spacing:-.7px}
+.sub{color:var(--muted);font-size:12px;line-height:1.5;margin-top:4px}
+.card{background:var(--p);border:1px solid var(--line);border-radius:var(--r);padding:15px;margin-top:12px}
+.label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.7px;margin:12px 0 7px}
+.input,.select{width:100%;height:50px;border:1px solid var(--line);background:var(--p2);color:var(--text);border-radius:12px;padding:0 13px}
+.amount{width:100%;height:66px;border:1px solid var(--line);background:var(--p2);color:var(--text);border-radius:13px;padding:0 14px;font-size:28px;font-weight:950;text-align:center;letter-spacing:-1px}
+.grid{display:grid;grid-template-columns:1fr;gap:8px}
+.note{font-size:11px;line-height:1.5;color:var(--muted);background:#0f1114;border:1px solid #242930;border-radius:12px;padding:10px;margin-top:10px}
+.section{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:22px 2px 9px;font-size:14px;font-weight:950}
+.section small{color:var(--muted);font-weight:650;font-size:11px}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:14px;padding:12px}
+.row strong{display:block;font-size:13px}
+.row small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:3px}
+.money{font-size:17px;font-weight:950;white-space:nowrap}
+.redtxt{color:var(--red)}.greentxt{color:var(--green)}.goldtxt{color:var(--gold)}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted);font-size:12px}
+.err{border:1px solid rgba(239,118,118,.45);background:rgba(239,118,118,.08);color:var(--red);border-radius:13px;padding:13px;font-size:12px;line-height:1.5;margin-top:12px;word-break:break-word}
+.warn{border:1px solid rgba(242,210,125,.35);background:rgba(242,210,125,.07);color:var(--gold);border-radius:13px;padding:11px;font-size:11px;line-height:1.5;margin-top:10px}
+.pill{border:1px solid rgba(242,210,125,.25);background:rgba(242,210,125,.07);color:var(--gold);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:850;white-space:nowrap}
+.pill.ok{border-color:rgba(93,202,146,.3);background:rgba(93,202,146,.08);color:var(--green)}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,90px);opacity:0;transition:.25s;background:#171a1f;border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-size:12px;font-weight:850;z-index:100;max-width:92%;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast.ok{color:var(--green);border-color:rgba(93,202,146,.45)}
+.toast.err{color:var(--red);border-color:rgba(239,118,118,.45)}
+.login{max-width:430px;margin:50px auto 0}
+.primary{width:100%;min-height:54px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;font-weight:950;margin-top:15px;cursor:pointer}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}
+.chips button{border:1px solid var(--line);background:#181b20;color:var(--text);border-radius:11px;min-height:42px;font-size:12px;font-weight:900;cursor:pointer}
+.panel{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
+.pnl{background:var(--p);border:1px solid var(--line);border-radius:var(--r);padding:15px}
+.pnl h3{margin:0 0 10px;font-size:16px;font-weight:950}
+.pl{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid #1d2127}
+.pl:last-child{border:0}
+.pl b{font-weight:900}
+.pl.tot{margin-top:6px;padding-top:11px;border-top:2px solid var(--line);border-bottom:0;font-size:17px;font-weight:950}
+.chips.cats{grid-template-columns:repeat(4,1fr)}
+.chips button.on{border-color:var(--gold);color:var(--gold)}
+@media(min-width:650px){.grid{grid-template-columns:1fr 1fr auto}.grid .btn{height:50px;align-self:end}}
 </style>
 </head>
 <body>
-<div id="loginView" class="wrap"><div class="login"><div class="title">🛠️ Correcciones</div><div class="sub">Acceso exclusivo del dueño.</div><div class="card"><div class="label">Correo</div><input id="email" class="input" type="email" autocomplete="email"><div class="label">Contraseña</div><input id="password" class="input" type="password" autocomplete="current-password"><button id="loginBtn" class="primary">Entrar como dueño</button></div></div></div>
+
+<div id="loginView" class="wrap">
+  <div class="login">
+    <div class="title">🛠️ Correcciones</div>
+    <div class="sub">Acceso exclusivo del dueño.</div>
+    <div class="card">
+      <div class="label" style="margin-top:0">Correo</div>
+      <input id="email" class="input" type="email" autocomplete="email">
+      <div class="label">Contraseña</div>
+      <input id="password" class="input" type="password" autocomplete="current-password">
+      <button id="loginBtn" class="primary">Entrar como dueño</button>
+    </div>
+    <div id="loginErr" class="err hidden"></div>
+  </div>
+</div>
+
 <div id="appView" class="wrap hidden">
-<header class="top"><div class="toprow"><div class="brand">✂ California Barber<small>Panel de correcciones · solo dueño</small></div><div><button id="backBtn" class="btn gold">← Resumen</button> <button id="logoutBtn" class="btn">Salir</button></div></div></header>
-<main class="page"><div class="title">Borrar corte por error</div><div class="sub">Busca el corte por fecha y barbero. Al eliminarlo se recalculan los números porque deja de existir en los registros activos.</div>
-<div class="card"><div class="grid"><div><div class="label" style="margin-top:0">Fecha</div><input id="date" class="input" type="date"></div><div><div class="label" style="margin-top:0">Barbero</div><select id="barber" class="select"><option value="all">Todos</option></select></div><button id="searchBtn" class="btn gold">Buscar</button></div><div class="note">Antes de borrar un corte guardamos una copia en el historial de eliminados. Los barberos no tienen permiso para entrar aquí ni para ejecutar borrados.</div></div>
-<div class="section"><span>Cortes encontrados</span><small id="meta"></small></div><div id="cuts" class="list"></div>
-<div class="section"><span>Historial de eliminados</span><small>últimos 20</small></div><div id="history" class="list"></div>
-</main></div><div id="toast" class="toast"></div>
+  <header class="top">
+    <div class="toprow">
+      <div class="brand">✂ California Barber<small>Panel del dueño</small></div>
+      <div><button id="backBtn" class="btn gold">← App</button> <button id="logoutBtn" class="btn">Salir</button></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="tabs tabs4" id="tabs">
+      <button data-t="pnl" class="active">📊 Utilidades</button>
+      <button data-t="exp">💸 Gastos</button>
+      <button data-t="debt">💵 Deudas</button>
+      <button data-t="cuts">🗑️ Borrar</button>
+    </div>
+
+    <!-- ══════════ UTILIDADES ══════════ -->
+    <div id="tab-pnl" class="tabpage on">
+      <div class="title">Utilidad por sucursal</div>
+      <div class="sub">Lo que queda después de pagar comisiones y gastos.</div>
+      <div class="card">
+        <div class="label" style="margin-top:0">Mes</div>
+        <input id="pnlMonth" class="input" type="month">
+      </div>
+      <div id="pnlWarn" class="warn hidden"></div>
+      <div id="pnlList" class="list" style="margin-top:12px"></div>
+    </div>
+
+    <!-- ══════════ GASTOS ══════════ -->
+    <div id="tab-exp" class="tabpage">
+      <div class="title">Gastos</div>
+      <div class="sub">Todo lo que sale de la caja. Sin esto la utilidad es ficticia.</div>
+      <div class="card">
+        <input id="expAmount" class="amount" type="number" inputmode="numeric" min="1" step="500" placeholder="$0">
+        <div class="chips" id="expCats"></div>
+        <div class="label">Detalle</div>
+        <input id="expDesc" class="input" maxlength="80" placeholder="Arriendo octubre, cera, luz...">
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px">
+          <div><div class="label">Sucursal</div><select id="expBranch" class="select"></select></div>
+          <div><div class="label">Fecha</div><input id="expDate" class="input" type="date"></div>
+        </div>
+        <button id="expSave" class="primary">Registrar gasto</button>
+      </div>
+      <div class="section"><span>Gastos del mes</span><small id="expMeta"></small></div>
+      <div id="expList" class="list"></div>
+    </div>
+
+    <!-- ══════════ ABONOS ══════════ -->
+    <div id="tab-debt" class="tabpage">
+      <div class="title">Deuda de caja</div>
+      <div class="sub">Registra lo que el barbero te entrega. Cada abono queda con fecha y monto.</div>
+      <div id="debtWarn" class="warn hidden"></div>
+      <div class="section"><span>Barberos</span><small id="debtMeta"></small></div>
+      <div id="debtList" class="list"></div>
+      <div class="section"><span>Últimos abonos</span><small>últimos 20</small></div>
+      <div id="settlementList" class="list"></div>
+    </div>
+
+    <!-- ══════════ BORRAR CORTE ══════════ -->
+    <div id="tab-cuts" class="tabpage">
+      <div class="title">Borrar corte por error</div>
+      <div class="sub">Busca el corte por fecha y barbero. Al eliminarlo se recalculan los números.</div>
+      <div class="card">
+        <div class="grid">
+          <div><div class="label" style="margin-top:0">Fecha</div><input id="date" class="input" type="date"></div>
+          <div><div class="label" style="margin-top:0">Barbero</div><select id="barber" class="select"><option value="all">Todos</option></select></div>
+          <button id="searchBtn" class="btn gold">Buscar</button>
+        </div>
+        <div class="note">Los barberos no tienen permiso para entrar aquí ni para ejecutar borrados.</div>
+      </div>
+      <div class="section"><span>Cortes encontrados</span><small id="meta"></small></div>
+      <div id="cuts" class="list"></div>
+      <div class="section"><span>Historial de eliminados</span><small>últimos 20</small></div>
+      <div id="history" class="list"></div>
+    </div>
+
+    <div id="error" class="err hidden"></div>
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
 <script>
-(()=>{'use strict';
-const URL='https://wzrakdrgsknargtjxwlj.supabase.co',KEY='sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p',$=id=>document.getElementById(id);let session=null,profile=null,barbers=[],branches=[];
-const money=n=>'$'+Math.round(Number(n||0)).toLocaleString('es-CL');const iso=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`};const time=s=>new Date(s).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});const day=s=>{const [y,m,d]=String(s).split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'numeric'})};
-function toast(msg,type='ok'){const t=$('toast');t.textContent=msg;t.className='toast show '+type;clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='toast',2600)}function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function store(v){session=v;if(v)sessionStorage.setItem('cb_session',JSON.stringify(v));else sessionStorage.removeItem('cb_session')}function loadStored(){try{return JSON.parse(sessionStorage.getItem('cb_session')||'null')}catch{return null}}
-async function req(url,opt={}){const r=await fetch(url,opt),tx=await r.text();let d=null;try{d=tx?JSON.parse(tx):null}catch{d=tx}if(!r.ok)throw new Error(d?.message||d?.msg||d?.error_description||d?.error||('Error '+r.status));return d}
-async function api(path,opt={}){if(!session?.access_token)throw new Error('Inicia sesión');return req(URL+path,{...opt,headers:{apikey:KEY,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json',...(opt.headers||{})}})}
-async function login(){const email=$('email').value.trim(),password=$('password').value;if(!email||!password)return toast('Ingresa correo y contraseña','err');try{const d=await req(URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});store(d);await boot()}catch(e){toast(e.message,'err')}}
-async function boot(){session=loadStored();if(!session?.access_token)return showLogin();try{const uid=session.user?.id||session.user_id,ps=await api('/rest/v1/profiles?select=*&user_id=eq.'+encodeURIComponent(uid));profile=ps[0];if(profile?.role!=='owner')throw new Error('Esta sección es solo para el dueño');[barbers,branches]=await Promise.all([api('/rest/v1/barbers?select=id,name,branch_id,active&active=eq.true&order=name'),api('/rest/v1/branches?select=id,name,code&order=name')]);$('barber').innerHTML='<option value="all">Todos los barberos</option>'+barbers.map(b=>`<option value="${b.id}">${esc(b.name)} · ${esc(branchName(b.branch_id))}</option>`).join('');$('date').value=$('date').value||iso();showApp();await load()}catch(e){store(null);showLogin();toast(e.message,'err')}}function branchName(id){return branches.find(b=>b.id===id)?.name||''}function barberName(id){return barbers.find(b=>b.id===id)?.name||'Barbero'}function method(v){return v==='cash'?'Efectivo':v==='debit'?'Débito':'Transferencia'}function showLogin(){$('loginView').classList.remove('hidden');$('appView').classList.add('hidden')}function showApp(){$('loginView').classList.add('hidden');$('appView').classList.remove('hidden')}
-async function load(){if(profile?.role!=='owner')return;try{const date=$('date').value||iso(),bid=$('barber').value||'all';let path='/rest/v1/cuts?select=*&business_date=eq.'+encodeURIComponent(date)+'&order=created_at.desc';if(bid!=='all')path+='&barber_id=eq.'+encodeURIComponent(bid);const [cuts,hist]=await Promise.all([api(path),api('/rest/v1/cut_deletions?select=*&order=deleted_at.desc&limit=20')]);$('meta').textContent=`${cuts.length} corte${cuts.length===1?'':'s'} · ${day(date)}`;$('cuts').innerHTML=cuts.length?cuts.map(c=>`<div class="row"><div><strong>✂️ ${esc(barberName(c.barber_id))} · ${money(c.price)}</strong><small>${time(c.created_at)} · ${method(c.payment_method)} · recibió ${c.received_by==='house'?'casa':'barbero'} · ${esc(branchName(c.branch_id))}</small></div><button class="btn red" data-id="${c.id}" data-price="${c.price}" data-name="${esc(barberName(c.barber_id))}">Eliminar</button></div>`).join(''):'<div class="empty">No hay cortes con este filtro.</div>';$('cuts').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>removeCut(b));$('history').innerHTML=hist.length?hist.map(c=>`<div class="row"><div><strong>🗑️ ${esc(barberName(c.barber_id))} · ${money(c.price)}</strong><small>Corte del ${day(c.business_date)} · eliminado ${new Date(c.deleted_at).toLocaleString('es-CL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})} · ${method(c.payment_method)}</small></div><span class="pill">Eliminado</span></div>`).join(''):'<div class="empty">Aún no hay cortes eliminados.</div>'}catch(e){toast(e.message,'err')}}
-async function removeCut(btn){const ok=confirm(`¿Eliminar este corte?\n\n${btn.dataset.name} · ${money(btn.dataset.price)}\n\nSe quitará de facturación, comisión y deuda de caja. Esta acción no se puede deshacer desde la app.`);if(!ok)return;btn.disabled=true;btn.textContent='Eliminando…';try{await api('/rest/v1/cuts?id=eq.'+encodeURIComponent(btn.dataset.id),{method:'DELETE',headers:{Prefer:'return=minimal'}});toast('Corte eliminado y guardado en historial');await load()}catch(e){btn.disabled=false;btn.textContent='Eliminar';toast(e.message,'err')}}
-$('loginBtn').onclick=login;$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('searchBtn').onclick=load;$('backBtn').onclick=()=>location.href='/';$('logoutBtn').onclick=()=>{store(null);location.href='/'};boot();})();
-</script></body></html>
+(() => {
+'use strict';
+
+const SUPA = 'https://wzrakdrgsknargtjxwlj.supabase.co';
+const KEY  = 'sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';
+const PAGE = 1000;
+
+const $ = id => document.getElementById(id);
+let session = null, profile = null, barbers = [], branches = [], hasView = true, hasSettlements = true, hasExpenses = true;
+const CATS = ['Arriendo','Servicios','Insumos','Sueldos','Marketing','Mantención','Impuestos','Otros'];
+let expCat = 'Insumos';
+
+/* ── utilidades ── */
+const money = n => '$' + Math.round(Number(n || 0)).toLocaleString('es-CL');
+const esc = (s = '') => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const isoToday = () => { const d = new Date(), p = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+const timeLabel = s => new Date(s).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+const dayLabel = s => { const [y,m,d] = String(s).split('-').map(Number); return new Date(y,m-1,d).toLocaleDateString('es-CL',{day:'2-digit',month:'short'}); };
+const stamp = s => new Date(s).toLocaleString('es-CL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const methodName = v => v === 'cash' ? 'Efectivo' : (v === 'debit' || v === 'card') ? 'Débito' : v === 'transfer' ? 'Transferencia' : (v || '—');
+const sum = (a, f) => a.reduce((t, x) => t + Number((typeof f === 'function' ? f(x) : x[f]) || 0), 0);
+
+function toast(msg, type = 'ok') {
+  const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + type;
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.className = 'toast', 2800);
+}
+function showError(m) { $('error').textContent = m; $('error').classList.remove('hidden'); }
+function clearError() { $('error').classList.add('hidden'); }
+
+/* ── sesión ── */
+function storeSession(v) {
+  session = v;
+  try {
+    if (v) { sessionStorage.setItem('cb_session', JSON.stringify(v)); localStorage.setItem('cb_session', JSON.stringify(v)); }
+    else   { sessionStorage.removeItem('cb_session'); localStorage.removeItem('cb_session'); }
+  } catch (_) {}
+}
+function loadSession() {
+  for (const st of [sessionStorage, localStorage]) {
+    try { const v = JSON.parse(st.getItem('cb_session') || 'null'); if (v && v.access_token) return v; } catch (_) {}
+  }
+  return null;
+}
+async function raw(url, opt = {}) {
+  const r = await fetch(url, opt); const tx = await r.text();
+  let d = null; try { d = tx ? JSON.parse(tx) : null; } catch (_) { d = tx; }
+  if (!r.ok) { const e = new Error(d?.message || d?.msg || d?.error_description || d?.error || ('Error ' + r.status)); e.status = r.status; e.detail = d?.details || d?.hint || ''; throw e; }
+  return d;
+}
+async function refreshToken() {
+  if (!session?.refresh_token) return false;
+  try {
+    const d = await raw(SUPA + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    storeSession(d); return true;
+  } catch (_) { return false; }
+}
+async function api(path, opt = {}, retry = true) {
+  if (!session?.access_token) throw new Error('Inicia sesión');
+  try {
+    return await raw(SUPA + '/rest/v1/' + path, {
+      ...opt,
+      headers: { apikey: KEY, Authorization: 'Bearer ' + session.access_token, 'Content-Type': 'application/json', ...(opt.headers || {}) }
+    });
+  } catch (e) {
+    if (e.status === 401 && retry && await refreshToken()) return api(path, opt, false);
+    throw e;
+  }
+}
+async function apiAll(path) {
+  const out = [];
+  for (let off = 0; ; off += PAGE) {
+    const c = await api(`${path}&limit=${PAGE}&offset=${off}`);
+    if (!Array.isArray(c)) throw new Error('Respuesta inesperada');
+    out.push(...c);
+    if (c.length < PAGE || off > 50000) break;
+  }
+  return out;
+}
+
+/* ── mantener la sesión viva: renueva el token antes de que expire ── */
+function scheduleRefresh() {
+  clearTimeout(scheduleRefresh.t);
+  if (!session?.refresh_token) return;
+  const expMs = session.expires_at ? session.expires_at * 1000 : Date.now() + 3600e3;
+  const wait = Math.max(30e3, expMs - Date.now() - 5 * 60e3);
+  scheduleRefresh.t = setTimeout(async () => { await refreshToken(); scheduleRefresh(); }, wait);
+}
+document.addEventListener('visibilitychange', async () => {
+  if (document.hidden || !session?.refresh_token) return;
+  const expMs = session.expires_at ? session.expires_at * 1000 : 0;
+  if (expMs && expMs - Date.now() < 5 * 60e3) { await refreshToken(); scheduleRefresh(); }
+});
+
+/* ── login ── */
+async function login() {
+  const email = $('email').value.trim(), password = $('password').value;
+  $('loginErr').classList.add('hidden');
+  if (!email || !password) return toast('Ingresa correo y contraseña', 'err');
+  $('loginBtn').disabled = true; $('loginBtn').textContent = 'Entrando…';
+  try {
+    const d = await raw(SUPA + '/auth/v1/token?grant_type=password', {
+      method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    storeSession(d); await boot();
+  } catch (e) { $('loginErr').textContent = e.message; $('loginErr').classList.remove('hidden'); }
+  finally { $('loginBtn').disabled = false; $('loginBtn').textContent = 'Entrar como dueño'; }
+}
+function showLogin() { $('loginView').classList.remove('hidden'); $('appView').classList.add('hidden'); }
+function showApp()   { $('loginView').classList.add('hidden');   $('appView').classList.remove('hidden'); }
+
+/* ── arranque ── */
+async function boot() {
+  session = loadSession();
+  if (!session?.access_token) return showLogin();
+  try {
+    const uid = session.user?.id || session.user_id;
+    const ps = await api('profiles?select=*&user_id=eq.' + encodeURIComponent(uid));
+    profile = Array.isArray(ps) ? ps[0] : null;
+    if (profile?.role !== 'owner') throw new Error('Esta sección es solo para el dueño');
+
+    const [bs, brs] = await Promise.all([
+      api('barbers?select=id,name,branch_id,active&active=eq.true&order=name'),
+      api('branches?select=id,name,code&order=name').catch(() => [])
+    ]);
+    barbers = Array.isArray(bs) ? bs : [];
+    branches = Array.isArray(brs) ? brs : [];
+
+    $('barber').innerHTML = '<option value="all">Todos los barberos</option>' +
+      barbers.map(b => `<option value="${esc(b.id)}">${esc(b.name)}${b.branch_id ? ' · ' + esc(branchName(b.branch_id)) : ''}</option>`).join('');
+    $('date').value = $('date').value || isoToday();
+
+    scheduleRefresh();
+    initExpenses();
+    showApp();
+    await Promise.all([loadPnl(), loadExpenses(), loadDebt(), loadCuts()]);
+  } catch (e) {
+    storeSession(null); showLogin();
+    $('loginErr').textContent = e.message; $('loginErr').classList.remove('hidden');
+  }
+}
+const branchName = id => branches.find(b => b.id === id)?.name || '';
+const barberName = id => barbers.find(b => b.id === id)?.name || 'Barbero';
+
+/* ══════════ DEUDAS Y ABONOS ══════════ */
+
+// Intenta leer la vista barber_debt (cálculo en el servidor).
+// Si no existe todavía, calcula en el navegador con paginación.
+async function fetchDebts() {
+  if (hasView) {
+    try {
+      const v = await api('barber_debt?select=*');
+      if (Array.isArray(v) && v.length) {
+        $('debtWarn').classList.add('hidden');
+        return v.map(x => ({ barber_id: x.barber_id, debt: Number(x.debt || 0), account: Number(x.account || 0) }));
+      }
+    } catch (_) { hasView = false; }
+  }
+  // Respaldo: suma en el navegador
+  $('debtWarn').innerHTML = '⚠️ La vista <b>barber_debt</b> no existe todavía, así que la deuda se está calculando en el navegador. Corre el SQL en Supabase para que el cálculo pase al servidor.';
+  $('debtWarn').classList.remove('hidden');
+  const [cuts, prods, accts, setts] = await Promise.all([
+    apiAll('cuts?select=barber_id,debt_generated,debt_recovered&order=id'),
+    apiAll('products?select=barber_id,debt_generated&order=id'),
+    apiAll('account_movements?select=barber_id,kind,amount&order=id'),
+    hasSettlements ? apiAll('settlements?select=barber_id,amount&order=id').catch(() => { hasSettlements = false; return []; }) : []
+  ]);
+  return barbers.map(b => {
+    const c = cuts.filter(x => x.barber_id === b.id), p = prods.filter(x => x.barber_id === b.id);
+    const a = accts.filter(x => x.barber_id === b.id), s = setts.filter(x => x.barber_id === b.id);
+    const debt = sum(c, x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(p, 'debt_generated') - sum(s, 'amount');
+    const account = sum(a, x => (x.kind === 'charge' ? 1 : -1) * Number(x.amount || 0));
+    return { barber_id: b.id, debt: Math.max(0, debt), account: Math.max(0, account) };
+  });
+}
+
+async function loadDebt() {
+  clearError();
+  $('debtList').innerHTML = '<div class="empty">Cargando…</div>';
+  try {
+    const rows = await fetchDebts();
+    const byId = Object.fromEntries(rows.map(r => [r.barber_id, r]));
+    const list = barbers.map(b => ({ ...b, ...(byId[b.id] || { debt: 0, account: 0 }) }))
+                        .sort((a, b) => b.debt - a.debt);
+    const total = sum(list, 'debt');
+    $('debtMeta').textContent = 'Total por cobrar: ' + money(total);
+
+    $('debtList').innerHTML = list.map(b => b.debt > 0 ? `
+      <div class="row" data-b="${esc(b.id)}">
+        <div><strong>${esc(b.name)}</strong>
+        <small>${esc(branchName(b.branch_id))}${b.account > 0 ? ' · cuenta personal ' + money(b.account) : ''}</small></div>
+        <div style="display:flex;gap:9px;align-items:center">
+          <span class="money redtxt">${money(b.debt)}</span>
+          <button class="btn green" data-abonar="${esc(b.id)}" data-debt="${b.debt}" data-name="${esc(b.name)}">Abonar</button>
+        </div>
+      </div>` : `
+      <div class="row">
+        <div><strong>${esc(b.name)}</strong><small>${esc(branchName(b.branch_id))}</small></div>
+        <span class="pill ok">Al día</span>
+      </div>`).join('') || '<div class="empty">No hay barberos activos.</div>';
+
+    $('debtList').querySelectorAll('[data-abonar]').forEach(btn => btn.onclick = () => openAbono(btn));
+    await loadSettlements();
+  } catch (e) {
+    $('debtList').innerHTML = '';
+    showError('No se pudo cargar la deuda: ' + e.message + (e.detail ? ' — ' + e.detail : ''));
+  }
+}
+
+// Panel de abono: viene con el total precargado (un toque = saldar todo),
+// pero el monto es editable para pagos parciales.
+function openAbono(btn) {
+  const id = btn.dataset.abonar, debt = Number(btn.dataset.debt), name = btn.dataset.name;
+  document.querySelectorAll('.abono-panel').forEach(p => p.remove());
+  const row = $('debtList').querySelector(`[data-b="${CSS.escape(id)}"]`);
+  const box = document.createElement('div');
+  box.className = 'card abono-panel';
+  box.innerHTML = `
+    <div class="label" style="margin-top:0">Abono de ${esc(name)} · debe ${money(debt)}</div>
+    <input class="amount" id="abonoAmount" type="number" inputmode="numeric" min="1" step="500" value="${debt}">
+    <div class="chips">
+      <button data-set="${debt}">Todo</button>
+      <button data-set="${Math.round(debt / 2)}">Mitad</button>
+      <button data-set="0" id="abonoClear">Otro</button>
+    </div>
+    <div class="label">Nota (opcional)</div>
+    <input class="input" id="abonoNote" maxlength="80" placeholder="Efectivo, transferencia...">
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      <button class="btn" id="abonoCancel">Cancelar</button>
+      <button class="btn green" id="abonoSave">Registrar abono</button>
+    </div>`;
+  row.insertAdjacentElement('afterend', box);
+  box.querySelectorAll('[data-set]').forEach(b => b.onclick = () => {
+    const v = Number(b.dataset.set);
+    $('abonoAmount').value = v || '';
+    $('abonoAmount').focus();
+  });
+  $('abonoCancel').onclick = () => box.remove();
+  $('abonoSave').onclick = () => saveAbono(id, name, debt, box);
+}
+
+async function saveAbono(barber_id, name, debt, box) {
+  const amount = Number($('abonoAmount').value), note = $('abonoNote').value.trim();
+  if (!amount || amount <= 0) return toast('Ingresa un monto', 'err');
+  if (amount > debt && !confirm(`El abono (${money(amount)}) es mayor que la deuda (${money(debt)}). ¿Registrar igual?`)) return;
+  if (!confirm(`Registrar abono de ${money(amount)} de ${name}?\n\nQueda guardado con fecha y no se puede editar desde la app.`)) return;
+
+  const btn = $('abonoSave'); btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    await api('settlements', {
+      method: 'POST',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({ barber_id, amount, note: note || null })
+    });
+    box.remove();
+    toast(amount >= debt ? `${name} quedó al día` : `Abono registrado · resta ${money(debt - amount)}`);
+    await loadDebt();
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Registrar abono';
+    if (e.status === 404 || /settlements/i.test(e.message || '')) {
+      showError('La tabla "settlements" no existe todavía. Corre el SQL en Supabase antes de registrar abonos. Detalle: ' + e.message);
+    } else {
+      toast(e.message, 'err');
+    }
+  }
+}
+
+async function loadSettlements() {
+  if (!hasSettlements) { $('settlementList').innerHTML = '<div class="empty">Falta crear la tabla settlements.</div>'; return; }
+  try {
+    const s = await api('settlements?select=*&order=settled_at.desc&limit=20');
+    $('settlementList').innerHTML = Array.isArray(s) && s.length ? s.map(x => `
+      <div class="row">
+        <div><strong>✅ ${esc(barberName(x.barber_id))}</strong>
+        <small>${stamp(x.settled_at)}${x.note ? ' · ' + esc(x.note) : ''}</small></div>
+        <span class="money greentxt">${money(x.amount)}</span>
+      </div>`).join('') : '<div class="empty">Aún no hay abonos registrados.</div>';
+  } catch (e) {
+    hasSettlements = false;
+    $('settlementList').innerHTML = '<div class="empty">Falta crear la tabla settlements.</div>';
+  }
+}
+
+/* ══════════ GASTOS ══════════ */
+const monthNow = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; };
+const monthRange = m => { const [y, mo] = m.split('-').map(Number); const last = new Date(y, mo, 0).getDate();
+  return [`${m}-01`, `${m}-${String(last).padStart(2,'0')}`]; };
+
+function initExpenses() {
+  $('expBranch').innerHTML = branches.map(b => `<option value="${esc(b.id)}">${esc(b.name)}</option>`).join('')
+    || '<option value="">Sin sucursales</option>';
+  $('expCats').className = 'chips cats';
+  $('expCats').innerHTML = CATS.map(c => `<button data-c="${c}"${c === expCat ? ' class="on"' : ''}>${c}</button>`).join('');
+  $('expCats').querySelectorAll('button').forEach(b => b.onclick = () => {
+    expCat = b.dataset.c;
+    $('expCats').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+  });
+  $('expDate').value = isoToday();
+  $('pnlMonth').value = monthNow();
+}
+
+async function loadExpenses() {
+  const m = $('pnlMonth').value || monthNow(), [f, t] = monthRange(m);
+  try {
+    const rows = await api(`expenses?select=*&expense_date=gte.${f}&expense_date=lte.${t}&order=expense_date.desc`);
+    if (!Array.isArray(rows)) throw new Error('Respuesta inesperada');
+    hasExpenses = true;
+    $('expMeta').textContent = `${rows.length} gasto${rows.length === 1 ? '' : 's'} · ${money(sum(rows, 'amount'))}`;
+    $('expList').innerHTML = rows.length ? rows.map(x => `
+      <div class="row">
+        <div><strong>${esc(x.category || 'Otros')} · ${esc(x.description || '')}</strong>
+        <small>${dayLabel(x.expense_date)} · ${esc(branchName(x.branch_id)) || 'Sin sucursal'}</small></div>
+        <div style="display:flex;gap:9px;align-items:center">
+          <span class="money redtxt">-${money(x.amount)}</span>
+          <button class="btn red" data-del="${esc(x.id)}">✕</button>
+        </div>
+      </div>`).join('') : '<div class="empty">Sin gastos registrados este mes.</div>';
+    $('expList').querySelectorAll('[data-del]').forEach(b => b.onclick = () => delExpense(b));
+    return rows;
+  } catch (e) {
+    hasExpenses = false;
+    $('expMeta').textContent = '';
+    $('expList').innerHTML = '<div class="empty">Falta crear la tabla <b>expenses</b> en Supabase.</div>';
+    return [];
+  }
+}
+
+async function saveExpense() {
+  const amount = Number($('expAmount').value), desc = $('expDesc').value.trim(), branch_id = $('expBranch').value;
+  if (!amount || amount <= 0) return toast('Ingresa un monto', 'err');
+  if (!desc) return toast('Escribe un detalle', 'err');
+  const btn = $('expSave'); btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    await api('expenses', { method: 'POST', headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({ amount, description: desc, category: expCat, branch_id: branch_id || null, expense_date: $('expDate').value || isoToday() }) });
+    $('expAmount').value = ''; $('expDesc').value = '';
+    toast('Gasto registrado');
+    await Promise.all([loadExpenses(), loadPnl()]);
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally { btn.disabled = false; btn.textContent = 'Registrar gasto'; }
+}
+
+async function delExpense(btn) {
+  if (!confirm('¿Eliminar este gasto?')) return;
+  btn.disabled = true;
+  try { await api('expenses?id=eq.' + encodeURIComponent(btn.dataset.del), { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+    toast('Gasto eliminado'); await Promise.all([loadExpenses(), loadPnl()]);
+  } catch (e) { btn.disabled = false; toast(e.message, 'err'); }
+}
+
+/* ══════════ UTILIDAD POR SUCURSAL ══════════ */
+async function loadPnl() {
+  const m = $('pnlMonth').value || monthNow(), [f, t] = monthRange(m);
+  $('pnlList').innerHTML = '<div class="empty">Calculando…</div>';
+  try {
+    const [cuts, prods, exps] = await Promise.all([
+      apiAll(`cuts?select=branch_id,price,commission_paid&business_date=gte.${f}&business_date=lte.${t}&order=id`),
+      apiAll(`products?select=branch_id,price,commission&business_date=gte.${f}&business_date=lte.${t}&order=id`),
+      hasExpenses ? apiAll(`expenses?select=branch_id,amount&expense_date=gte.${f}&expense_date=lte.${t}&order=id`).catch(() => []) : []
+    ]);
+    const faltaCom = (cuts.length && !cuts.some(c => c.commission_paid != null));
+    $('pnlWarn').classList.toggle('hidden', !faltaCom);
+    if (faltaCom) $('pnlWarn').innerHTML = '⚠️ No encuentro la columna <b>commission_paid</b>. Estoy estimando la comisión al 50%, así que la utilidad puede no ser exacta.';
+
+    const grupos = branches.length ? branches.map(b => b.id) : [null];
+    const filas = grupos.map(bid => {
+      const c = cuts.filter(x => x.branch_id === bid), p = prods.filter(x => x.branch_id === bid);
+      const e = exps.filter(x => x.branch_id === bid);
+      const ingresos = sum(c, 'price') + sum(p, 'price');
+      const comision = (c.some(x => x.commission_paid != null) ? sum(c, 'commission_paid') : sum(c, 'price') * 0.5) + sum(p, 'commission');
+      const gastos = sum(e, 'amount');
+      return { bid, nombre: branchName(bid) || 'Sin sucursal', cortes: c.length, ingresos, comision, gastos,
+               casa: ingresos - comision, utilidad: ingresos - comision - gastos };
+    });
+    // gastos sin sucursal asignada
+    const sueltos = sum(exps.filter(x => !x.branch_id || !grupos.includes(x.branch_id)), 'amount');
+    const tot = filas.reduce((a, r) => ({ ingresos: a.ingresos + r.ingresos, comision: a.comision + r.comision,
+      gastos: a.gastos + r.gastos, casa: a.casa + r.casa, utilidad: a.utilidad + r.utilidad, cortes: a.cortes + r.cortes }),
+      { ingresos: 0, comision: 0, gastos: 0, casa: 0, utilidad: 0, cortes: 0 });
+    tot.gastos += sueltos; tot.utilidad -= sueltos;
+
+    const bloque = r => `
+      <div class="pnl">
+        <h3>${esc(r.nombre)}</h3>
+        <div class="pl"><span>Ingresos (${r.cortes} cortes)</span><b>${money(r.ingresos)}</b></div>
+        <div class="pl"><span>− Comisiones a barberos</span><b class="redtxt">-${money(r.comision)}</b></div>
+        <div class="pl"><span>= Queda para la casa</span><b>${money(r.casa)}</b></div>
+        <div class="pl"><span>− Gastos</span><b class="redtxt">-${money(r.gastos)}</b></div>
+        <div class="pl tot"><span>Utilidad real</span><b class="${r.utilidad >= 0 ? 'greentxt' : 'redtxt'}">${money(r.utilidad)}</b></div>
+        <div class="pl" style="border:0;color:var(--muted);font-size:11px"><span>Margen sobre ingresos</span><span>${r.ingresos ? Math.round(r.utilidad / r.ingresos * 100) : 0}%</span></div>
+      </div>`;
+
+    $('pnlList').innerHTML = filas.map(bloque).join('') +
+      (sueltos ? `<div class="pnl"><h3>Gastos sin sucursal</h3><div class="pl"><span>Se descuentan del total</span><b class="redtxt">-${money(sueltos)}</b></div></div>` : '') +
+      (filas.length > 1 ? bloque({ ...tot, nombre: '📊 TOTAL' }) : '');
+  } catch (e) {
+    $('pnlList').innerHTML = '';
+    showError('No se pudo calcular la utilidad: ' + e.message + (e.detail ? ' — ' + e.detail : ''));
+  }
+}
+
+/* ══════════ BORRAR CORTE ══════════ */
+async function loadCuts() {
+  try {
+    const date = $('date').value || isoToday(), bid = $('barber').value || 'all';
+    let path = 'cuts?select=*&business_date=eq.' + encodeURIComponent(date) + '&order=created_at.desc';
+    if (bid !== 'all') path += '&barber_id=eq.' + encodeURIComponent(bid);
+    const [cuts, hist] = await Promise.all([
+      api(path),
+      api('cut_deletions?select=*&order=deleted_at.desc&limit=20').catch(() => [])
+    ]);
+    $('meta').textContent = `${cuts.length} corte${cuts.length === 1 ? '' : 's'} · ${dayLabel(date)}`;
+    $('cuts').innerHTML = cuts.length ? cuts.map(c => `
+      <div class="row">
+        <div><strong>✂️ ${esc(barberName(c.barber_id))} · ${money(c.price)}</strong>
+        <small>${timeLabel(c.created_at)} · ${methodName(c.payment_method)} · recibió ${c.received_by === 'house' ? 'la casa' : 'el barbero'}</small></div>
+        <button class="btn red" data-id="${esc(c.id)}" data-price="${c.price}" data-name="${esc(barberName(c.barber_id))}">Eliminar</button>
+      </div>`).join('') : '<div class="empty">No hay cortes con este filtro.</div>';
+    $('cuts').querySelectorAll('[data-id]').forEach(b => b.onclick = () => removeCut(b));
+
+    $('history').innerHTML = Array.isArray(hist) && hist.length ? hist.map(c => `
+      <div class="row">
+        <div><strong>🗑️ ${esc(barberName(c.barber_id))} · ${money(c.price)}</strong>
+        <small>Corte del ${dayLabel(c.business_date)} · eliminado ${stamp(c.deleted_at)}</small></div>
+        <span class="pill">Eliminado</span>
+      </div>`).join('') : '<div class="empty">Sin eliminaciones registradas.</div>';
+  } catch (e) { showError(e.message); }
+}
+
+async function removeCut(btn) {
+  if (!confirm(`¿Eliminar este corte?\n\n${btn.dataset.name} · ${money(btn.dataset.price)}\n\nSe quita de facturación, comisión y deuda de caja.`)) return;
+  btn.disabled = true; btn.textContent = 'Eliminando…';
+  try {
+    await api('cuts?id=eq.' + encodeURIComponent(btn.dataset.id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+    toast('Corte eliminado');
+    await Promise.all([loadCuts(), loadDebt()]);
+  } catch (e) { btn.disabled = false; btn.textContent = 'Eliminar'; toast(e.message, 'err'); }
+}
+
+/* ── eventos ── */
+$('loginBtn').onclick = login;
+$('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+$('searchBtn').onclick = loadCuts;
+$('expSave').onclick = saveExpense;
+$('pnlMonth').onchange = () => { loadPnl(); loadExpenses(); };
+$('expAmount').addEventListener('keydown', e => { if (e.key === 'Enter') $('expDesc').focus(); });
+$('backBtn').onclick = () => { location.href = './'; };
+$('logoutBtn').onclick = () => { storeSession(null); location.reload(); };
+$('tabs').querySelectorAll('button').forEach(b => b.onclick = () => {
+  $('tabs').querySelectorAll('button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  ['pnl', 'exp', 'debt', 'cuts'].forEach(k => $('tab-' + k).classList.toggle('on', k === b.dataset.t));
+});
+
+boot();
+})();
+</script>
+</body>
+</html>
