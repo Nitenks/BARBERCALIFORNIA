@@ -324,15 +324,16 @@ function render(id, f, t, cuts, products) {
 
   const cutSales = sum(cuts, 'price'), prodSales = sum(products, 'price'), gross = cutSales + prodSales;
 
-  // Usa la comisión que calcula la base de datos. Solo si la columna no existe
-  // cae al cálculo local (50% cortes / 10% productos desde $7.000).
-  const dbCutCom  = cuts.some(c => c.commission_paid != null);
-  const dbProdCom = products.some(p => p.commission != null);
-  const cutCom  = dbCutCom  ? sum(cuts, 'commission_paid') : cutSales * COMISION_CORTE;
-  const prodCom = dbProdCom ? sum(products, 'commission')
-                            : sum(products.filter(p => Number(p.price) >= MINIMO_PRODUCTO), x => x.price * COMISION_PRODUCTO);
-  const commission = cutCom + prodCom;
-  const estimada = (cuts.length && !dbCutCom) || (products.length && !dbProdCom);
+  // base_commission = lo que GANÓ (50% siempre).
+  // commission_paid = lo que queda por pagarle, después de descontar su deuda.
+  // debt_recovered  = lo que se le descontó para saldar deuda anterior.
+  const ganada    = sum(cuts, x => x.base_commission != null ? Number(x.base_commission) : Number(x.price || 0) * COMISION_CORTE)
+                  + sum(products, x => Number(x.commission || 0));
+  const descontado = sum(cuts, x => Number(x.debt_recovered || 0));
+  const enMano     = sum(cuts, x => Number(x.commission_paid || 0))
+                   + sum(products, x => Number(x.commission || 0));
+  const commission = enMano;
+  const estimada   = cuts.length > 0 && !cuts.some(c => c.base_commission != null);
 
   const by = m => sum(all.filter(x => m.includes(x.payment_method)), 'price');
   const cash = by(['cash']), card = by(['debit', 'card']), trans = by(['transfer']);
@@ -342,7 +343,7 @@ function render(id, f, t, cuts, products) {
   const days = new Set(all.map(x => x.business_date).filter(Boolean)).size;
   const ticket = cuts.length ? cutSales / cuts.length : 0;
 
-  lastReport = { name: barberName(id), f, t, cuts, products, gross, cutSales, prodSales, commission, cash, card, trans, enManos, all };
+  lastReport = { name: barberName(id), f, t, cuts, products, gross, cutSales, prodSales, commission, ganada, descontado, enMano, cash, card, trans, enManos, all };
 
   $('resultado').innerHTML = `
     <div class="section"><span>${esc(barberName(id))}</span><small>${f ? dayLabel(f) : '—'} al ${t ? dayLabel(t) : '—'} · ${days} día${days === 1 ? '' : 's'} con movimiento</small></div>
@@ -350,12 +351,18 @@ function render(id, f, t, cuts, products) {
       <div class="kpi wide"><div class="k">Facturación total</div><div class="v goldtxt">${money(gross)}</div><div class="s">Cortes + productos</div></div>
       <div class="kpi"><div class="k">Cortes</div><div class="v">${cuts.length}</div><div class="s">${money(cutSales)}</div></div>
       <div class="kpi"><div class="k">Productos</div><div class="v purpletxt">${products.length}</div><div class="s">${money(prodSales)}</div></div>
-      <div class="kpi"><div class="k">Comisión a pagar</div><div class="v greentxt">${money(commission)}</div><div class="s">${estimada ? 'Estimada en pantalla' : 'Calculada por el sistema'}</div></div>
+      <div class="kpi"><div class="k">Comisión ganada (50%)</div><div class="v">${money(ganada)}</div><div class="s">antes de descuentos</div></div>
+      <div class="kpi"><div class="k">A pagar en mano</div><div class="v greentxt">${money(enMano)}</div><div class="s">${descontado ? 'ya descontó ' + money(descontado) : 'sin descuentos'}</div></div>
       <div class="kpi"><div class="k">Ticket promedio</div><div class="v">${money(ticket)}</div><div class="s">por corte</div></div>
       <div class="kpi"><div class="k">Recibió el barbero</div><div class="v bluetxt">${money(enManos)}</div></div>
       <div class="kpi"><div class="k">Recibió la casa</div><div class="v">${money(casa)}</div></div>
     </div>
-    ${estimada ? '<div class="warn">⚠️ La comisión se calculó en esta pantalla, no en la base de datos, así que puede no coincidir con la app principal. Revisa que existan las columnas <b>commission_paid</b> (cortes) y <b>commission</b> (productos).</div>' : ''}
+    ${estimada ? '<div class="warn">⚠️ No encuentro la columna <b>base_commission</b>. Estoy estimando la comisión ganada al 50%.</div>' : ''}
+
+    <div class="section"><span>Cómo se llega al pago</span><small>liquidación</small></div>
+    <div class="row"><div><strong>Comisión ganada</strong><small>50% de ${money(cutSales)} en cortes${prodSales ? ' + productos' : ''}</small></div><span class="money">${money(ganada)}</span></div>
+    <div class="row"><div><strong>− Descontado de su deuda</strong><small>efectivo que había recibido y no entregó</small></div><span class="money redtxt">-${money(descontado)}</span></div>
+    <div class="row" style="border-color:rgba(93,202,146,.4)"><div><strong>= A pagar en mano</strong><small>lo que le entregas hoy</small></div><span class="money greentxt">${money(enMano)}</span></div>
 
     <div class="section"><span>Medios de pago</span><small>${money(gross)}</small></div>
     <div class="row"><div><strong>💵 Efectivo</strong><small>${gross ? Math.round(cash / gross * 100) : 0}% del total</small></div><span class="money greentxt">${money(cash)}</span></div>
@@ -376,7 +383,7 @@ function render(id, f, t, cuts, products) {
 /* ─────────── Exportar ─────────── */
 function resumenTexto() {
   const r = lastReport; if (!r) return '';
-  return `✂️ *CALIFORNIA BARBER*\n👤 ${r.name}\n📅 ${r.f} al ${r.t}\n━━━━━━━━━━━━━━━\n💰 Facturación: ${money(r.gross)}\n✂ Cortes: ${r.cuts.length} · ${money(r.cutSales)}\n🥤 Productos: ${r.products.length} · ${money(r.prodSales)}\n💵 Efectivo: ${money(r.cash)}\n💳 Débito: ${money(r.card)}\n📲 Transferencia: ${money(r.trans)}\n🖐 Recibió el barbero: ${money(r.enManos)}\n━━━━━━━━━━━━━━━\n✅ *Comisión a pagar: ${money(r.commission)}*`;
+  return `✂️ *CALIFORNIA BARBER*\n👤 ${r.name}\n📅 ${r.f} al ${r.t}\n━━━━━━━━━━━━━━━\n💰 Facturación: ${money(r.gross)}\n✂ Cortes: ${r.cuts.length} · ${money(r.cutSales)}\n🥤 Productos: ${r.products.length} · ${money(r.prodSales)}\n💵 Efectivo: ${money(r.cash)}\n💳 Débito: ${money(r.card)}\n📲 Transferencia: ${money(r.trans)}\n🖐 Recibió el barbero: ${money(r.enManos)}\n━━━━━━━━━━━━━━━\n💰 Comisión ganada: ${money(r.ganada)}\\n➖ Descontado de deuda: ${money(r.descontado)}\\n✅ *A PAGAR: ${money(r.enMano)}*`;
 }
 async function copiar() {
   const txt = resumenTexto(); if (!txt) return;

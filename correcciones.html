@@ -528,7 +528,7 @@ async function loadPnl() {
   $('pnlList').innerHTML = '<div class="empty">Calculando…</div>';
   try {
     const [cuts, prods, exps] = await Promise.all([
-      apiAll(`cuts?select=branch_id,price,commission_paid&business_date=gte.${f}&business_date=lte.${t}&order=id`),
+      apiAll(`cuts?select=branch_id,price,base_commission,commission_paid,debt_recovered&business_date=gte.${f}&business_date=lte.${t}&order=id`),
       apiAll(`products?select=branch_id,price,commission&business_date=gte.${f}&business_date=lte.${t}&order=id`),
       hasExpenses ? apiAll(`expenses?select=branch_id,amount&expense_date=gte.${f}&expense_date=lte.${t}&order=id`).catch(() => []) : []
     ]);
@@ -541,7 +541,9 @@ async function loadPnl() {
       const c = cuts.filter(x => x.branch_id === bid), p = prods.filter(x => x.branch_id === bid);
       const e = exps.filter(x => x.branch_id === bid);
       const ingresos = sum(c, 'price') + sum(p, 'price');
-      const comision = (c.some(x => x.commission_paid != null) ? sum(c, 'commission_paid') : sum(c, 'price') * 0.5) + sum(p, 'commission');
+      // La casa paga la comisión GANADA (50%), no el residuo tras descontar deuda.
+      const comision = sum(c, x => x.base_commission != null ? Number(x.base_commission) : Number(x.price || 0) * 0.5)
+                     + sum(p, x => Number(x.commission || 0));
       const gastos = sum(e, 'amount');
       return { bid, nombre: branchName(bid) || 'Sin sucursal', cortes: c.length, ingresos, comision, gastos,
                casa: ingresos - comision, utilidad: ingresos - comision - gastos };
