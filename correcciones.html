@@ -21,7 +21,7 @@ button,input,select{font:inherit}
 .btn.red{border-color:rgba(239,118,118,.46);background:rgba(239,118,118,.08);color:var(--red)}
 .btn.green{border-color:rgba(93,202,146,.46);background:rgba(93,202,146,.09);color:var(--green)}
 .btn:disabled{opacity:.5}
-.tabs4{grid-template-columns:repeat(4,1fr)}.tabs4 button{font-size:11px}
+.tabs4{grid-template-columns:repeat(5,1fr)}.tabs4 button{font-size:10px;padding:0 2px}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#101216;border:1px solid var(--line);border-radius:14px;padding:5px;margin-top:16px}
 .tabs button{border:0;background:transparent;color:var(--muted);border-radius:10px;min-height:46px;font-weight:900;font-size:13px;cursor:pointer}
 .tabs button.active{background:var(--p2);color:var(--gold)}
@@ -98,6 +98,7 @@ button,input,select{font:inherit}
       <button data-t="pnl" class="active">📊 Utilidades</button>
       <button data-t="exp">💸 Gastos</button>
       <button data-t="debt">💵 Deudas</button>
+      <button data-t="stock">📦 Stock</button>
       <button data-t="cuts">🗑️ Borrar</button>
     </div>
 
@@ -141,6 +142,29 @@ button,input,select{font:inherit}
       <div id="debtList" class="list"></div>
       <div class="section"><span>Últimos abonos</span><small>últimos 20</small></div>
       <div id="settlementList" class="list"></div>
+    </div>
+
+    <!-- ══════════ STOCK ══════════ -->
+    <div id="tab-stock" class="tabpage">
+      <div class="title">Inventario</div>
+      <div class="sub">El stock baja solo con cada venta. Los barberos solo pueden mirarlo.</div>
+      <div id="stockWarn" class="warn hidden"></div>
+      <div class="section"><span>Productos</span><small id="stockMeta"></small></div>
+      <div id="invList" class="list"></div>
+      <div class="card">
+        <div class="label" style="margin-top:0">Agregar producto</div>
+        <input id="invName" class="input" maxlength="60" placeholder="Nombre del producto">
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px">
+          <div><div class="label">Precio venta</div><input id="invPrice" class="input" type="number" min="0" step="100"></div>
+          <div><div class="label">Costo</div><input id="invCost" class="input" type="number" min="0" step="100"></div>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div><div class="label">Stock</div><input id="invStock" class="input" type="number" min="0"></div>
+          <div><div class="label">Mínimo</div><input id="invMin" class="input" type="number" min="0" value="3"></div>
+          <div><div class="label">Tipo</div><select id="invKind" class="select"><option value="venta">Venta</option><option value="insumo">Insumo</option></select></div>
+        </div>
+        <button id="invSave" class="primary">Agregar al inventario</button>
+      </div>
     </div>
 
     <!-- ══════════ BORRAR CORTE ══════════ -->
@@ -306,7 +330,7 @@ async function boot() {
     scheduleRefresh();
     initExpenses();
     showApp();
-    await Promise.all([loadPnl(), loadExpenses(), loadDebt(), loadCuts()]);
+    await Promise.all([loadPnl(), loadExpenses(), loadInventory(), loadDebt(), loadCuts()]);
   } catch (e) {
     storeSession(null); showLogin();
     $('loginErr').textContent = e.message; $('loginErr').classList.remove('hidden');
@@ -575,6 +599,78 @@ async function loadPnl() {
   }
 }
 
+/* ══════════ INVENTARIO ══════════ */
+async function loadInventory() {
+  $('invList').innerHTML = '<div class="empty">Cargando…</div>';
+  try {
+    const rows = await api('inventory?select=*&order=kind,name');
+    if (!Array.isArray(rows)) throw new Error('Respuesta inesperada');
+    $('stockWarn').classList.add('hidden');
+    const bajos = rows.filter(x => Number(x.stock) <= Number(x.min_stock) && x.active).length;
+    $('stockMeta').textContent = `${rows.length} productos${bajos ? ' · ' + bajos + ' por reponer' : ''}`;
+    $('invList').innerHTML = rows.length ? rows.map(x => {
+      const low = Number(x.stock) <= Number(x.min_stock);
+      return `<div class="row" ${low ? 'style="border-color:rgba(239,118,118,.45)"' : ''}>
+        <div><strong>${esc(x.name)} ${x.kind === 'insumo' ? '<span class="pill">insumo</span>' : ''}</strong>
+        <small>${money(x.price)}${x.cost ? ' · costo ' + money(x.cost) + ' · margen ' + money(x.price - x.cost) : ''} · mínimo ${x.min_stock}</small></div>
+        <div style="display:flex;gap:7px;align-items:center">
+          <b class="money ${low ? 'redtxt' : 'greentxt'}">${x.stock}</b>
+          <button class="btn" data-rep="${esc(x.id)}" data-name="${esc(x.name)}" data-stock="${x.stock}">+ Reponer</button>
+          <button class="btn red" data-inv-del="${esc(x.id)}">✕</button>
+        </div>
+      </div>`;
+    }).join('') : '<div class="empty">Sin productos. Corre <b>inventario.sql</b> en Supabase.</div>';
+    $('invList').querySelectorAll('[data-rep]').forEach(b => b.onclick = () => reponer(b));
+    $('invList').querySelectorAll('[data-inv-del]').forEach(b => b.onclick = () => borrarInv(b));
+  } catch (e) {
+    $('invList').innerHTML = '';
+    $('stockWarn').innerHTML = 'No se pudo leer el inventario. ¿Corriste <b>inventario.sql</b>? Detalle: ' + esc(e.message);
+    $('stockWarn').classList.remove('hidden');
+  }
+}
+
+async function reponer(btn) {
+  const n = prompt(`¿Cuántas unidades de ${btn.dataset.name} entraron?`, '10');
+  if (n === null) return;
+  const add = Number(n);
+  if (!add || add <= 0) return toast('Cantidad inválida', 'err');
+  try {
+    await api('inventory?id=eq.' + encodeURIComponent(btn.dataset.rep), {
+      method: 'PATCH', headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({ stock: Number(btn.dataset.stock) + add, updated_at: new Date().toISOString() })
+    });
+    toast(`+${add} en stock`);
+    await loadInventory();
+  } catch (e) { toast(e.message, 'err'); }
+}
+
+async function borrarInv(btn) {
+  if (!confirm('¿Quitar este producto del inventario?\n\nLas ventas ya registradas no se borran.')) return;
+  try {
+    await api('inventory?id=eq.' + encodeURIComponent(btn.dataset.invDel), { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+    toast('Producto eliminado'); await loadInventory();
+  } catch (e) { toast(e.message, 'err'); }
+}
+
+async function guardarInv() {
+  const name = $('invName').value.trim();
+  if (!name) return toast('Escribe el nombre', 'err');
+  const btn = $('invSave'); btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    await api('inventory', {
+      method: 'POST', headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({
+        name, kind: $('invKind').value,
+        price: Number($('invPrice').value) || 0, cost: Number($('invCost').value) || 0,
+        stock: Number($('invStock').value) || 0, min_stock: Number($('invMin').value) || 3
+      })
+    });
+    $('invName').value = ''; $('invPrice').value = ''; $('invCost').value = ''; $('invStock').value = '';
+    toast('Producto agregado'); await loadInventory();
+  } catch (e) { toast(e.message, 'err'); }
+  finally { btn.disabled = false; btn.textContent = 'Agregar al inventario'; }
+}
+
 /* ══════════ BORRAR CORTE ══════════ */
 async function loadCuts() {
   try {
@@ -618,6 +714,7 @@ $('loginBtn').onclick = login;
 $('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 $('searchBtn').onclick = loadCuts;
 $('expSave').onclick = saveExpense;
+$('invSave').onclick = guardarInv;
 $('pnlMonth').onchange = () => { loadPnl(); loadExpenses(); };
 $('expAmount').addEventListener('keydown', e => { if (e.key === 'Enter') $('expDesc').focus(); });
 $('backBtn').onclick = () => { location.href = './'; };
@@ -625,7 +722,7 @@ $('logoutBtn').onclick = () => { storeSession(null); location.reload(); };
 $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => {
   $('tabs').querySelectorAll('button').forEach(x => x.classList.remove('active'));
   b.classList.add('active');
-  ['pnl', 'exp', 'debt', 'cuts'].forEach(k => $('tab-' + k).classList.toggle('on', k === b.dataset.t));
+  ['pnl', 'exp', 'stock', 'debt', 'cuts'].forEach(k => $('tab-' + k).classList.toggle('on', k === b.dataset.t));
 });
 
 boot();
