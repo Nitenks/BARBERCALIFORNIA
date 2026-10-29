@@ -3,266 +3,1387 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0a0b0d">
+<meta name="theme-color" content="#0E141D">
 <title>California Barber</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0b0d;--panel:#131519;--panel2:#1a1d22;--line:#292e36;--text:#f5f2ea;--muted:#8c939d;--gold:#e0b85b;--gold2:#f2d27d;--green:#5dca92;--blue:#72afe8;--red:#ef7676;--purple:#b990ef;--shadow:0 18px 50px rgba(0,0,0,.24);--r:18px}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.shell{max-width:900px;margin:0 auto;min-height:100vh;padding-bottom:96px}.topbar{position:sticky;top:0;z-index:30;background:rgba(10,11,13,.93);backdrop-filter:blur(18px);border-bottom:1px solid #20242a;padding:13px 15px}.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:950;letter-spacing:-.3px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:650;margin-top:2px}.topright{display:flex;align-items:center;gap:7px}.pill{border:1px solid rgba(224,184,91,.28);background:rgba(224,184,91,.08);color:var(--gold2);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:850}.logout{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:10px;padding:7px 10px;font-size:11px;font-weight:850}.page{padding:17px}.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}.title{font-size:28px;font-weight:980;letter-spacing:-.8px}.subtitle{font-size:13px;color:var(--muted);line-height:1.5;margin-top:4px}.card{background:linear-gradient(180deg,#15171b,#121418);border:1px solid var(--line);border-radius:var(--r);padding:15px;box-shadow:var(--shadow);margin-top:11px}.card.flat{box-shadow:none}.card-title{font-weight:950;font-size:15px}.label{font-size:10px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.7px;margin:13px 0 7px}.input,.select{width:100%;height:52px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:0 13px;outline:none}.input:focus,.select:focus{border-color:rgba(224,184,91,.7)}.price{font-size:22px;font-weight:950}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.choice{min-height:50px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:#9aa1aa;font-weight:850}.choice.active{border-color:var(--gold);color:var(--gold2);background:rgba(224,184,91,.09)}.choice.green.active{border-color:var(--green);color:var(--green);background:rgba(93,202,146,.08)}.choice.blue.active{border-color:var(--blue);color:var(--blue);background:rgba(114,175,232,.08)}.primary{width:100%;min-height:54px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--gold2),#bd8f35);color:#111;font-weight:950;margin-top:15px}.secondary{min-height:44px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text);font-weight:850;padding:0 13px}.secondary.gold{border-color:rgba(224,184,91,.42);color:var(--gold2)}.secondary.green{border-color:rgba(93,202,146,.42);color:var(--green)}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.kpi{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px}.kpi.wide{grid-column:1/-1}.kpi .k{font-size:9px;font-weight:900;letter-spacing:.65px;text-transform:uppercase;color:var(--muted)}.kpi .v{font-size:25px;font-weight:980;margin-top:4px}.kpi .s{font-size:10px;color:var(--muted);margin-top:3px}.goldtxt{color:var(--gold2)}.greentxt{color:var(--green)}.bluetxt{color:var(--blue)}.redtxt{color:var(--red)}.purpletxt{color:var(--purple)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.toolbar>*{flex:1;min-width:115px}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 2px 9px;font-size:14px;font-weight:950}.section-title small{color:var(--muted);font-weight:650}.list{display:flex;flex-direction:column;gap:8px}.row{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}.row strong{display:block;font-size:13px}.row small{display:block;color:var(--muted);font-size:10px;margin-top:3px;line-height:1.45}.money{font-size:17px;font-weight:950;white-space:nowrap}.empty{border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted);font-size:12px}.note{font-size:11px;color:var(--muted);line-height:1.55;border:1px solid #242930;background:#0f1114;border-radius:12px;padding:10px;margin-top:10px}.nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:900px;background:rgba(13,14,17,.97);backdrop-filter:blur(18px);border-top:1px solid #242930;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;gap:5px;z-index:40}.nav button{border:0;background:transparent;color:#747c86;border-radius:12px;padding:8px 4px;font-size:10px;font-weight:900}.nav button span{display:block;font-size:18px;margin-bottom:2px}.nav button.active{color:var(--gold2);background:rgba(224,184,91,.09)}.login{max-width:470px;margin:0 auto;padding:45px 18px}.login-logo{font-size:42px}.login-title{font-size:31px;font-weight:980;letter-spacing:-.8px;margin-top:9px}.login .card{margin-top:20px}.msg{font-size:11px;color:var(--muted);line-height:1.5;margin-top:11px}.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,120px);opacity:0;transition:.25s;background:#171a1f;border:1px solid var(--line);border-radius:999px;padding:11px 16px;font-size:12px;font-weight:850;z-index:100;max-width:92%;text-align:center}.toast.show{transform:translate(-50%,0);opacity:1}.toast.ok{color:var(--green);border-color:rgba(93,202,146,.45)}.toast.err{color:var(--red);border-color:rgba(239,118,118,.45)}.trend-row{display:grid;grid-template-columns:66px 1fr 84px;align-items:center;gap:9px;margin:9px 0}.trend-date{font-size:10px;color:var(--muted);font-weight:800}.bartrack{height:9px;background:#20242a;border-radius:999px;overflow:hidden}.barfill{height:100%;border-radius:999px;background:linear-gradient(90deg,#b58b36,var(--gold2))}.trend-val{text-align:right;font-size:11px;font-weight:900}.barber-card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px}.barber-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.barber-name{font-weight:950}.barber-branch{font-size:10px;color:var(--muted);margin-top:2px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.mini{background:#101216;border:1px solid #232831;border-radius:10px;padding:8px}.mini .k{font-size:8px;color:var(--muted);text-transform:uppercase;font-weight:850}.mini .v{font-size:14px;font-weight:950;margin-top:3px}.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.method{background:#101216;border:1px solid #252a31;border-radius:13px;padding:12px}.method .k{font-size:9px;color:var(--muted);font-weight:900}.method .v{font-size:19px;font-weight:950;margin-top:4px}.method .p{font-size:10px;color:var(--muted);margin-top:2px}.quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.quick button{border:1px solid var(--line);background:#181b20;color:#a5abb3;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:800}.quick button:hover{border-color:var(--gold);color:var(--gold2)}.split{display:grid;grid-template-columns:1fr;gap:10px}.sticky-export{position:sticky;top:72px;z-index:12}.owner-empty{padding:20px;border:1px dashed var(--line);border-radius:15px;color:var(--muted);text-align:center;font-size:12px}.footer-note{text-align:center;color:#626973;font-size:10px;margin:20px 0 6px}
-@media(min-width:680px){.page{padding:22px}.kpis{grid-template-columns:repeat(4,1fr)}.kpi.wide{grid-column:span 2}.split{grid-template-columns:1fr 1fr}.barber-list-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.nav{max-width:900px}.mini-grid{grid-template-columns:repeat(3,1fr)}}
+:root{
+  --bg:#0E141D;--s1:#151D29;--s2:#1B2433;--s3:#232E40;
+  --line:#283345;--line2:#33405A;
+  --text:#EDF1F6;--muted:#8D9AAE;--faint:#5E6A7D;
+  --brass:#DDAE5A;--brass2:#F1CC80;--brass-ink:#1B1406;
+  --red:#EC655F;--mint:#52CA94;--steel:#72AAEE;--violet:#AE98F2;
+  --pole:repeating-linear-gradient(135deg,#EC655F 0 5px,#F3F5F8 5px 10px,#4C7BD8 10px 15px,#F3F5F8 15px 20px);
+  --font:"Archivo",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --side:232px;--tab:66px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+:focus-visible{outline:2px solid var(--brass2);outline-offset:2px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.num{font-stretch:118%;font-weight:760;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.mint{color:var(--mint)}.red{color:var(--red)}.steel{color:var(--steel)}.violet{color:var(--violet)}.brass{color:var(--brass2)}.muted{color:var(--muted)}
 
-/* ── Registro simplificado ── */
-.rtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#101216;border:1px solid var(--line);border-radius:14px;padding:5px;margin-bottom:12px}
-.rtabs button{border:0;background:transparent;color:var(--muted);border-radius:10px;min-height:44px;font-weight:900;font-size:13px;cursor:pointer}
-.rtabs button.active{background:var(--p2);color:var(--gold);box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
-.amount{width:100%;height:74px;border:1px solid var(--line);background:var(--p2);color:var(--text);border-radius:14px;padding:0 15px;font-size:34px;font-weight:950;text-align:center;letter-spacing:-1px}
-.amount::placeholder{color:#4c535c}
-.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px}
-.chips button{border:1px solid var(--line);background:#181b20;color:var(--text);border-radius:12px;min-height:46px;font-size:13px;font-weight:900;cursor:pointer}
-.chips button:active{border-color:var(--gold);color:var(--gold)}
+/* ── Barra de carga (franja de poste) ── */
+#loadbar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--pole);background-size:28px 3px;z-index:200;opacity:0;transition:opacity .2s}
+#loadbar.on{opacity:1;animation:pole .6s linear infinite}
+@keyframes pole{to{background-position:28px 0}}
+
+/* ── Marca ── */
+.mark{width:34px;height:34px;border-radius:10px;background:var(--s2);border:1px solid var(--line2);display:grid;place-items:center;position:relative;overflow:hidden;flex:none}
+.mark::before{content:"";position:absolute;left:11px;top:-4px;bottom:-4px;width:12px;background:var(--pole);border-radius:6px;transform:rotate(0deg)}
+.mark::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,20,29,.55),transparent 40%,transparent 60%,rgba(14,20,29,.55))}
+.brandname{font-stretch:115%;font-weight:800;font-size:15px;letter-spacing:-.01em;line-height:1.1}
+.brandname small{display:block;font-stretch:100%;font-weight:500;font-size:11.5px;color:var(--muted);margin-top:2px;letter-spacing:0}
+
+/* ── Login ── */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px 18px}
+.login-box{width:100%;max-width:400px}
+.login-head{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.login-head .mark{width:44px;height:44px;border-radius:12px}
+.login-head .mark::before{left:15px;width:14px}
+.login h1{font-stretch:120%;font-weight:800;font-size:30px;letter-spacing:-.02em;margin:0 0 6px}
+.login p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 22px}
+
+/* ── Estructura ── */
+.app{min-height:100vh}
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);background:var(--s1);border-right:1px solid var(--line);display:none;flex-direction:column;padding:18px 12px;z-index:50}
+.side .brand{display:flex;align-items:center;gap:11px;padding:4px 8px 22px}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav button{display:flex;align-items:center;gap:12px;border:0;background:transparent;color:var(--muted);text-align:left;font-weight:600;font-size:14.5px;padding:11px 12px;border-radius:10px;position:relative}
+.side nav button:hover{color:var(--text);background:var(--s2)}
+.side nav button.on{color:var(--text);background:var(--s2)}
+.side nav button.on::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:4px;border-radius:0 3px 3px 0;background:var(--pole);background-size:20px 20px}
+.side .who{margin-top:auto;border-top:1px solid var(--line);padding:14px 8px 0;font-size:13px}
+.side .who b{display:block;font-weight:700}
+.side .who span{color:var(--muted);font-size:12px}
+.side .who button{margin-top:10px}
+.main{min-width:0}
+.top{position:sticky;top:0;z-index:40;background:rgba(14,20,29,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:11px;padding:11px 16px;max-width:1120px;margin:0 auto}
+.topin .brandname{flex:1;min-width:0}
+.topin .brandname small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.filters{max-width:1120px;margin:0 auto;padding:0 16px 11px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:flex;gap:3px;background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:3px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.seg::-webkit-scrollbar{display:none}
+.seg button{border:0;background:transparent;color:var(--muted);font-weight:600;font-size:13px;padding:7px 11px;border-radius:8px;white-space:nowrap}
+.seg button.on{background:var(--s3);color:var(--text)}
+.dates{display:flex;gap:6px;align-items:center}
+.dates input{height:36px;background:var(--s1);border:1px solid var(--line);border-radius:9px;padding:0 9px;font-size:13px;color-scheme:dark}
+.content{max-width:1120px;margin:0 auto;padding:20px 16px calc(var(--tab) + 40px)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(21,29,41,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+.tabbar button{border:0;background:transparent;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 6px;font-size:10.5px;font-weight:600;position:relative;border-radius:10px}
+.tabbar button.on{color:var(--text)}
+.tabbar button.on::before{content:"";position:absolute;top:-4px;left:28%;right:28%;height:3px;border-radius:0 0 3px 3px;background:var(--pole);background-size:20px 20px}
+@media(min-width:900px){
+  .side{display:flex}
+  .main{margin-left:var(--side)}
+  .tabbar,.top .mark,.top .m-only{display:none}
+  .content{padding:26px 28px 60px}
+  .topin,.filters{padding-left:28px;padding-right:28px}
+}
+
+/* ── Encabezados de sección ── */
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.head h1{margin:0;font-stretch:120%;font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.1}
+.head p{margin:5px 0 0;color:var(--muted);font-size:13.5px;line-height:1.45}
+.head .acts{display:flex;gap:8px;flex-wrap:wrap}
+@media(min-width:900px){.head h1{font-size:32px}}
+h2{font-size:15px;font-weight:700;margin:0;letter-spacing:-.005em}
+.h2row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:26px 2px 10px}
+.h2row small{color:var(--muted);font-size:12.5px}
+
+/* ── Superficies ── */
+.panel{background:var(--s1);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.panel.pad{padding:16px}
+.grid{display:grid;gap:12px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g32{grid-template-columns:3fr 2fr}}
+.rows>*+*{border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;min-height:58px}
+.row .t{min-width:0}
+.row .t b{display:block;font-weight:650;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.row .t span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.row .r{display:flex;align-items:center;gap:8px;flex:none}
+.row.link{cursor:pointer;width:100%;border:0;background:transparent;text-align:left}
+.row.link:hover{background:var(--s2)}
+.amt{font-size:16px}
+.empty{padding:28px 18px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.5}
+.note{font-size:12.5px;color:var(--muted);line-height:1.5;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);margin-top:12px}
+.warn{font-size:12.5px;line-height:1.5;padding:11px 14px;border-radius:12px;margin-top:12px;color:var(--brass2);background:rgba(221,174,90,.08);border:1px solid rgba(221,174,90,.3)}
+.err{font-size:13px;line-height:1.5;padding:12px 14px;border-radius:12px;margin-top:12px;color:var(--red);background:rgba(236,101,95,.08);border:1px solid rgba(236,101,95,.35);word-break:break-word}
+
+/* ── Hero del inicio ── */
+.hero{padding:20px 18px 16px}
+.hero .lbl{color:var(--muted);font-size:13.5px}
+.hero .big{font-size:44px;line-height:1.05;margin:4px 0 6px;font-stretch:125%;font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+.hero .sub{color:var(--muted);font-size:13.5px}
+@media(min-width:900px){.hero .big{font-size:56px}}
+.split{margin-top:16px}
+.splitbar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--s3);gap:2px}
+.splitbar i{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:13px}
+.legend span{display:flex;align-items:center;gap:7px;color:var(--muted)}
+.legend span b{color:var(--text);font-weight:650}
+.dot{width:9px;height:9px;border-radius:3px;flex:none}
+.chart{padding:4px 16px 14px}
+.bars{display:flex;align-items:flex-end;gap:3px;height:130px;padding-top:8px}
+.bars .b{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+.bars .b i{display:block;background:var(--steel);opacity:.55;border-radius:4px 4px 1px 1px;min-height:2px}
+.bars .b.max i{background:var(--brass);opacity:1}
+.bars .b.zero i{background:var(--s3);opacity:1}
+.axis{display:flex;gap:3px;margin-top:6px}
+.axis span{flex:1;min-width:0;text-align:center;font-size:10.5px;color:var(--faint);white-space:nowrap;overflow:visible}
+.chart-cap{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);padding:14px 16px 0}
+
+/* ── Tiras de cifras ── */
+.stats{display:grid;grid-template-columns:repeat(2,1fr)}
+.stats>div{padding:14px 16px;border-top:1px solid var(--line)}
+.stats>div:nth-child(odd){border-right:1px solid var(--line)}
+.stats .k{color:var(--muted);font-size:12.5px}
+.stats .v{font-size:21px;margin-top:4px}
+.stats .s{color:var(--faint);font-size:12px;margin-top:2px}
+@media(min-width:760px){
+  .stats.c3{grid-template-columns:repeat(3,1fr)}
+  .stats.c3>div{border-right:1px solid var(--line)}
+  .stats.c3>div:nth-child(3n){border-right:0}
+  .stats.c4{grid-template-columns:repeat(4,1fr)}
+  .stats.c4>div{border-right:1px solid var(--line)}
+  .stats.c4>div:nth-child(4n){border-right:0}
+}
+.stats.first>div:nth-child(-n+2){border-top:0}
+@media(min-width:760px){.stats.c3.first>div:nth-child(-n+3),.stats.c4.first>div:nth-child(-n+4){border-top:0}}
+
+/* ── Medios de pago ── */
+.methods{display:grid;grid-template-columns:repeat(3,1fr)}
+.methods>div{padding:14px 16px}
+.methods>div+div{border-left:1px solid var(--line)}
+.methods .k{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.methods .v{font-size:18px;margin-top:5px}
+.meter{height:4px;border-radius:3px;background:var(--s3);margin-top:9px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px}
+@media(max-width:420px){.methods .v{font-size:15px}.methods>div{padding:12px 11px}}
+
+/* ── Botones ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);font-weight:650;font-size:13.5px;white-space:nowrap}
+.btn:hover{border-color:#46557A}
+.btn svg.i{width:17px;height:17px}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:var(--brass-ink)}
+.btn.brass:hover{background:var(--brass2)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--red);border-color:rgba(236,101,95,.35);background:rgba(236,101,95,.06)}
+.btn.ok{color:var(--mint);border-color:rgba(82,202,148,.35);background:rgba(82,202,148,.07)}
+.btn.sm{min-height:34px;padding:0 11px;font-size:12.5px;border-radius:9px}
+.btn.icon{width:36px;min-height:36px;padding:0}
+.btn:disabled{opacity:.5;pointer-events:none}
+.primary{width:100%;min-height:54px;border:0;border-radius:13px;background:var(--brass);color:var(--brass-ink);font-weight:750;font-size:16px;margin-top:16px}
+.primary:hover{background:var(--brass2)}
+.primary:disabled{opacity:.6}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:650;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:rgba(82,202,148,.1);color:var(--mint)}
+.tag.bad{background:rgba(236,101,95,.12);color:var(--red)}
+.tag.neu{background:var(--s3);color:var(--muted)}
+
+/* ── Formularios ── */
+.field{margin-top:14px}
+.field>label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.input{width:100%;height:48px;background:var(--s2);border:1px solid var(--line2);border-radius:11px;padding:0 13px;font-size:15px;outline:none;color-scheme:dark}
+.input:focus{border-color:var(--brass)}
+select.input{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 21px,calc(100% - 13px) 21px;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.amount{width:100%;height:76px;background:var(--s2);border:1px solid var(--line2);border-radius:14px;text-align:center;font-size:38px;font-stretch:122%;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;outline:none}
+.amount:focus{border-color:var(--brass)}
+.amount::placeholder{color:var(--faint)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .chips:empty{display:none}
-#cutPayments.grid3,#productPayments.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-#cutPayments .choice,#productPayments .choice{min-height:56px;font-size:13px;font-weight:900}
-.rhint{font-size:11px;color:var(--muted);text-align:center;margin-top:9px}
-.rpage{display:none}.rpage.on{display:block}
+.chips button{border:1px solid var(--line2);background:var(--s2);border-radius:999px;padding:8px 13px;font-size:13px;font-weight:600}
+.chips button.on{border-color:var(--brass);color:var(--brass2);background:rgba(221,174,90,.08)}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pick.two-c{grid-template-columns:1fr 1fr}
+.pick button{min-height:58px;border:1px solid var(--line2);background:var(--s2);border-radius:12px;font-weight:650;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.pick button.on{color:var(--text);border-color:var(--brass);background:rgba(221,174,90,.09)}
+.pick button[data-v=cash].on{border-color:var(--mint);background:rgba(82,202,148,.08)}
+.pick button[data-v=debit].on{border-color:var(--steel);background:rgba(114,170,238,.08)}
+.hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px}
+.inline{background:var(--s2);border-top:1px solid var(--line);padding:14px 16px}
+.inline .amount{height:62px;font-size:30px}
+.inline .acts{display:flex;gap:8px;margin-top:12px}
+.inline .acts .btn{flex:1;min-height:46px}
 
-.stockrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:11px;margin-bottom:6px;background:#141619}
-.stockrow small{color:var(--muted);font-size:10px;display:block;margin-top:2px}
-.stockrow b{font-size:15px;font-weight:950}
-.stocklow{border-color:rgba(239,118,118,.45)}
-.stocklow b{color:var(--red)}
-.stockok b{color:var(--green)}
+/* ── Pestañas internas (registro) ── */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--s1);border:1px solid var(--line);border-radius:13px;padding:4px;margin-bottom:14px}
+.tabs button{border:0;background:transparent;color:var(--muted);border-radius:10px;min-height:44px;font-weight:650;font-size:14px}
+.tabs button.on{background:var(--s3);color:var(--text)}
+.rpage{display:none}.rpage.on{display:block}
+.narrow{max-width:560px;margin:0 auto}
+
+/* ── Utilidad ── */
+.pl{padding:6px 16px 14px}
+.pl h3{margin:14px 0 6px;font-size:16px;font-weight:750;font-stretch:112%}
+.pl .ln{display:flex;justify-content:space-between;gap:10px;padding:8px 0;font-size:14px;border-bottom:1px solid var(--line)}
+.pl .ln span{color:var(--muted)}
+.pl .ln.tot{border-bottom:0;padding-top:12px;font-size:18px}
+.pl .ln.tot span{color:var(--text);font-weight:700}
+.pl .mg{font-size:12.5px;color:var(--faint)}
+
+/* ── Barberos ── */
+.rank{width:26px;height:26px;border-radius:8px;background:var(--s3);display:grid;place-items:center;font-size:12px;font-weight:750;color:var(--muted);flex:none}
+.rank.first{background:var(--brass);color:var(--brass-ink)}
+.who-row{display:flex;align-items:center;gap:12px;min-width:0}
+.minibar{height:4px;background:var(--s3);border-radius:3px;margin-top:7px;overflow:hidden;max-width:220px}
+.minibar i{display:block;height:100%;background:var(--brass);border-radius:3px}
+.dayhead{padding:9px 16px;background:var(--s2);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;font-weight:600}
+.back{display:inline-flex;align-items:center;gap:4px;border:0;background:transparent;color:var(--muted);font-weight:600;font-size:13.5px;padding:4px 0;margin-bottom:10px}
+.back:hover{color:var(--text)}
+
+/* ── Toast ── */
+.toast{position:fixed;left:50%;bottom:calc(var(--tab) + 20px);transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.22s;background:var(--s3);border:1px solid var(--line2);border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;z-index:300;max-width:92vw;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.ok{border-color:rgba(82,202,148,.5)}
+.toast.err{border-color:rgba(236,101,95,.55);color:#FFB3AF}
+@media(min-width:900px){.toast{bottom:28px;left:calc(50% + var(--side)/2)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<div id="authView" class="login">
-  <div class="login-logo">✂️</div>
-  <div class="login-title">California Barber</div>
-  <div class="subtitle">Control central · Coihueco + Pinto</div>
-  <div class="card flat">
-    <div class="label">Correo</div><input id="authEmail" class="input" type="email" autocomplete="email" placeholder="nombre@gmail.com">
-    <div class="label">Contraseña</div><input id="authPassword" class="input" type="password" autocomplete="current-password" placeholder="Contraseña">
+<div id="loadbar"></div>
+
+<!-- ═══════════ LOGIN ═══════════ -->
+<div id="authView" class="login hidden">
+  <div class="login-box">
+    <div class="login-head"><div class="mark"></div><div class="brandname">California Barber<small>Coihueco · Pinto</small></div></div>
+    <h1>Entrar</h1>
+    <p>Cada cuenta ve lo suyo: los barberos registran su turno y el dueño administra todo desde aquí.</p>
+    <div class="field"><label for="authEmail">Correo</label><input id="authEmail" class="input" type="email" autocomplete="email" placeholder="nombre@gmail.com"></div>
+    <div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" class="input" type="password" autocomplete="current-password"></div>
     <button id="loginBtn" class="primary">Entrar</button>
-    <div class="msg">Cada cuenta tiene permisos propios. Los barberos solo pueden ver y registrar sus movimientos; el dueño accede a estadísticas globales.</div>
+    <div id="loginErr" class="err hidden"></div>
   </div>
 </div>
 
-<div id="appView" class="shell hidden">
-  <header class="topbar"><div class="toprow"><div class="brand">✂ California Barber<small id="sessionLabel"></small></div><div class="topright"><div id="branchBadge" class="pill"></div><button id="logoutBtn" class="logout">Salir</button></div></div></header>
-  <main>
-    <section id="page-register" class="page hidden">
-      <div class="rtabs" id="rtabs">
-        <button data-r="cut" class="active">✂️ Corte</button>
-        <button data-r="prod">🥤 Producto</button>
-        <button data-r="acct">🧾 Mi cuenta</button>
-      </div>
+<!-- ═══════════ APP ═══════════ -->
+<div id="appView" class="app hidden">
+  <aside class="side">
+    <div class="brand"><div class="mark"></div><div class="brandname">California Barber<small id="sideSub"></small></div></div>
+    <nav id="sideNav"></nav>
+    <div class="who"><b id="whoName"></b><span id="whoRole"></span><br><button id="logoutBtn" class="btn sm ghost">Cerrar sesión</button></div>
+  </aside>
 
-      <div id="r-cut" class="rpage on">
-        <div class="card">
-          <input id="cutPrice" class="amount" type="number" inputmode="numeric" min="1" step="500" placeholder="$0">
-          <div id="recentCutPrices" class="chips"></div>
-          <div class="label">Pago</div>
-          <div id="cutPayments" class="grid3">
-            <button class="choice green" data-v="cash">💵<br>Efectivo</button>
-            <button class="choice blue" data-v="debit">💳<br>Débito</button>
-            <button class="choice" data-v="transfer">📲<br>Transfer.</button>
-          </div>
-          <div id="cutCashReceiverWrap" class="hidden">
-            <div class="label">¿Quién recibió?</div>
-            <div id="cutReceivers" class="grid2"><button class="choice active" data-v="barber">Yo</button><button class="choice" data-v="house">Casa</button></div>
-          </div>
-          <button id="saveCutBtn" class="primary">Guardar corte</button>
+  <div class="main">
+    <header class="top">
+      <div class="topin">
+        <div class="mark"></div>
+        <div class="brandname"><span id="topTitle">California Barber</span><small id="topSub" class="m-only"></small></div>
+        <button id="logoutBtnM" class="btn sm ghost m-only">Salir</button>
+      </div>
+      <div id="filters" class="filters hidden">
+        <div id="branchSeg" class="seg"></div>
+        <div id="periodSeg" class="seg">
+          <button data-p="today">Hoy</button><button data-p="7d">7 días</button><button data-p="month">Este mes</button><button data-p="lastmonth">Mes pasado</button><button data-p="custom">Fechas</button>
         </div>
+        <div id="customDates" class="dates hidden"><input id="fromDate" type="date" aria-label="Desde"><input id="toDate" type="date" aria-label="Hasta"><button id="applyDates" class="btn sm">Ver</button></div>
       </div>
+    </header>
 
-      <div id="r-prod" class="rpage">
-        <div class="card">
-          <input id="productPrice" class="amount" type="number" inputmode="numeric" min="1" step="100" placeholder="$0">
-          <div class="label">Producto</div>
-          <select id="productPick" class="input"><option value="">Cargando...</option></select>
-          <input id="productName" type="hidden">
-          <div id="recentProducts" class="chips"></div>
-          <div class="label">Pago</div>
-          <div id="productPayments" class="grid3">
-            <button class="choice green" data-v="cash">💵<br>Efectivo</button>
-            <button class="choice blue" data-v="debit">💳<br>Débito</button>
-            <button class="choice" data-v="transfer">📲<br>Transfer.</button>
+    <main class="content">
+
+      <!-- ───────── DUEÑO · INICIO ───────── -->
+      <section id="v-inicio" class="view hidden">
+        <div class="head"><div><h1 id="inicioTitle">Hoy</h1><p id="inicioSub"></p></div><div class="acts"><button id="shareOwner" class="btn"></button></div></div>
+        <div class="grid g32">
+          <div class="panel">
+            <div class="hero"><div class="lbl">Facturación</div><div id="heroBig" class="big">$0</div><div id="heroSub" class="sub"></div><div id="heroSplit" class="split"></div></div>
+            <div id="heroChart"></div>
           </div>
-          <div id="productCashReceiverWrap" class="hidden">
-            <div class="label">¿Quién recibió?</div>
-            <div id="productReceivers" class="grid2"><button class="choice active" data-v="barber">Yo</button><button class="choice" data-v="house">Casa</button></div>
+          <div class="panel">
+            <div class="row"><h2>Pendientes</h2><small class="muted" id="pendMeta"></small></div>
+            <div id="pendList" class="rows" style="border-top:1px solid var(--line)"></div>
           </div>
-          <button id="saveProductBtn" class="primary">Guardar producto</button>
-          <div class="rhint">Comisión 10% solo desde $7.000</div>
-          <div class="panel"><button id="stockToggle" class="secondary" style="width:100%">📦 Ver stock</button>
-          <div id="stockList" class="hidden" style="margin-top:10px"></div></div>
         </div>
-      </div>
-
-      <div id="r-acct" class="rpage">
-        <div class="card">
-          <input id="accountAmount" class="amount" type="number" inputmode="numeric" min="1" step="100" placeholder="$0">
-          <div class="label">¿Qué sacaste?</div>
-          <input id="accountDesc" class="input" maxlength="60" placeholder="Red Bull">
-          <button id="saveAccountChargeBtn" class="primary">Anotar a mi cuenta</button>
-          <div class="rhint">No es venta y no genera comisión</div>
+        <div class="panel" style="margin-top:12px"><div id="inicioStats" class="stats c3 first"></div></div>
+        <div class="grid g2">
+          <div><div class="h2row"><h2>Barberos</h2><small><button class="btn sm ghost" data-go="barberos">Ver todos</button></small></div><div id="inicioBarbers" class="panel rows"></div></div>
+          <div><div class="h2row"><h2>Medios de pago</h2><small id="inicioMethodsMeta"></small></div><div id="inicioMethods" class="panel"></div></div>
         </div>
-      </div>
+      </section>
 
-      <button id="goShiftBtn" class="secondary gold" style="width:100%;margin-top:12px">Ver resumen de mi turno →</button>
-    </section>
+      <!-- ───────── DUEÑO · BARBEROS ───────── -->
+      <section id="v-barberos" class="view hidden">
+        <div id="barberList">
+          <div class="head"><div><h1>Barberos</h1><p>Toca un barbero para ver su liquidación, el detalle de cada corte y corregir errores.</p></div></div>
+          <div id="barberRows" class="panel rows"></div>
+        </div>
+        <div id="barberDetail" class="hidden"></div>
+      </section>
 
-    
-<section id="page-shift" class="page hidden"><div class="hero"><div><div class="title">Mi turno</div><div class="subtitle" id="shiftSubtitle">Resumen de hoy.</div></div><button id="reloadShift" class="secondary">Actualizar</button></div><div class="sticky-export"><button id="exportShiftBtn" class="primary" style="margin-top:0">📲 Enviar mi cierre</button><button id="exportShiftDetailBtn" class="secondary" style="width:100%;margin-top:8px">Enviar con detalle corte por corte</button></div><div id="shiftKpis" class="kpis"></div><div class="section-title"><span>Medios de pago</span></div><div id="shiftMethods" class="method-grid"></div><div class="section-title"><span>Cortes de hoy</span><small id="shiftCutsMeta"></small></div><div id="shiftCuts" class="list"></div><div class="section-title"><span>Productos vendidos</span><small id="shiftProductsMeta"></small></div><div id="shiftProducts" class="list"></div><div class="section-title"><span>Mi cuenta personal</span><small>saldo acumulado</small></div><div id="shiftAccountSummary"></div><div class="footer-note">Solo tu usuario y el dueño tienen acceso a estos datos.</div></section>
+      <!-- ───────── DUEÑO · CAJA ───────── -->
+      <section id="v-caja" class="view hidden">
+        <div class="head"><div><h1>Caja y deudas</h1><p>Cómo se cobró en el período y lo que cada barbero tiene pendiente hoy.</p></div></div>
+        <div id="cajaMethods" class="panel"></div>
+        <div class="panel" style="margin-top:12px"><div id="cajaStats" class="stats c4 first"></div></div>
+        <div id="debtWarn" class="warn hidden"></div>
+        <div class="grid g2">
+          <div><div class="h2row"><h2>Deuda de caja</h2><small id="debtMeta"></small></div><div id="debtRows" class="panel rows"></div><div class="note">Plata que el barbero cobró y aún no entrega a la casa. Registra aquí cada entrega.</div></div>
+          <div><div class="h2row"><h2>Cuentas personales</h2><small id="acctMeta"></small></div><div id="acctRows" class="panel rows"></div><div class="note">Consumos internos (bebidas, productos) que el barbero anotó a su nombre.</div></div>
+        </div>
+        <div class="h2row"><h2>Últimos movimientos</h2><small>entregas de caja y abonos</small></div>
+        <div id="payHistory" class="panel rows"></div>
+      </section>
 
-    <section id="page-overview" class="page hidden"><div class="hero"><div><div class="title">Resumen</div><div class="subtitle">Facturación, cortes y actividad de ambas sucursales.</div></div><button id="exportOwnerBtn" class="secondary gold">📲 Exportar</button></div><div id="ownerFilters" class="card flat"><div class="label" style="margin-top:0">Sucursal</div><div id="branchSwitch" class="seg"><button class="choice active" data-v="all">Todas</button><button class="choice" data-v="coihueco">Coihueco</button><button class="choice" data-v="pinto">Pinto</button></div><div class="label">Período</div><div id="periodSwitch" class="seg"><button class="choice active" data-v="today">Hoy</button><button class="choice" data-v="7d">7 días</button><button class="choice" data-v="month">Mes</button></div><div class="toolbar"><input id="fromDate" class="input" type="date"><input id="toDate" class="input" type="date"><button id="applyRangeBtn" class="secondary">Aplicar fechas</button></div></div><div id="ownerKpis" class="kpis"></div><div class="section-title"><span>Evolución diaria</span><small id="periodLabel"></small></div><div id="trendCard" class="card flat"></div><div class="section-title"><span>Sucursales</span></div><div id="branchComparison" class="barber-list-grid"></div></section>
+      <!-- ───────── DUEÑO · UTILIDAD ───────── -->
+      <section id="v-utilidad" class="view hidden">
+        <div class="head"><div><h1>Utilidad</h1><p>Lo que queda después de comisiones y gastos, por sucursal.</p></div></div>
+        <div id="pnlWarn" class="warn hidden"></div>
+        <div id="pnlList" class="grid g2"></div>
+        <div class="grid g2" style="margin-top:4px">
+          <div>
+            <div class="h2row"><h2>Registrar gasto</h2></div>
+            <div class="panel pad">
+              <input id="expAmount" class="amount" type="number" inputmode="numeric" min="1" step="500" placeholder="$0" aria-label="Monto del gasto">
+              <div id="expCats" class="chips"></div>
+              <div class="field"><label for="expDesc">Detalle</label><input id="expDesc" class="input" maxlength="80" placeholder="Arriendo, luz, cera…"></div>
+              <div class="two"><div class="field"><label for="expBranch">Sucursal</label><select id="expBranch" class="input"></select></div><div class="field"><label for="expDate">Fecha</label><input id="expDate" class="input" type="date"></div></div>
+              <button id="expSave" class="primary">Registrar gasto</button>
+            </div>
+          </div>
+          <div><div class="h2row"><h2>Gastos del período</h2><small id="expMeta"></small></div><div id="expRows" class="panel rows"></div></div>
+        </div>
+      </section>
 
-    <section id="page-performance" class="page hidden"><div class="hero"><div><div class="title">Barberos</div><div class="subtitle">Rendimiento del período seleccionado en Resumen.</div></div></div><div id="barberPerformance" class="barber-list-grid"></div></section>
+      <!-- ───────── DUEÑO · STOCK ───────── -->
+      <section id="v-stock" class="view hidden">
+        <div class="head"><div><h1>Stock</h1><p>Baja solo con cada venta. Los barberos solo pueden mirarlo.</p></div><div class="acts"><button id="invNewBtn" class="btn brass"></button></div></div>
+        <div id="invForm" class="panel pad hidden" style="margin-bottom:12px">
+          <h2>Nuevo producto</h2>
+          <div class="field"><label for="invName">Nombre</label><input id="invName" class="input" maxlength="60"></div>
+          <div class="two"><div class="field"><label for="invPrice">Precio de venta</label><input id="invPrice" class="input" type="number" min="0" step="100"></div><div class="field"><label for="invCost">Costo</label><input id="invCost" class="input" type="number" min="0" step="100"></div></div>
+          <div class="three"><div class="field"><label for="invStock">Stock</label><input id="invStock" class="input" type="number" min="0"></div><div class="field"><label for="invMin">Mínimo</label><input id="invMin" class="input" type="number" min="0" value="3"></div><div class="field"><label for="invKind">Tipo</label><select id="invKind" class="input"><option value="venta">Venta</option><option value="insumo">Insumo</option></select></div></div>
+          <button id="invSave" class="primary">Agregar al stock</button>
+        </div>
+        <div class="panel"><div id="invStats" class="stats c3 first"></div></div>
+        <div id="stockWarn" class="warn hidden"></div>
+        <div class="h2row"><h2>Productos</h2><small id="invMeta"></small></div>
+        <div id="invRows" class="panel rows"></div>
+      </section>
 
-    <section id="page-finance" class="page hidden"><div class="hero"><div><div class="title">Finanzas</div><div class="subtitle">Cómo se cobró, cuánto corresponde a la casa y saldos pendientes.</div></div></div><div class="section-title"><span>Medios de pago del período</span></div><div id="ownerMethods" class="method-grid"></div><div id="financeKpis" class="kpis"></div><div class="section-title"><span>Deuda de caja actual</span><small>efectivo / transferencias en manos de barberos</small></div><div id="cashDebtList" class="list"></div><div class="section-title"><span>Cuenta personal actual</span><small>consumos internos</small></div><div id="personalDebtList" class="list"></div><div class="card flat"><div class="card-title">Registrar abono a cuenta personal</div><div class="subtitle">Única acción administrativa del panel de dueño.</div><div class="grid2"><div><div class="label">Barbero</div><select id="paymentBarber" class="select"></select></div><div><div class="label">Monto</div><input id="paymentAmount" class="input price" type="number" min="1" step="100" placeholder="$0"></div></div><div class="label">Detalle</div><input id="paymentDesc" class="input" value="Abono cuenta"><button id="saveAccountPaymentBtn" class="primary">Registrar abono</button></div></section>
-  </main>
-  <nav id="nav" class="nav hidden"></nav>
+      <!-- ───────── DUEÑO · CORREGIR ───────── -->
+      <section id="v-correcciones" class="view hidden">
+        <div class="head"><div><h1>Corregir</h1><p>Borra un corte registrado por error. Facturación, comisión y deuda se recalculan solas.</p></div></div>
+        <div class="panel pad">
+          <div class="two" style="grid-template-columns:1fr 1fr">
+            <div class="field" style="margin-top:0"><label for="fixDate">Fecha</label><input id="fixDate" class="input" type="date"></div>
+            <div class="field" style="margin-top:0"><label for="fixBarber">Barbero</label><select id="fixBarber" class="input"></select></div>
+          </div>
+        </div>
+        <div class="h2row"><h2>Cortes</h2><small id="fixMeta"></small></div>
+        <div id="fixRows" class="panel rows"></div>
+        <div class="h2row"><h2>Eliminados</h2><small>últimos 20</small></div>
+        <div id="fixHistory" class="panel rows"></div>
+      </section>
+
+      <!-- ───────── BARBERO · REGISTRAR ───────── -->
+      <section id="v-registrar" class="view hidden">
+        <div class="narrow">
+          <div class="tabs" id="rtabs"><button data-r="cut" class="on">Corte</button><button data-r="prod">Producto</button><button data-r="acct">Mi cuenta</button></div>
+
+          <div id="r-cut" class="rpage on"><div class="panel pad">
+            <input id="cutPrice" class="amount" type="number" inputmode="numeric" min="1" step="500" placeholder="$0" aria-label="Precio del corte">
+            <div id="recentCutPrices" class="chips"></div>
+            <div class="field"><label>Pago</label><div id="cutPayments" class="pick"></div></div>
+            <div id="cutCashReceiverWrap" class="field hidden"><label>¿Quién recibió el efectivo?</label><div id="cutReceivers" class="pick two-c"><button class="on" data-v="barber">Yo</button><button data-v="house">La casa</button></div></div>
+            <button id="saveCutBtn" class="primary">Guardar corte</button>
+          </div></div>
+
+          <div id="r-prod" class="rpage"><div class="panel pad">
+            <input id="productPrice" class="amount" type="number" inputmode="numeric" min="1" step="100" placeholder="$0" aria-label="Precio del producto">
+            <div class="field"><label for="productPick">Producto</label><select id="productPick" class="input"><option value="">Cargando…</option></select></div>
+            <input id="productName" type="hidden">
+            <div id="recentProducts" class="chips"></div>
+            <div class="field"><label>Pago</label><div id="productPayments" class="pick"></div></div>
+            <div id="productCashReceiverWrap" class="field hidden"><label>¿Quién recibió el efectivo?</label><div id="productReceivers" class="pick two-c"><button class="on" data-v="barber">Yo</button><button data-v="house">La casa</button></div></div>
+            <button id="saveProductBtn" class="primary">Guardar producto</button>
+            <div class="hint">Comisión de 10% solo desde $7.000</div>
+            <button id="stockToggle" class="btn ghost" style="width:100%;margin-top:14px">Ver stock</button>
+            <div id="stockList" class="panel rows hidden" style="margin-top:10px"></div>
+          </div></div>
+
+          <div id="r-acct" class="rpage"><div class="panel pad">
+            <input id="accountAmount" class="amount" type="number" inputmode="numeric" min="1" step="100" placeholder="$0" aria-label="Monto">
+            <div class="field"><label for="accountDesc">¿Qué sacaste?</label><input id="accountDesc" class="input" maxlength="60" placeholder="Red Bull"></div>
+            <button id="saveAccountChargeBtn" class="primary">Anotar a mi cuenta</button>
+            <div class="hint">No es venta y no genera comisión</div>
+          </div></div>
+        </div>
+      </section>
+
+      <!-- ───────── BARBERO · MI TURNO ───────── -->
+      <section id="v-turno" class="view hidden">
+        <div class="head"><div><h1>Mi turno</h1><p id="shiftSubtitle">Resumen de hoy</p></div><div class="acts"><button id="reloadShift" class="btn icon" aria-label="Actualizar"></button></div></div>
+        <div class="grid g2" style="margin-bottom:12px"><button id="exportShiftBtn" class="btn brass" style="min-height:50px">Enviar mi cierre</button><button id="exportShiftDetailBtn" class="btn" style="min-height:50px">Enviar con detalle</button></div>
+        <div class="panel"><div class="hero"><div class="lbl">Venta de mi turno</div><div id="shiftBig" class="big">$0</div><div id="shiftHeroSub" class="sub"></div></div><div id="shiftStats" class="stats"></div></div>
+        <div class="h2row"><h2>Medios de pago</h2></div>
+        <div id="shiftMethods" class="panel"></div>
+        <div class="h2row"><h2>Movimientos de hoy</h2><small id="shiftMeta"></small></div>
+        <div id="shiftRows" class="panel rows"></div>
+      </section>
+
+      <!-- ───────── BARBERO · HISTORIAL ───────── -->
+      <section id="v-historial" class="view hidden"><div id="historialBody"></div></section>
+
+    </main>
+  </div>
+  <nav id="tabbar" class="tabbar"></nav>
 </div>
-<div id="toast" class="toast"></div>
-<script>
-(()=>{
-'use strict';
-const SUPABASE_URL='https://wzrakdrgsknargtjxwlj.supabase.co';
-const SUPABASE_KEY='sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';
-const $=id=>document.getElementById(id);const money=n=>'$'+Math.round(Number(n||0)).toLocaleString('es-CL');const pct=n=>(Number(n||0)*100).toFixed(0)+'%';
-let session=null,profile=null,barbers=[],branches=[];let cutPayment=null,productPayment=null,cutReceiver='barber',productReceiver='barber';let selectedBranch='all',periodMode='today',ownerData=null;
-const authStore={get(){for(const st of [sessionStorage,localStorage]){try{const v=JSON.parse(st.getItem('cb_session')||'null');if(v&&v.access_token)return v}catch(_){}}return null},set(v){session=v;try{if(v){sessionStorage.setItem('cb_session',JSON.stringify(v));localStorage.setItem('cb_session',JSON.stringify(v))}else{sessionStorage.removeItem('cb_session');localStorage.removeItem('cb_session')}}catch(_){}}};
-function toast(msg,type='ok'){const t=$('toast');t.textContent=msg;t.className='toast show '+type;clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='toast',2600)}
-async function request(url,opt={}){const r=await fetch(url,opt);const tx=await r.text();let d=null;try{d=tx?JSON.parse(tx):null}catch{d=tx}if(!r.ok)throw new Error(d?.message||d?.msg||d?.error_description||d?.error||('Error '+r.status));return d}
-async function refreshSession(){if(!session?.refresh_token)return false;try{const d=await request(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:session.refresh_token})});authStore.set(d);return true}catch{authStore.set(null);return false}}
-async function api(path,opt={}){if(!session?.access_token)throw new Error('Sesión requerida');const headers={apikey:SUPABASE_KEY,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json',...(opt.headers||{})};try{return await request(SUPABASE_URL+path,{...opt,headers})}catch(e){if(String(e.message).toLowerCase().includes('jwt')&&await refreshSession()){headers.Authorization='Bearer '+session.access_token;return request(SUPABASE_URL+path,{...opt,headers})}throw e}}
-function uid(){return session?.user?.id||session?.user_id}function iso(d=new Date()){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}function dayLabel(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('es-CL',{day:'2-digit',month:'short'})}function timeLabel(s){return new Date(s).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}function sum(a,k){return a.reduce((t,x)=>t+Number(typeof k==='function'?k(x):(x[k]||0)),0)}function methodName(v){return v==='cash'?'Efectivo':v==='debit'?'Débito':'Transferencia'}function branchName(id){return branches.find(x=>x.id===id)?.name||''}function currentBarber(){return barbers.find(x=>x.id===profile?.barber_id)||barbers[0]}
-async function login(){const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||!password)return toast('Ingresa correo y contraseña','err');try{const d=await request(SUPABASE_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email,password})});authStore.set(d);await boot()}catch(e){toast(e.message,'err')}}
-async function loadProfile(){const rows=await api('/rest/v1/profiles?select=*&user_id=eq.'+encodeURIComponent(uid()));profile=rows[0]||null;if(!profile)throw new Error('Usuario sin perfil')}
-async function loadDirectory(){if(profile.role==='owner'){barbers=await api('/rest/v1/barbers?select=id,name,branch_id,active&active=eq.true&order=name');branches=await api('/rest/v1/branches?select=id,code,name&order=name')}else if(profile.role==='barber'){barbers=await api('/rest/v1/barbers?select=id,name,branch_id,active&id=eq.'+profile.barber_id);branches=await api('/rest/v1/branches?select=id,code,name')}else{barbers=[];branches=[]}}
-function showAuth(){$('authView').classList.remove('hidden');$('appView').classList.add('hidden')}function showApp(){$('authView').classList.add('hidden');$('appView').classList.remove('hidden');$('nav').classList.remove('hidden')}
-function buildNav(){const nav=$('nav');if(profile.role==='owner'){nav.style.gridTemplateColumns='repeat(3,1fr)';nav.innerHTML=`<button data-page="overview"><span>📊</span>Resumen</button><button data-page="performance"><span>✂️</span>Barberos</button><button data-page="finance"><span>💰</span>Finanzas</button>`}else if(profile.role==='barber'){nav.style.gridTemplateColumns='repeat(2,1fr)';nav.innerHTML=`<button data-page="register"><span>➕</span>Registrar</button><button data-page="shift"><span>🧾</span>Mi turno</button>`}else{nav.style.gridTemplateColumns='1fr';nav.innerHTML=''}nav.querySelectorAll('button').forEach(b=>b.onclick=()=>showPage(b.dataset.page))}
-function showPage(name){document.querySelectorAll('main .page').forEach(p=>p.classList.add('hidden'));const p=$('page-'+name);if(p)p.classList.remove('hidden');$('nav').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));if(name==='shift')loadShift();if(name==='overview')loadOwnerAnalytics();if(name==='performance')renderPerformance();if(name==='finance')loadFinance()}
-async function boot(){session=authStore.get();if(!session?.access_token)return showAuth();try{await loadProfile();await loadDirectory();showApp();buildNav();if(profile.role==='owner'){$('sessionLabel').textContent='Dueño · solo análisis';$('branchBadge').textContent='Ambas sucursales';fillPaymentBarbers();setPreset('today',false);await loadOwnerAnalytics();showPage('overview')}else if(profile.role==='barber'){const b=currentBarber();$('sessionLabel').textContent=b?.name||profile.display_name;$('branchBadge').textContent=branchName(b?.branch_id);await loadRecentHints();await loadInventory();showPage('register')}else{throw new Error('Cuenta pendiente')}}catch(e){authStore.set(null);showAuth();toast(e.message==='Cuenta pendiente'?'Cuenta pendiente de habilitación':'Vuelve a iniciar sesión','err')}}
-function selectGroup(id,cb){$(id).querySelectorAll('button').forEach(btn=>btn.onclick=()=>{$(id).querySelectorAll('button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');cb(btn.dataset.v)})}selectGroup('cutPayments',v=>{cutPayment=v;$('cutCashReceiverWrap').classList.toggle('hidden',v!=='cash')});selectGroup('cutReceivers',v=>cutReceiver=v);selectGroup('productPayments',v=>{productPayment=v;$('productCashReceiverWrap').classList.toggle('hidden',v!=='cash')});selectGroup('productReceivers',v=>productReceiver=v);function receiver(payment,cash){return payment==='debit'?'house':payment==='transfer'?'barber':cash}
-async function saveCut(){const price=Number($('cutPrice').value);if(!price||!cutPayment)return toast('Ingresa precio y medio de pago','err');try{await api('/rest/v1/cuts',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({barber_id:profile.barber_id,price,payment_method:cutPayment,received_by:receiver(cutPayment,cutReceiver)})});$('cutPrice').value='';toast('Corte guardado');loadRecentHints()}catch(e){toast(e.message,'err')}}
-let inventory=[],productInvId=null;
-async function loadInventory(){try{const r=await api('/rest/v1/inventory?select=*&active=eq.true&order=kind,name');inventory=Array.isArray(r)?r:[];}catch(_){inventory=[]}
-const venta=inventory.filter(x=>x.kind!=='insumo');
-const sel=$('productPick');if(!sel)return;
-if(!venta.length){sel.innerHTML='<option value="">— sin inventario cargado —</option>';return}
-sel.innerHTML='<option value="">Elige un producto</option>'+venta.map(x=>`<option value="${x.id}" data-name="${escapeHtml(x.name)}" data-price="${Number(x.price||0)}">${escapeHtml(x.name)}${x.stock<=0?' (sin stock)':''}</option>`).join('');
-sel.onchange=()=>{const o=sel.selectedOptions[0];if(!o||!sel.value){productInvId=null;$('productName').value='';return}
-productInvId=sel.value;$('productName').value=o.dataset.name;const pr=Number(o.dataset.price||0);if(pr>0)$('productPrice').value=pr;$('productPrice').focus()};
-$('recentProducts').innerHTML=venta.slice(0,4).map(x=>`<button data-id="${x.id}">${escapeHtml(x.name)}</button>`).join('');
-$('recentProducts').querySelectorAll('button').forEach(b=>b.onclick=()=>{sel.value=b.dataset.id;sel.onchange()});
-renderStock()}
-function renderStock(){const el=$('stockList');if(!el)return;
-if(!inventory.length){el.innerHTML='<div class="rhint">Sin inventario cargado.</div>';return}
-el.innerHTML=inventory.map(x=>{const low=Number(x.stock)<=Number(x.min_stock);return `<div class="stockrow ${low?'stocklow':'stockok'}"><div><strong>${escapeHtml(x.name)}</strong><small>${x.kind==='insumo'?'insumo':money(x.price)}${low?' · reponer':''}</small></div><b>${Number(x.stock)}</b></div>`}).join('')
-+'<div class="rhint">Solo lectura. Avisa al dueño si algo está agotado.</div>'}
-async function saveProduct(){const product_name=$('productName').value.trim(),price=Number($('productPrice').value);if(!product_name||!price||!productPayment)return toast('Completa producto, precio y medio de pago','err');try{await api('/rest/v1/products',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({barber_id:profile.barber_id,product_name,price,inventory_id:productInvId||null,payment_method:productPayment,received_by:receiver(productPayment,productReceiver)})});$('productName').value='';$('productPrice').value='';if($('productPick')){$('productPick').value='';}productInvId=null;toast('Producto guardado');loadInventory()}catch(e){toast(e.message,'err')}}
-async function saveAccountCharge(){const description=$('accountDesc').value.trim(),amount=Number($('accountAmount').value);if(!description||!amount)return toast('Completa producto y monto','err');try{await api('/rest/v1/account_movements',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({barber_id:profile.barber_id,kind:'charge',description,amount})});$('accountDesc').value='';$('accountAmount').value='';toast('Anotado a tu cuenta')}catch(e){toast(e.message,'err')}}
-async function loadRecentHints(){if(profile?.role!=='barber')return;try{const [c,p]=await Promise.all([api('/rest/v1/cuts?select=price&order=created_at.desc&limit=20'),api('/rest/v1/products?select=product_name,price&order=created_at.desc&limit=20')]);const prices=[...new Set(c.map(x=>Number(x.price)))].slice(0,4);$('recentCutPrices').innerHTML=prices.map(v=>`<button data-price="${v}">${money(v)}</button>`).join('');$('recentCutPrices').querySelectorAll('button').forEach(b=>b.onclick=()=>{$('cutPrice').value=b.dataset.price});const seen=new Set(),prods=[];p.forEach(x=>{const key=(x.product_name||'').toLowerCase();if(key&&!seen.has(key)&&prods.length<4){seen.add(key);prods.push(x)}});/* los productos ahora vienen del inventario */}catch{}}
-async function fetchMyToday(){const date=iso();const [cuts,products,account,allCuts,allProducts,allAccount]=await Promise.all([api('/rest/v1/cuts?select=*&business_date=eq.'+date+'&order=created_at.desc'),api('/rest/v1/products?select=*&business_date=eq.'+date+'&order=created_at.desc'),api('/rest/v1/account_movements?select=*&business_date=eq.'+date+'&order=created_at.desc'),api('/rest/v1/cuts?select=debt_generated,debt_recovered'),api('/rest/v1/products?select=debt_generated'),api('/rest/v1/account_movements?select=kind,amount')]);let serverDebt=null,serverAccount=null;try{const v=await api('/rest/v1/barber_debt?select=debt,account&barber_id=eq.'+encodeURIComponent(profile.barber_id));if(Array.isArray(v)&&v[0]){serverDebt=Math.max(0,Number(v[0].debt||0));serverAccount=Math.max(0,Number(v[0].account||0))}}catch(_){}return{date,cuts,products,account,allCuts,allProducts,allAccount,serverDebt,serverAccount}}
-function methodTotals(cuts,products){const all=[...cuts,...products],m={cash:0,debit:0,transfer:0};all.forEach(x=>m[x.payment_method]=(m[x.payment_method]||0)+Number(x.price||0));return m}
-async function loadShift(){if(profile?.role!=='barber')return;try{const d=await fetchMyToday();const cutSales=sum(d.cuts,'price'),prodSales=sum(d.products,'price'),gross=cutSales+prodSales,ganada=sum(d.cuts,x=>x.base_commission!=null?Number(x.base_commission):Number(x.price||0)*.5)+sum(d.products,x=>Number(x.commission||0)),descontado=sum(d.cuts,x=>Number(x.debt_recovered||0)),commission=sum(d.cuts,x=>Number(x.commission_paid||0))+sum(d.products,x=>Number(x.commission||0)),received=sum([...d.cuts,...d.products].filter(x=>x.received_by==='barber'),'price');const debt=d.serverDebt!=null?d.serverDebt:Math.max(0,sum(d.allCuts,x=>Number(x.debt_generated||0)-Number(x.debt_recovered||0))+sum(d.allProducts,'debt_generated'));const acct=d.serverAccount!=null?d.serverAccount:Math.max(0,sum(d.allAccount,x=>(x.kind==='charge'?1:-1)*Number(x.amount||0)));$('shiftSubtitle').textContent=`${currentBarber()?.name||''} · ${branchName(currentBarber()?.branch_id)} · ${new Date().toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'})}`;$('shiftKpis').innerHTML=`<div class="kpi wide"><div class="k">Venta de mi turno</div><div class="v goldtxt">${money(gross)}</div><div class="s">Cortes + productos vendidos hoy</div></div><div class="kpi"><div class="k">Cortes</div><div class="v">${d.cuts.length}</div><div class="s">${money(cutSales)}</div></div><div class="kpi"><div class="k">Productos</div><div class="v purpletxt">${d.products.length}</div><div class="s">${money(prodSales)}</div></div><div class="kpi"><div class="k">Comisión ganada</div><div class="v">${money(ganada)}</div><div class="s">A pagar: ${money(commission)}${descontado?" · descontó "+money(descontado):""}</div></div><div class="kpi"><div class="k">Dinero en mis manos</div><div class="v bluetxt">${money(received)}</div></div><div class="kpi"><div class="k">Deuda caja actual</div><div class="v ${debt?'redtxt':'greentxt'}">${money(debt)}</div></div><div class="kpi"><div class="k">Mi cuenta personal</div><div class="v ${acct?'redtxt':'greentxt'}">${money(acct)}</div></div>`;renderMethods('shiftMethods',methodTotals(d.cuts,d.products),gross);$('shiftCutsMeta').textContent=money(cutSales);$('shiftProductsMeta').textContent=money(prodSales);$('shiftCuts').innerHTML=d.cuts.length?d.cuts.map(x=>movementRow('✂️ Corte',x)).join(''):'<div class="empty">Sin cortes registrados hoy.</div>';$('shiftProducts').innerHTML=d.products.length?d.products.map(x=>movementRow('🥤 '+escapeHtml(x.product_name),x)).join(''):'<div class="empty">Sin productos vendidos hoy.</div>';$('shiftAccountSummary').innerHTML=`<div class="row"><div><strong>Saldo actual</strong><small>Consumos menos abonos</small></div><div class="money ${acct?'redtxt':'greentxt'}">${money(acct)}</div></div>`;window.__shift=d}catch(e){toast(e.message,'err')}}
-function movementRow(label,x){return `<div class="row"><div><strong>${label}</strong><small>${timeLabel(x.created_at)} · ${methodName(x.payment_method)} · recibió ${x.received_by==='house'?'casa':'barbero'}</small></div><div><div class="money">${money(x.price)}</div><small style="text-align:right">com. ${money(x.commission_paid??x.commission??0)}</small></div></div>`}
-async function exportShift(detail=false){try{if(!window.__shift)await loadShift();
-const d=window.__shift||await fetchMyToday(),b=currentBarber(),m=methodTotals(d.cuts,d.products);
-const cutSales=sum(d.cuts,'price'),prodSales=sum(d.products,'price'),gross=cutSales+prodSales;
-const ganada=sum(d.cuts,x=>x.base_commission!=null?Number(x.base_commission):Number(x.price||0)*.5)+sum(d.products,x=>Number(x.commission||0));const descontado=sum(d.cuts,x=>Number(x.debt_recovered||0));const commission=sum(d.cuts,x=>Number(x.commission_paid||0))+sum(d.products,x=>Number(x.commission||0));
-const received=sum([...d.cuts,...d.products].filter(x=>x.received_by==='barber'),'price');
-const debt=Math.max(0,sum(d.allCuts,x=>Number(x.debt_generated||0)-Number(x.debt_recovered||0))+sum(d.allProducts,'debt_generated'));
-const acct=Math.max(0,sum(d.allAccount,x=>(x.kind==='charge'?1:-1)*Number(x.amount||0)));
-const fecha=new Date().toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'});
-const linea=(a,b)=>a+': '+b;
-let msg='\u2702\ufe0f *'+(b?.name||profile.display_name||'')+'* \u00b7 '+fecha+'\n'+branchName(b?.branch_id)+'\n'
-+'\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n'
-+'\u2702 '+d.cuts.length+' cortes \u00b7 '+money(cutSales)+'\n';
-if(d.products.length)msg+='\ud83e\udd64 '+d.products.length+' productos \u00b7 '+money(prodSales)+'\n';
-msg+='\ud83d\udcb0 *Total '+money(gross)+'*\n\n'
-+'\ud83d\udcb5 '+money(m.cash)+'  \ud83d\udcb3 '+money(m.debit)+'  \ud83d\udcf2 '+money(m.transfer)+'\n'
-+'\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n'
-+'\ud83d\udcb0 Comisi\u00f3n ganada: '+money(ganada)+'\n'+(descontado?'\u2796 Descontado de deuda: '+money(descontado)+'\n':'')+'\u2705 *A PAGAR: '+money(commission)+'*\n';
-if(debt)msg+='\ud83c\udfe0 *Entregar a caja: '+money(debt)+'*\n';
-if(acct)msg+='\ud83e\uddfe Mi cuenta: '+money(acct)+'\n';
-if(detail){msg+='\n*DETALLE*\n';
-[...d.cuts.map(x=>({...x,_n:'Corte'})),...d.products.map(x=>({...x,_n:x.product_name}))]
-.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at))
-.forEach(x=>msg+=timeLabel(x.created_at)+' \u00b7 '+x._n+' \u00b7 '+money(x.price)+' \u00b7 '+methodName(x.payment_method)+'\n')}
-shareText('Cierre '+(b?.name||''),msg)}catch(e){toast(e.message,'err')}}
-function setPreset(mode,load=true){periodMode=mode;const now=new Date(),from=new Date(now),to=new Date(now);if(mode==='7d')from.setDate(now.getDate()-6);if(mode==='month')from.setDate(1);$('fromDate').value=iso(from);$('toDate').value=iso(to);$('periodSwitch').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.v===mode));if(load)loadOwnerAnalytics()}
-function branchFiltered(rows){if(selectedBranch==='all')return rows;const id=branches.find(b=>b.code===selectedBranch)?.id;return rows.filter(x=>x.branch_id===id)}
-async function fetchOwnerRange(){const from=$('fromDate').value,to=$('toDate').value;if(!from||!to)throw new Error('Selecciona fechas');const [cutsRaw,productsRaw]=await Promise.all([api(`/rest/v1/cuts?select=*&business_date=gte.${from}&business_date=lte.${to}&order=business_date.asc,created_at.asc`),api(`/rest/v1/products?select=*&business_date=gte.${from}&business_date=lte.${to}&order=business_date.asc,created_at.asc`)]);return{from,to,cuts:branchFiltered(cutsRaw),products:branchFiltered(productsRaw)}}
-async function loadOwnerAnalytics(){if(profile?.role!=='owner')return;try{ownerData=await fetchOwnerRange();renderOwnerOverview();renderPerformance();await loadFinance()}catch(e){toast(e.message,'err')}}
-function renderOwnerOverview(){if(!ownerData)return;const d=ownerData,cuts=d.cuts,products=d.products,cutSales=sum(cuts,'price'),prodSales=sum(products,'price'),gross=cutSales+prodSales,avg=cuts.length?cutSales/cuts.length:0,commission=sum(cuts,'commission_paid')+sum(products,'commission'),houseGenerated=sum(cuts,'house_share')+sum(products,'house_share'),houseCollected=sum(cuts,'house_collected')+sum(products,'house_collected');$('ownerKpis').innerHTML=`<div class="kpi wide"><div class="k">Facturación</div><div class="v goldtxt">${money(gross)}</div><div class="s">${money(cutSales)} cortes · ${money(prodSales)} productos</div></div><div class="kpi"><div class="k">N° de cortes</div><div class="v">${cuts.length}</div></div><div class="kpi"><div class="k">Ticket promedio corte</div><div class="v">${money(avg)}</div></div><div class="kpi"><div class="k">Productos vendidos</div><div class="v purpletxt">${products.length}</div></div><div class="kpi"><div class="k">Comisiones</div><div class="v greentxt">${money(commission)}</div></div><div class="kpi"><div class="k">Casa generada</div><div class="v">${money(houseGenerated)}</div></div><div class="kpi"><div class="k">Casa cobrada</div><div class="v greentxt">${money(houseCollected)}</div></div>`;$('periodLabel').textContent=`${dayLabel(d.from)} — ${dayLabel(d.to)}`;renderTrend(cuts,products);renderBranches(cuts,products)}
-function renderTrend(cuts,products){const map={};[...cuts.map(x=>({...x,_t:'cut'})),...products.map(x=>({...x,_t:'product'}))].forEach(x=>{const k=x.business_date;map[k]??={sales:0,cuts:0,products:0};map[k].sales+=Number(x.price);if(x._t==='cut')map[k].cuts++;else map[k].products++});const keys=Object.keys(map).sort(),max=Math.max(1,...keys.map(k=>map[k].sales));$('trendCard').innerHTML=keys.length?keys.map(k=>`<div class="trend-row"><div class="trend-date">${dayLabel(k)}</div><div class="bartrack"><div class="barfill" style="width:${Math.max(3,map[k].sales/max*100)}%"></div></div><div class="trend-val">${money(map[k].sales)}<br><span style="color:var(--muted);font-size:9px">${map[k].cuts} cortes</span></div></div>`).join(''):'<div class="owner-empty">Sin actividad en este período.</div>'}
-function renderBranches(cuts,products){$('branchComparison').innerHTML=branches.map(br=>{const c=cuts.filter(x=>x.branch_id===br.id),p=products.filter(x=>x.branch_id===br.id),sales=sum(c,'price')+sum(p,'price'),avg=c.length?sum(c,'price')/c.length:0;return `<div class="barber-card"><div class="barber-head"><div><div class="barber-name">📍 ${br.name}</div><div class="barber-branch">${c.length} cortes · ${p.length} productos</div></div><div class="money goldtxt">${money(sales)}</div></div><div class="mini-grid"><div class="mini"><div class="k">Cortes</div><div class="v">${c.length}</div></div><div class="mini"><div class="k">Ticket</div><div class="v">${money(avg)}</div></div><div class="mini"><div class="k">Productos</div><div class="v">${money(sum(p,'price'))}</div></div></div></div>`}).join('')}
-function renderPerformance(){if(profile?.role!=='owner'||!ownerData)return;const {cuts,products}=ownerData,eligible=barbers.filter(b=>selectedBranch==='all'||branches.find(br=>br.id===b.branch_id)?.code===selectedBranch);const rows=eligible.map(b=>{const c=cuts.filter(x=>x.barber_id===b.id),p=products.filter(x=>x.barber_id===b.id),cutSales=sum(c,'price'),prodSales=sum(p,'price'),commission=sum(c,'commission_paid')+sum(p,'commission');return{b,c,p,cutSales,prodSales,commission,total:cutSales+prodSales,avg:c.length?cutSales/c.length:0}}).sort((a,b)=>b.total-a.total);$('barberPerformance').innerHTML=rows.length?rows.map((x,i)=>`<div class="barber-card"><div class="barber-head"><div><div class="barber-name">${i===0&&x.total>0?'🏆 ':''}${x.b.name}</div><div class="barber-branch">${branchName(x.b.branch_id)}</div></div><div class="money goldtxt">${money(x.total)}</div></div><div class="mini-grid"><div class="mini"><div class="k">Cortes</div><div class="v">${x.c.length}</div></div><div class="mini"><div class="k">Venta cortes</div><div class="v">${money(x.cutSales)}</div></div><div class="mini"><div class="k">Ticket prom.</div><div class="v">${money(x.avg)}</div></div><div class="mini"><div class="k">Productos</div><div class="v">${x.p.length}</div></div><div class="mini"><div class="k">Venta prod.</div><div class="v">${money(x.prodSales)}</div></div><div class="mini"><div class="k">Comisión</div><div class="v greentxt">${money(x.commission)}</div></div></div></div>`).join(''):'<div class="owner-empty">Sin datos.</div>'}
-function renderMethods(id,m,total){const vals=[['cash','💵 Efectivo'],['debit','💳 Débito'],['transfer','📲 Transferencia']];$(id).innerHTML=vals.map(([k,n])=>`<div class="method"><div class="k">${n}</div><div class="v">${money(m[k]||0)}</div><div class="p">${total?pct((m[k]||0)/total):'0%'}</div></div>`).join('')}
-async function loadFinance(){if(profile?.role!=='owner'||!ownerData)return;try{const {cuts,products}=ownerData,gross=sum(cuts,'price')+sum(products,'price'),m=methodTotals(cuts,products),houseGenerated=sum(cuts,'house_share')+sum(products,'house_share'),houseCollected=sum(cuts,'house_collected')+sum(products,'house_collected'),commission=sum(cuts,'commission_paid')+sum(products,'commission');renderMethods('ownerMethods',m,gross);const [allCuts,allProducts,allAccount]=await Promise.all([api('/rest/v1/cuts?select=barber_id,debt_generated,debt_recovered'),api('/rest/v1/products?select=barber_id,debt_generated'),api('/rest/v1/account_movements?select=barber_id,kind,amount')]);const debt={},acct={};barbers.forEach(b=>{debt[b.id]=0;acct[b.id]=0});allCuts.forEach(x=>debt[x.barber_id]=(debt[x.barber_id]||0)+Number(x.debt_generated||0)-Number(x.debt_recovered||0));allProducts.forEach(x=>debt[x.barber_id]=(debt[x.barber_id]||0)+Number(x.debt_generated||0));allAccount.forEach(x=>acct[x.barber_id]=(acct[x.barber_id]||0)+(x.kind==='charge'?1:-1)*Number(x.amount||0));const totalDebt=Object.values(debt).reduce((a,x)=>a+Math.max(0,Number(x||0)),0),totalAcct=Object.values(acct).reduce((a,x)=>a+Math.max(0,Number(x||0)),0);$('financeKpis').innerHTML=`<div class="kpi wide"><div class="k">Casa generada período</div><div class="v goldtxt">${money(houseGenerated)}</div></div><div class="kpi"><div class="k">Casa cobrada período</div><div class="v greentxt">${money(houseCollected)}</div></div><div class="kpi"><div class="k">Comisiones período</div><div class="v">${money(commission)}</div></div><div class="kpi"><div class="k">Deuda caja actual</div><div class="v ${totalDebt?'redtxt':'greentxt'}">${money(totalDebt)}</div></div><div class="kpi"><div class="k">Cuentas personales</div><div class="v ${totalAcct?'redtxt':'greentxt'}">${money(totalAcct)}</div></div>`;$('cashDebtList').innerHTML=barbers.map(b=>`<div class="row"><div><strong>${b.name}</strong><small>${branchName(b.branch_id)}</small></div><div class="money ${debt[b.id]>0?'redtxt':'greentxt'}">${money(Math.max(0,debt[b.id]||0))}</div></div>`).join('');$('personalDebtList').innerHTML=barbers.map(b=>`<div class="row"><div><strong>${b.name}</strong><small>${branchName(b.branch_id)}</small></div><div class="money ${acct[b.id]>0?'redtxt':'greentxt'}">${money(Math.max(0,acct[b.id]||0))}</div></div>`).join('')}catch(e){toast(e.message,'err')}}
-function fillPaymentBarbers(){$('paymentBarber').innerHTML=barbers.map(b=>`<option value="${b.id}">${b.name} · ${branchName(b.branch_id)}</option>`).join('')}
-async function saveAccountPayment(){const barber_id=$('paymentBarber').value,amount=Number($('paymentAmount').value),description=$('paymentDesc').value.trim()||'Abono cuenta';if(!barber_id||!amount)return toast('Selecciona barbero y monto','err');try{await api('/rest/v1/account_movements',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({barber_id,kind:'payment',description,amount})});$('paymentAmount').value='';toast('Abono registrado');loadFinance()}catch(e){toast(e.message,'err')}}
-async function exportOwner(){try{if(!ownerData)await loadOwnerAnalytics();const d=ownerData,cuts=d.cuts,products=d.products,cutSales=sum(cuts,'price'),prodSales=sum(products,'price'),gross=cutSales+prodSales,m=methodTotals(cuts,products),commission=sum(cuts,'commission_paid')+sum(products,'commission'),houseGenerated=sum(cuts,'house_share')+sum(products,'house_share'),houseCollected=sum(cuts,'house_collected')+sum(products,'house_collected');let msg=`✂️ *CALIFORNIA BARBER · REPORTE*\n📅 ${d.from} al ${d.to}\n📍 ${selectedBranch==='all'?'Ambas sucursales':selectedBranch==='coihueco'?'Coihueco':'Pinto'}\n━━━━━━━━━━━━━━━\n💰 *Facturación: ${money(gross)}*\n✂ Cortes: ${cuts.length} · ${money(cutSales)}\n🥤 Productos: ${products.length} · ${money(prodSales)}\n🎟 Ticket prom. corte: ${money(cuts.length?cutSales/cuts.length:0)}\n💵 Efectivo: ${money(m.cash)}\n💳 Débito: ${money(m.debit)}\n📲 Transferencia: ${money(m.transfer)}\n🏠 Casa generada: ${money(houseGenerated)}\n✅ Casa cobrada: ${money(houseCollected)}\n✂ Comisiones: ${money(commission)}\n\n*POR BARBERO*\n`;barbers.filter(b=>selectedBranch==='all'||branches.find(br=>br.id===b.branch_id)?.code===selectedBranch).forEach(b=>{const c=cuts.filter(x=>x.barber_id===b.id),p=products.filter(x=>x.barber_id===b.id);msg+=`${b.name}: ${c.length} cortes · ${money(sum(c,'price')+sum(p,'price'))}\n`});shareText('Reporte California Barber',msg)}catch(e){toast(e.message,'err')}}
-function shareText(title,text){if(navigator.share){navigator.share({title,text}).catch(()=>copyAndWA(text))}else copyAndWA(text)}async function copyAndWA(text){try{if(navigator.clipboard)await navigator.clipboard.writeText(text)}catch{}window.location.href='https://wa.me/?text='+encodeURIComponent(text)}function escapeHtml(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-$('loginBtn').onclick=login;$('authPassword').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('logoutBtn').onclick=()=>{authStore.set(null);profile=null;ownerData=null;showAuth()};$('saveCutBtn').onclick=saveCut;$('saveProductBtn').onclick=saveProduct;$('saveAccountChargeBtn').onclick=saveAccountCharge;$('goShiftBtn').onclick=()=>showPage('shift');$('reloadShift').onclick=loadShift;if($('stockToggle'))$('stockToggle').onclick=()=>{const el=$('stockList');el.classList.toggle('hidden');$('stockToggle').textContent=el.classList.contains('hidden')?'\ud83d\udce6 Ver stock':'\ud83d\udce6 Ocultar stock'};$('exportShiftBtn').onclick=()=>exportShift(false);$('exportShiftDetailBtn').onclick=()=>exportShift(true);$('saveAccountPaymentBtn').onclick=saveAccountPayment;$('exportOwnerBtn').onclick=exportOwner;$('branchSwitch').querySelectorAll('button').forEach(btn=>btn.onclick=()=>{selectedBranch=btn.dataset.v;$('branchSwitch').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===btn));loadOwnerAnalytics()});$('periodSwitch').querySelectorAll('button').forEach(btn=>btn.onclick=()=>setPreset(btn.dataset.v));$('applyRangeBtn').onclick=()=>{periodMode='custom';$('periodSwitch').querySelectorAll('button').forEach(x=>x.classList.remove('active'));loadOwnerAnalytics()};
-boot();
-})();
-</script>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* Registro simplificado: pestañas + recordar el último medio de pago */
-(function(){
-  var $=function(id){return document.getElementById(id)};
-  var tabs=$('rtabs'); if(!tabs) return;
-  tabs.querySelectorAll('button').forEach(function(b){
-    b.onclick=function(){
-      tabs.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');
-      ['cut','prod','acct'].forEach(function(k){$('r-'+k).classList.toggle('on','r-'+k==='r-'+b.dataset.r)});
-      var first=$('r-'+b.dataset.r).querySelector('.amount'); if(first) first.focus();
-    };
-  });
-  function remember(groupId,storeKey){
-    var g=$(groupId); if(!g) return;
-    var saved=null; try{saved=localStorage.getItem(storeKey)}catch(_){}
-    if(saved){var btn=g.querySelector('[data-v="'+saved+'"]'); if(btn) btn.click();}
-    g.querySelectorAll('button').forEach(function(b){
-      b.addEventListener('click',function(){try{localStorage.setItem(storeKey,b.dataset.v)}catch(_){}} );
+(() => {
+'use strict';
+
+/* ════════════════ Configuración ════════════════ */
+const SUPA = 'https://wzrakdrgsknargtjxwlj.supabase.co';
+const KEY  = 'sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p';
+const PAGE = 1000;
+
+/* ════════════════ Íconos ════════════════ */
+const IC = {
+  home:'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
+  scissors:'M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12',
+  wallet:'M3 7h15a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM3 7l11-4 1 4M17 13.5h.01',
+  chart:'M4 20V11M10 20V4M16 20v-6M2 20h20',
+  box:'M21 8l-9-5-9 5 9 5zM3 8v8l9 5 9-5V8M12 13v8',
+  undo:'M3 7v6h6M3.5 13A9 9 0 1 0 6 6.3L3 9',
+  plus:'M12 5v14M5 12h14',
+  receipt:'M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6M9 15h4',
+  clock:'M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z',
+  share:'M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13',
+  trash:'M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5',
+  refresh:'M21 12a9 9 0 1 1-2.6-6.4L21 8M21 3v5h-5',
+  left:'M15 18l-6-6 6-6',
+  right:'M9 18l6-6-6-6',
+  copy:'M9 9h11v11H9zM5 15H4V4h11v1',
+  download:'M12 3v12M7 10l5 5 5-5M4 21h16',
+  alert:'M12 9v4M12 17h.01M10.3 3.9 2 18a2 2 0 0 0 1.7 3h16.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z',
+  check:'M20 6 9 17l-5-5',
+  cash:'M2 7h20v10H2zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 12h.01M18 12h.01',
+  card:'M2 6h20v12H2zM2 10h20M6 15h4',
+  phone:'M7 2h10v20H7zM11 18h2'
+};
+const ico = (n, cls = 'i') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${IC[n]}"/></svg>`;
+
+/* ════════════════ Utilidades ════════════════ */
+const $ = id => document.getElementById(id);
+const money = n => (Number(n) < 0 ? '-$' : '$') + Math.abs(Math.round(Number(n || 0))).toLocaleString('es-CL');
+const esc = (s = '') => String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const iso = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseIso = s => { const [y,m,d] = String(s).split('-').map(Number); return new Date(y, m-1, d); };
+const dayLabel = s => parseIso(s).toLocaleDateString('es-CL', {day:'numeric', month:'short'});
+const dayLong = s => parseIso(s).toLocaleDateString('es-CL', {weekday:'long', day:'numeric', month:'long'});
+const timeLabel = s => s ? new Date(s).toLocaleTimeString('es-CL', {hour:'2-digit', minute:'2-digit'}) : '';
+const stamp = s => new Date(s).toLocaleString('es-CL', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+const sum = (a, f) => (a || []).reduce((t, x) => t + Number((typeof f === 'function' ? f(x) : x[f]) || 0), 0);
+const neg = n => Number(n) ? '-' + money(n) : money(0);
+const pct = (a, b) => b ? Math.round(a / b * 100) + '%' : '0%';
+const methodName = v => v === 'cash' ? 'Efectivo' : (v === 'debit' || v === 'card') ? 'Débito' : v === 'transfer' ? 'Transferencia' : (v || '—');
+const plural = (n, s, p) => n + ' ' + (n === 1 ? s : (p || s + 's'));
+const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+
+function toast(msg, type = 'ok') {
+  const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + type;
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.className = 'toast', 2800);
+}
+let inflight = 0;
+function busy(d) { inflight = Math.max(0, inflight + d); $('loadbar').classList.toggle('on', inflight > 0); }
+
+/* ════════════════ Estado ════════════════ */
+const st = {
+  session: null, profile: null, barbers: [], branches: [],
+  branch: 'all', preset: 'today', from: iso(), to: iso(),
+  range: null, debts: null, inventory: [], route: null, detail: null,
+  pay: { cut: null, prod: null }, recv: { cut: 'barber', prod: 'barber' }, prodInvId: null,
+  hasDebtView: true, hasSettlements: true, hasExpenses: true, expCat: 'Insumos'
+};
+const isOwner = () => st.profile?.role === 'owner';
+const branchName = id => st.branches.find(b => b.id === id)?.name || '';
+const barberName = id => st.barbers.find(b => b.id === id)?.name || 'Barbero';
+const barberOf = id => st.barbers.find(b => b.id === id);
+
+/* ════════════════ Sesión y API ════════════════ */
+const authStore = {
+  get() { for (const s of [sessionStorage, localStorage]) { try { const v = JSON.parse(s.getItem('cb_session') || 'null'); if (v && v.access_token) return v; } catch (_) {} } return null; },
+  set(v) { st.session = v; try { if (v) { sessionStorage.setItem('cb_session', JSON.stringify(v)); localStorage.setItem('cb_session', JSON.stringify(v)); } else { sessionStorage.removeItem('cb_session'); localStorage.removeItem('cb_session'); } } catch (_) {} }
+};
+async function request(url, opt = {}) {
+  const r = await fetch(url, opt); const tx = await r.text();
+  let d = null; try { d = tx ? JSON.parse(tx) : null; } catch (_) { d = tx; }
+  if (!r.ok) { const e = new Error(d?.message || d?.msg || d?.error_description || d?.error || ('Error ' + r.status)); e.status = r.status; e.detail = d?.details || d?.hint || ''; throw e; }
+  return d;
+}
+async function refreshSession() {
+  const s = st.session || authStore.get();
+  if (!s?.refresh_token) return false;
+  try {
+    const d = await request(SUPA + '/auth/v1/token?grant_type=refresh_token', { method:'POST', headers:{ apikey:KEY, 'Content-Type':'application/json' }, body: JSON.stringify({ refresh_token: s.refresh_token }) });
+    authStore.set(d); return true;
+  } catch (_) { return false; }
+}
+function scheduleRefresh() {
+  clearTimeout(scheduleRefresh.t);
+  if (!st.session?.refresh_token) return;
+  const exp = st.session.expires_at ? st.session.expires_at * 1000 : Date.now() + 3600e3;
+  scheduleRefresh.t = setTimeout(async () => { await refreshSession(); scheduleRefresh(); }, Math.max(30e3, exp - Date.now() - 5 * 60e3));
+}
+const nearExpiry = () => st.session?.expires_at && st.session.expires_at * 1000 - Date.now() < 5 * 60e3;
+document.addEventListener('visibilitychange', async () => { if (!document.hidden && nearExpiry()) { await refreshSession(); scheduleRefresh(); } });
+window.addEventListener('online', async () => { if (nearExpiry()) { await refreshSession(); scheduleRefresh(); } });
+
+async function api(path, opt = {}, retry = true) {
+  if (!st.session?.access_token) throw new Error('Inicia sesión');
+  busy(1);
+  try {
+    return await request(SUPA + '/rest/v1/' + path, { ...opt, headers: { apikey: KEY, Authorization: 'Bearer ' + st.session.access_token, 'Content-Type': 'application/json', ...(opt.headers || {}) } });
+  } catch (e) {
+    if ((e.status === 401 || /jwt/i.test(e.message)) && retry && await refreshSession()) return api(path, opt, false);
+    throw e;
+  } finally { busy(-1); }
+}
+async function apiAll(path) {
+  const out = [];
+  for (let off = 0; ; off += PAGE) {
+    const c = await api(`${path}&limit=${PAGE}&offset=${off}`);
+    if (!Array.isArray(c)) throw new Error('Respuesta inesperada del servidor');
+    out.push(...c);
+    if (c.length < PAGE || off > 50000) break;
+  }
+  return out;
+}
+const post = (path, body) => api(path, { method:'POST', headers:{ Prefer:'return=minimal' }, body: JSON.stringify(body) });
+
+/* ════════════════ Login / arranque ════════════════ */
+async function login() {
+  const email = $('authEmail').value.trim(), password = $('authPassword').value;
+  $('loginErr').classList.add('hidden');
+  if (!email || !password) return showLoginErr('Ingresa tu correo y contraseña.');
+  const b = $('loginBtn'); b.disabled = true; b.textContent = 'Entrando…';
+  try {
+    const d = await request(SUPA + '/auth/v1/token?grant_type=password', { method:'POST', headers:{ apikey:KEY, 'Content-Type':'application/json' }, body: JSON.stringify({ email, password }) });
+    authStore.set(d); await boot();
+  } catch (e) { showLoginErr(/invalid/i.test(e.message) ? 'Correo o contraseña incorrectos.' : e.message); }
+  finally { b.disabled = false; b.textContent = 'Entrar'; }
+}
+function showLoginErr(m) { $('loginErr').textContent = m; $('loginErr').classList.remove('hidden'); }
+function showAuth() { $('authView').classList.remove('hidden'); $('appView').classList.add('hidden'); }
+function logout() { authStore.set(null); st.profile = null; st.range = null; st.debts = null; clearTimeout(scheduleRefresh.t); history.replaceState(null, '', location.pathname); showAuth(); }
+
+async function boot() {
+  st.session = authStore.get();
+  if (!st.session?.access_token) return showAuth();
+  try {
+    const uid = st.session.user?.id || st.session.user_id;
+    const ps = await api('profiles?select=*&user_id=eq.' + encodeURIComponent(uid));
+    st.profile = Array.isArray(ps) ? ps[0] : null;
+    if (!st.profile) throw new Error('Tu usuario no tiene perfil asignado.');
+    if (isOwner()) {
+      [st.barbers, st.branches] = await Promise.all([
+        api('barbers?select=id,name,branch_id,active&active=eq.true&order=name'),
+        api('branches?select=id,code,name&order=name')
+      ]);
+    } else if (st.profile.role === 'barber') {
+      [st.barbers, st.branches] = await Promise.all([
+        api('barbers?select=id,name,branch_id,active&id=eq.' + encodeURIComponent(st.profile.barber_id)),
+        api('branches?select=id,code,name&order=name')
+      ]);
+    } else throw new Error('Tu cuenta está pendiente de habilitación.');
+  } catch (e) {
+    authStore.set(null); showAuth();
+    showLoginErr(e.message.includes('perfil') || e.message.includes('pendiente') ? e.message : 'Vuelve a iniciar sesión.');
+    return;
+  }
+  $('authView').classList.add('hidden'); $('appView').classList.remove('hidden');
+  scheduleRefresh();
+  buildChrome();
+  if (isOwner()) initOwner(); else initBarber();
+  route(location.hash.slice(1));
+}
+
+/* ════════════════ Navegación ════════════════ */
+const NAV = {
+  owner: [
+    { id:'inicio', label:'Inicio', icon:'home', filters:true },
+    { id:'barberos', label:'Barberos', icon:'scissors', filters:true },
+    { id:'caja', label:'Caja', icon:'wallet', filters:true },
+    { id:'utilidad', label:'Utilidad', icon:'chart', filters:true },
+    { id:'stock', label:'Stock', icon:'box' },
+    { id:'correcciones', label:'Corregir', icon:'undo' }
+  ],
+  barber: [
+    { id:'registrar', label:'Registrar', icon:'plus' },
+    { id:'turno', label:'Mi turno', icon:'receipt' },
+    { id:'historial', label:'Historial', icon:'clock', filters:true }
+  ]
+};
+const navList = () => NAV[isOwner() ? 'owner' : 'barber'];
+
+function buildChrome() {
+  const items = navList();
+  const html = items.map(n => `<button data-go="${n.id}">${ico(n.icon)}<span>${n.label}</span></button>`).join('');
+  $('sideNav').innerHTML = html; $('tabbar').innerHTML = html;
+  $('tabbar').style.gridTemplateColumns = `repeat(${items.length},1fr)`;
+  const me = isOwner() ? null : barberOf(st.profile.barber_id);
+  $('whoName').textContent = isOwner() ? (st.profile.display_name || 'Dueño') : (me?.name || st.profile.display_name || '');
+  $('whoRole').textContent = isOwner() ? 'Dueño · ambas sucursales' : 'Barbero · ' + branchName(me?.branch_id);
+  $('sideSub').textContent = isOwner() ? 'Panel del dueño' : branchName(me?.branch_id);
+  $('branchSeg').classList.toggle('hidden', !isOwner());
+  $('branchSeg').innerHTML = `<button data-b="all">Ambas</button>` + st.branches.map(b => `<button data-b="${esc(b.id)}">${esc(b.name)}</button>`).join('');
+  syncFilterUI();
+}
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); if (g.dataset.go === 'barberos') st.detail = null; route(g.dataset.go); }
+});
+window.addEventListener('hashchange', () => { if (st.profile) route(location.hash.slice(1), false); });
+
+function route(name, setHash = true) {
+  const items = navList();
+  // páginas antiguas y alias
+  if (!isOwner() && (name === 'barberos' || name === 'reportes')) name = 'historial';
+  if (isOwner() && name === 'reportes') name = 'barberos';
+  let [base, arg] = String(name || '').split('/');
+  if (!items.some(n => n.id === base)) { base = items[0].id; arg = null; }
+  if (base === 'barberos') st.detail = setHash ? (arg || st.detail || null) : (arg || null);
+  const nav = items.find(n => n.id === base);
+  st.route = base;
+  document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+  $('v-' + base).classList.remove('hidden');
+  document.querySelectorAll('[data-go]').forEach(b => { if (b.closest('#sideNav,#tabbar')) b.classList.toggle('on', b.dataset.go === base); });
+  $('filters').classList.toggle('hidden', !nav.filters);
+  $('topTitle').textContent = nav.label;
+  $('topSub').textContent = isOwner() ? 'California Barber' : (barberOf(st.profile.barber_id)?.name || '');
+  const h = '#' + base + (base === 'barberos' && st.detail ? '/' + st.detail : '');
+  if (setHash && location.hash !== h) {
+    // la primera vez reemplaza; después cada sección queda en el historial (botón atrás del teléfono)
+    if (route.started) history.pushState(null, '', h); else history.replaceState(null, '', h);
+  }
+  route.started = true;
+  window.scrollTo(0, 0);
+  load(base);
+}
+async function load(base) {
+  try {
+    if (base === 'inicio') { renderInicio(await ensureRange()); ensureDebts().then(() => renderPendientes()).catch(() => {}); ensureInventory().then(() => renderPendientes()).catch(() => {}); }
+    else if (base === 'barberos') { const r = await ensureRange(); st.detail ? renderBarberDetail(r) : renderBarberList(r); ensureDebts().then(() => { if (st.route === 'barberos' && !st.detail) renderBarberList(st.range); }).catch(() => {}); }
+    else if (base === 'caja') { renderCaja(await ensureRange()); renderDebts(); loadPayHistory(); }
+    else if (base === 'utilidad') { await loadUtilidad(); }
+    else if (base === 'stock') { await loadStock(); }
+    else if (base === 'correcciones') { await loadFixes(); }
+    else if (base === 'turno') { await loadShift(); }
+    else if (base === 'historial') { await renderHistorial(); }
+  } catch (e) { toast(e.message, 'err'); }
+}
+
+/* ════════════════ Filtros ════════════════ */
+function setPreset(p) {
+  st.preset = p;
+  const now = new Date(); let from = new Date(now), to = new Date(now);
+  if (p === '7d') from.setDate(now.getDate() - 6);
+  else if (p === 'month') from = new Date(now.getFullYear(), now.getMonth(), 1);
+  else if (p === 'lastmonth') { from = new Date(now.getFullYear(), now.getMonth() - 1, 1); to = new Date(now.getFullYear(), now.getMonth(), 0); }
+  if (p !== 'custom') { st.from = iso(from); st.to = iso(to); }
+  syncFilterUI();
+}
+function syncFilterUI() {
+  $('periodSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.p === st.preset));
+  $('branchSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.b === st.branch));
+  $('customDates').classList.toggle('hidden', st.preset !== 'custom');
+  $('fromDate').value = st.from; $('toDate').value = st.to;
+}
+function periodText() {
+  if (st.preset === 'today') return 'Hoy';
+  if (st.preset === '7d') return 'Últimos 7 días';
+  if (st.preset === 'month' || st.preset === 'lastmonth') return cap(parseIso(st.from).toLocaleDateString('es-CL', { month:'long', year:'numeric' }));
+  return st.from === st.to ? cap(dayLong(st.from)) : `${dayLabel(st.from)} al ${dayLabel(st.to)}`;
+}
+const branchText = () => st.branch === 'all' ? 'Ambas sucursales' : branchName(st.branch);
+$('periodSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  setPreset(b.dataset.p);
+  if (b.dataset.p !== 'custom') reload();
+});
+$('applyDates').onclick = () => {
+  const f = $('fromDate').value, t = $('toDate').value;
+  if (!f || !t) return toast('Elige ambas fechas', 'err');
+  if (f > t) return toast('La fecha inicial es posterior a la final', 'err');
+  st.from = f; st.to = t; reload();
+};
+$('branchSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; st.branch = b.dataset.b; syncFilterUI(); reload(); });
+function reload() { st.range = null; load(st.route); }
+
+/* ════════════════ Datos ════════════════ */
+async function ensureRange(force) {
+  const key = st.from + '|' + st.to;
+  if (!force && st.range?.key === key) return st.range;
+  const q = `&business_date=gte.${st.from}&business_date=lte.${st.to}&order=business_date.asc,created_at.asc`;
+  const [cuts, products] = await Promise.all([apiAll('cuts?select=*' + q), apiAll('products?select=*' + q)]);
+  st.range = { key, from: st.from, to: st.to, cuts, products };
+  return st.range;
+}
+const scoped = rows => st.branch === 'all' ? rows : rows.filter(x => x.branch_id === st.branch);
+const cutEarned = x => x.base_commission != null ? Number(x.base_commission) : Number(x.price || 0) * 0.5;
+
+function metrics(cuts, products) {
+  const all = [...cuts, ...products];
+  const cutSales = sum(cuts, 'price'), prodSales = sum(products, 'price'), gross = cutSales + prodSales;
+  const earned = sum(cuts, cutEarned) + sum(products, 'commission');
+  const by = m => sum(all.filter(x => m.includes(x.payment_method)), 'price');
+  const hasHouse = all.some(x => x.house_share != null);
+  return {
+    cutSales, prodSales, gross, nCuts: cuts.length, nProds: products.length,
+    ticket: cuts.length ? cutSales / cuts.length : 0,
+    earned,
+    toPay: sum(cuts, x => x.commission_paid != null ? Number(x.commission_paid) : cutEarned(x)) + sum(products, 'commission'),
+    recovered: sum(cuts, 'debt_recovered'),
+    house: hasHouse ? sum(all, 'house_share') : gross - earned,
+    houseCollected: sum(all, 'house_collected'),
+    cash: by(['cash']), debit: by(['debit', 'card']), transfer: by(['transfer']),
+    inBarber: sum(all.filter(x => x.received_by === 'barber'), 'price'),
+    inHouse: sum(all.filter(x => x.received_by === 'house'), 'price'),
+    estimated: cuts.length > 0 && !cuts.some(c => c.base_commission != null)
+  };
+}
+
+// Deuda de caja y cuenta personal (vista del servidor; si no existe, se calcula aquí)
+async function ensureDebts(force) {
+  if (st.debts && !force) return st.debts;
+  let rows = null;
+  if (st.hasDebtView) {
+    try { const v = await api('barber_debt?select=*'); if (Array.isArray(v) && v.length) rows = v; } catch (_) { st.hasDebtView = false; }
+  }
+  if (!rows) {
+    st.hasDebtView = false;
+    const [cuts, prods, accts, setts] = await Promise.all([
+      apiAll('cuts?select=barber_id,debt_generated,debt_recovered&order=id'),
+      apiAll('products?select=barber_id,debt_generated&order=id'),
+      apiAll('account_movements?select=barber_id,kind,amount&order=id'),
+      st.hasSettlements ? apiAll('settlements?select=barber_id,amount&order=id').catch(() => { st.hasSettlements = false; return []; }) : []
+    ]);
+    rows = st.barbers.map(b => {
+      const f = a => a.filter(x => x.barber_id === b.id);
+      return { barber_id: b.id,
+        debt: sum(f(cuts), x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(f(prods), 'debt_generated') - sum(f(setts), 'amount'),
+        account: sum(f(accts), x => (x.kind === 'charge' ? 1 : -1) * Number(x.amount || 0)) };
     });
   }
-  remember('cutPayments','cb_last_cut_method');
-  remember('productPayments','cb_last_prod_method');
-  // Enter en el monto guarda directo
-  var cp=$('cutPrice'); if(cp) cp.addEventListener('keydown',function(e){if(e.key==='Enter')$('saveCutBtn').click()});
-})();
-</script>
+  st.debts = Object.fromEntries(rows.map(r => [r.barber_id, { debt: Math.max(0, Number(r.debt || 0)), account: Math.max(0, Number(r.account || 0)) }]));
+  return st.debts;
+}
+async function ensureInventory(force) {
+  if (st.inventory.length && !force) return st.inventory;
+  const r = await api('inventory?select=*&order=kind,name');
+  st.inventory = Array.isArray(r) ? r : [];
+  return st.inventory;
+}
+const isLow = x => Number(x.stock) <= Number(x.min_stock);
 
-<script>
-/* Mantiene la sesión viva: renueva el token antes de que expire */
-(function(){
-  function get(){for(const st of [sessionStorage,localStorage]){try{const v=JSON.parse(st.getItem('cb_session')||'null');if(v&&v.access_token)return v}catch(_){}}return null}
-  function put(v){try{sessionStorage.setItem('cb_session',JSON.stringify(v));localStorage.setItem('cb_session',JSON.stringify(v))}catch(_){}}
-  async function renew(){
-    const s=get(); if(!s||!s.refresh_token) return null;
-    try{
-      const r=await fetch('https://wzrakdrgsknargtjxwlj.supabase.co/auth/v1/token?grant_type=refresh_token',
-        {method:'POST',headers:{apikey:'sb_publishable_JzLpixHslq1OGpDa52xlbQ_kawfbn5p','Content-Type':'application/json'},
-         body:JSON.stringify({refresh_token:s.refresh_token})});
-      if(!r.ok) return null;
-      const d=await r.json(); if(d&&d.access_token){put(d);if(window.session)window.session=d;return d}
-    }catch(_){}
-    return null;
+/* ════════════════ Componentes ════════════════ */
+function methodsBlock(m) {
+  const g = m.cash + m.debit + m.transfer;
+  const item = (k, label, icon, v, col) => `<div><div class="k">${ico(icon)}${label}</div><div class="v num">${money(v)}</div><div class="meter"><i style="width:${g ? v / g * 100 : 0}%;background:${col}"></i></div><div class="k" style="margin-top:6px">${pct(v, g)}</div></div>`;
+  return `<div class="methods">${item('cash','Efectivo','cash',m.cash,'var(--mint)')}${item('debit','Débito','card',m.debit,'var(--steel)')}${item('transfer','Transferencia','phone',m.transfer,'var(--violet)')}</div>`;
+}
+function stat(k, v, s = '', cls = '') { return `<div><div class="k">${k}</div><div class="v num ${cls}">${v}</div>${s ? `<div class="s">${s}</div>` : ''}</div>`; }
+function emptyRow(msg) { return `<div class="empty">${msg}</div>`; }
+function openInline(afterEl, html) {
+  document.querySelectorAll('.inline').forEach(p => p.remove());
+  const box = document.createElement('div'); box.className = 'inline'; box.innerHTML = html;
+  afterEl.insertAdjacentElement('afterend', box);
+  const a = box.querySelector('input'); if (a) setTimeout(() => a.focus(), 30);
+  return box;
+}
+
+function chartBlock(cuts, products, from, to) {
+  const all = [...cuts, ...products];
+  let buckets = [];
+  if (from === to) {
+    const hrs = {}; all.forEach(x => { const h = new Date(x.created_at).getHours(); hrs[h] = (hrs[h] || 0) + Number(x.price || 0); });
+    const hs = Object.keys(hrs).map(Number), lo = Math.min(9, ...hs), hi = Math.max(20, ...hs);
+    for (let h = lo; h <= hi; h++) buckets.push({ label: h + 'h', tip: `${h}:00`, v: hrs[h] || 0 });
+  } else {
+    const days = {}; all.forEach(x => days[x.business_date] = (days[x.business_date] || 0) + Number(x.price || 0));
+    const a = parseIso(from), b = parseIso(to), n = Math.round((b - a) / 864e5) + 1;
+    if (n > 62) {
+      const mo = {}; Object.entries(days).forEach(([d, v]) => { const k = d.slice(0, 7); mo[k] = (mo[k] || 0) + v; });
+      for (let d = new Date(a.getFullYear(), a.getMonth(), 1); d <= b; d.setMonth(d.getMonth() + 1)) {
+        const k = `${d.getFullYear()}-${pad(d.getMonth()+1)}`;
+        buckets.push({ label: d.toLocaleDateString('es-CL', { month:'short' }), tip: k, v: mo[k] || 0 });
+      }
+    } else {
+      for (let d = new Date(a); d <= b; d.setDate(d.getDate() + 1)) {
+        const k = iso(d);
+        buckets.push({ label: n <= 7 ? d.toLocaleDateString('es-CL', { weekday:'short' }).replace('.', '') : String(d.getDate()), tip: dayLabel(k), v: days[k] || 0 });
+      }
+    }
   }
-  function near(){const s=get();if(!s||!s.expires_at)return false;return s.expires_at*1000-Date.now()<5*60e3}
-  function loop(){
-    const s=get(); if(!s) return setTimeout(loop,60e3);
-    const exp=s.expires_at?s.expires_at*1000:Date.now()+3600e3;
-    setTimeout(async()=>{await renew();loop()},Math.max(30e3,exp-Date.now()-5*60e3));
+  const max = Math.max(0, ...buckets.map(b => b.v));
+  if (!max) return `<div class="chart-cap"><span>${from === to ? 'Por hora' : 'Por día'}</span></div><div class="empty" style="padding-top:12px">Sin ventas en este período.</div>`;
+  const every = buckets.length > 16 ? Math.ceil(buckets.length / 8) : 1;
+  const best = buckets.find(b => b.v === max);
+  return `<div class="chart-cap"><span>${from === to ? 'Por hora' : buckets.length > 31 ? 'Por mes' : 'Por día'}</span><span>Mejor: ${esc(best.tip)} · <b class="num" style="color:var(--text)">${money(max)}</b></span></div>
+    <div class="chart"><div class="bars">${buckets.map(b => `<div class="b ${b.v === max ? 'max' : ''} ${b.v ? '' : 'zero'}" title="${esc(b.tip)}: ${money(b.v)}"><i style="height:${b.v ? Math.max(3, b.v / max * 100) : 2}%"></i></div>`).join('')}</div>
+    <div class="axis">${buckets.map((b, i) => `<span>${i % every === 0 ? esc(b.label) : ''}</span>`).join('')}</div></div>`;
+}
+
+/* ════════════════ DUEÑO · INICIO ════════════════ */
+function initOwner() {
+  setPreset('today');
+  $('shareOwner').innerHTML = ico('share') + 'Compartir resumen';
+  $('shareOwner').onclick = exportOwner;
+  $('invNewBtn').innerHTML = ico('plus') + 'Nuevo producto';
+  $('invNewBtn').onclick = () => { $('invForm').classList.toggle('hidden'); if (!$('invForm').classList.contains('hidden')) $('invName').focus(); };
+  $('invSave').onclick = saveInventory;
+  $('fixBarber').innerHTML = '<option value="all">Todos</option>' + st.barbers.map(b => `<option value="${esc(b.id)}">${esc(b.name)}</option>`).join('');
+  $('fixDate').value = iso();
+  $('fixDate').onchange = loadFixes; $('fixBarber').onchange = loadFixes;
+  initExpenses();
+}
+
+function renderInicio(r) {
+  const cuts = scoped(r.cuts), products = scoped(r.products), m = metrics(cuts, products);
+  $('inicioTitle').textContent = periodText();
+  $('inicioSub').textContent = branchText() + (st.preset === 'today' ? ' · ' + cap(dayLong(iso())) : '');
+  $('heroBig').textContent = money(m.gross);
+  $('heroSub').textContent = `${plural(m.nCuts, 'corte')} · ${plural(m.nProds, 'producto')} vendido${m.nProds === 1 ? '' : 's'}`;
+  // reparto por sucursal
+  const cols = ['var(--brass)', 'var(--steel)', 'var(--violet)', 'var(--mint)'];
+  const brs = (st.branch === 'all' ? st.branches : st.branches.filter(b => b.id === st.branch)).map((b, i) => ({ b, v: sum(cuts.filter(x => x.branch_id === b.id), 'price') + sum(products.filter(x => x.branch_id === b.id), 'price'), c: cols[i % cols.length] }));
+  $('heroSplit').innerHTML = st.branch === 'all' && brs.length > 1
+    ? `<div class="splitbar">${m.gross ? brs.map(x => `<i style="width:${x.v / m.gross * 100}%;background:${x.c}"></i>`).join('') : ''}</div><div class="legend">${brs.map(x => `<span><i class="dot" style="background:${x.c}"></i>${esc(x.b.name)} <b class="num">${money(x.v)}</b></span>`).join('')}</div>`
+    : '';
+  $('heroChart').innerHTML = chartBlock(cuts, products, r.from, r.to);
+  $('inicioStats').innerHTML =
+    stat('Cortes', m.nCuts, money(m.cutSales)) +
+    stat('Ticket promedio', money(m.ticket), 'por corte') +
+    stat('Productos', m.nProds, money(m.prodSales), 'violet') +
+    stat('Comisiones ganadas', money(m.earned), m.estimated ? 'estimadas al 50%' : 'cortes + productos') +
+    stat('Para la casa', money(m.house), 'después de comisiones', 'brass') +
+    stat('Ya cobrado por la casa', money(m.houseCollected), 'en caja', 'mint');
+  // ranking de barberos
+  const rows = barberRows(cuts, products).slice(0, 5), top = Math.max(1, ...rows.map(x => x.total));
+  $('inicioBarbers').innerHTML = rows.length ? rows.map((x, i) => `
+    <button class="row link" data-go="barberos/${esc(x.b.id)}"><div class="who-row"><span class="rank ${i === 0 && x.total ? 'first' : ''}">${i + 1}</span><div class="t"><b>${esc(x.b.name)}</b><span>${plural(x.m.nCuts, 'corte')} · ${esc(branchName(x.b.branch_id))}</span><div class="minibar"><i style="width:${x.total / top * 100}%"></i></div></div></div><div class="r"><span class="num amt">${money(x.total)}</span>${ico('right')}</div></button>`).join('')
+    : emptyRow('No hay barberos activos.');
+  $('inicioMethods').innerHTML = methodsBlock(m);
+  $('inicioMethodsMeta').textContent = money(m.gross);
+  renderPendientes();
+}
+function renderPendientes() {
+  if (st.route !== 'inicio') return;
+  const items = [];
+  if (st.debts) {
+    const owing = st.barbers.filter(b => st.debts[b.id]?.debt > 0).sort((a, b) => st.debts[b.id].debt - st.debts[a.id].debt);
+    const tot = sum(owing, b => st.debts[b.id].debt);
+    if (tot) items.push(`<button class="row link" data-go="caja"><div class="t"><b>Deuda de caja</b><span>${owing.slice(0, 3).map(b => esc(b.name) + ' ' + money(st.debts[b.id].debt)).join(' · ')}${owing.length > 3 ? '…' : ''}</span></div><div class="r"><span class="num amt red">${money(tot)}</span>${ico('right')}</div></button>`);
+    const acc = st.barbers.filter(b => st.debts[b.id]?.account > 0), at = sum(acc, b => st.debts[b.id].account);
+    if (at) items.push(`<button class="row link" data-go="caja"><div class="t"><b>Cuentas personales</b><span>${plural(acc.length, 'barbero')} con saldo</span></div><div class="r"><span class="num amt">${money(at)}</span>${ico('right')}</div></button>`);
   }
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&near())renew()});
-  window.addEventListener('online',()=>{if(near())renew()});
-  loop();
+  const low = st.inventory.filter(x => x.active !== false && isLow(x));
+  if (low.length) items.push(`<button class="row link" data-go="stock"><div class="t"><b>Stock por reponer</b><span>${low.slice(0, 3).map(x => esc(x.name)).join(', ')}${low.length > 3 ? '…' : ''}</span></div><div class="r"><span class="tag bad">${low.length}</span>${ico('right')}</div></button>`);
+  items.push(`<button class="row link" data-go="correcciones"><div class="t"><b>Corregir un corte</b><span>Borra registros hechos por error</span></div><div class="r">${ico('right')}</div></button>`);
+  $('pendList').innerHTML = (st.debts && items.length === 1 ? `<div class="row"><div class="t"><b class="mint">Todo al día</b><span>Sin deudas de caja ni stock bajo</span></div><span class="tag ok">${ico('check')}</span></div>` : '') + items.join('');
+  $('pendMeta').textContent = st.debts ? '' : 'cargando…';
+}
+
+function exportOwner() {
+  const r = st.range; if (!r) return;
+  const cuts = scoped(r.cuts), products = scoped(r.products), m = metrics(cuts, products);
+  let msg = `✂️ *CALIFORNIA BARBER*\n📅 ${periodText()}${st.preset === 'today' ? '' : ` (${r.from} al ${r.to})`}\n📍 ${branchText()}\n━━━━━━━━━━━━━━━\n`
+    + `💰 *Facturación: ${money(m.gross)}*\n✂ Cortes: ${m.nCuts} · ${money(m.cutSales)}\n🥤 Productos: ${m.nProds} · ${money(m.prodSales)}\n🎟 Ticket prom.: ${money(m.ticket)}\n\n`
+    + `💵 Efectivo: ${money(m.cash)}\n💳 Débito: ${money(m.debit)}\n📲 Transferencia: ${money(m.transfer)}\n\n`
+    + `✂ Comisiones: ${money(m.earned)}\n🏠 Para la casa: ${money(m.house)}\n\n*POR BARBERO*\n`;
+  barberRows(cuts, products).forEach(x => msg += `${x.b.name}: ${x.m.nCuts} cortes · ${money(x.total)}\n`);
+  shareText('Resumen California Barber', msg);
+}
+
+/* ════════════════ DUEÑO · BARBEROS ════════════════ */
+function barberRows(cuts, products) {
+  return st.barbers.filter(b => st.branch === 'all' || b.branch_id === st.branch).map(b => {
+    const m = metrics(cuts.filter(x => x.barber_id === b.id), products.filter(x => x.barber_id === b.id));
+    return { b, m, total: m.gross };
+  }).sort((a, b) => b.total - a.total);
+}
+function renderBarberList(r) {
+  $('barberList').classList.remove('hidden'); $('barberDetail').classList.add('hidden');
+  const rows = barberRows(scoped(r.cuts), scoped(r.products)), top = Math.max(1, ...rows.map(x => x.total));
+  $('barberRows').innerHTML = rows.length ? rows.map((x, i) => {
+    const d = st.debts?.[x.b.id];
+    return `<button class="row link" data-go="barberos/${esc(x.b.id)}">
+      <div class="who-row"><span class="rank ${i === 0 && x.total ? 'first' : ''}">${i + 1}</span><div class="t"><b>${esc(x.b.name)}</b>
+      <span>${esc(branchName(x.b.branch_id))} · ${plural(x.m.nCuts, 'corte')} · ticket ${money(x.m.ticket)} · comisión ${money(x.m.earned)}</span><div class="minibar"><i style="width:${x.total / top * 100}%"></i></div></div></div>
+      <div class="r">${d?.debt > 0 ? `<span class="tag bad">debe ${money(d.debt)}</span>` : ''}<span class="num amt">${money(x.total)}</span>${ico('right')}</div></button>`;
+  }).join('') : emptyRow('No hay barberos activos.');
+}
+function renderBarberDetail(r) {
+  const b = barberOf(st.detail);
+  if (!b) { st.detail = null; return renderBarberList(r); }
+  $('barberList').classList.add('hidden'); $('barberDetail').classList.remove('hidden');
+  renderReport($('barberDetail'), b, r.cuts.filter(x => x.barber_id === b.id), r.products.filter(x => x.barber_id === b.id), r, true);
+}
+
+// Reporte de un barbero (lo usan el dueño y el propio barbero)
+let lastReport = null;
+function renderReport(el, b, cuts, products, r, owner) {
+  const m = metrics(cuts, products);
+  const all = [...cuts.map(x => ({ ...x, _k:'cut' })), ...products.map(x => ({ ...x, _k:'prod' }))]
+    .sort((a, z) => String(z.business_date).localeCompare(String(a.business_date)) || String(z.created_at).localeCompare(String(a.created_at)));
+  lastReport = { b, m, all, from: r.from, to: r.to };
+  const byDay = {}; all.forEach(x => (byDay[x.business_date] ??= []).push(x));
+  const days = Object.keys(byDay);
+  el.innerHTML = `
+    ${owner ? `<button class="back" data-go="barberos">${ico('left')}Todos los barberos</button>` : ''}
+    <div class="head"><div><h1>${esc(b.name)}</h1><p>${esc(branchName(b.branch_id))} · ${periodText()} · ${plural(days.length, 'día')} con movimiento</p></div>
+      <div class="acts"><button class="btn brass" id="repShare">${ico('share')}Compartir</button><button class="btn icon" id="repCopy" aria-label="Copiar resumen" title="Copiar resumen">${ico('copy')}</button><button class="btn icon" id="repCsv" aria-label="Descargar CSV" title="Descargar CSV">${ico('download')}</button></div></div>
+    <div class="grid g32">
+      <div class="panel"><div class="hero"><div class="lbl">Facturación</div><div class="big">${money(m.gross)}</div><div class="sub">${plural(m.nCuts, 'corte')} · ${plural(m.nProds, 'producto')}</div></div>
+        <div class="stats">${stat('Venta cortes', money(m.cutSales), 'ticket ' + money(m.ticket))}${stat('Venta productos', money(m.prodSales), plural(m.nProds, 'unidad', 'unidades'), 'violet')}${stat('Recibió el barbero', money(m.inBarber), '', 'steel')}${stat('Recibió la casa', money(m.inHouse))}</div></div>
+      <div class="panel"><div class="row"><h2>Liquidación</h2></div>
+        <div class="rows" style="border-top:1px solid var(--line)">
+          <div class="row"><div class="t"><b>Comisión ganada</b><span>${m.estimated ? 'estimada al 50%' : '50% cortes + 10% productos'}</span></div><span class="num amt">${money(m.earned)}</span></div>
+          <div class="row"><div class="t"><b>Descontado de su deuda</b><span>efectivo que tenía sin entregar</span></div><span class="num amt red">${neg(m.recovered)}</span></div>
+          <div class="row" style="background:rgba(82,202,148,.06)"><div class="t"><b>A pagar en mano</b><span>lo que se le entrega</span></div><span class="num amt mint" style="font-size:20px">${money(m.toPay)}</span></div>
+        </div></div>
+    </div>
+    <div class="h2row"><h2>Medios de pago</h2><small>${money(m.gross)}</small></div>
+    <div class="panel">${methodsBlock(m)}</div>
+    <div class="h2row"><h2>Detalle</h2><small>${plural(all.length, 'movimiento')}</small></div>
+    <div class="panel">${days.length ? days.map(d => `<div class="dayhead"><span>${cap(dayLong(d))}</span><span class="num">${money(sum(byDay[d], 'price'))}</span></div><div class="rows">${byDay[d].map(x => moveRow(x, owner)).join('')}</div>`).join('') : emptyRow('Sin movimientos en este período.')}</div>
+    ${owner ? '<div class="note">Para borrar un corte hecho por error usa el ícono de basura. Los productos no se pueden borrar desde aquí.</div>' : ''}`;
+  $('repShare').onclick = () => shareText('Reporte ' + b.name, reportText());
+  $('repCopy').onclick = async () => { try { await navigator.clipboard.writeText(reportText()); toast('Resumen copiado'); } catch (_) { prompt('Copia el resumen:', reportText()); } };
+  $('repCsv').onclick = downloadCsv;
+  el.querySelectorAll('[data-del-cut]').forEach(btn => btn.onclick = () => deleteCut(btn));
+}
+function moveRow(x, owner) {
+  const isCut = x._k === 'cut' || !x.product_name;
+  return `<div class="row"><div class="t"><b>${isCut ? 'Corte' : esc(x.product_name)}</b><span>${timeLabel(x.created_at)} · ${methodName(x.payment_method)} · recibió ${x.received_by === 'house' ? 'la casa' : 'el barbero'}</span></div>
+    <div class="r"><span class="num amt ${isCut ? '' : 'violet'}">${money(x.price)}</span>${owner && isCut ? `<button class="btn icon danger" data-del-cut="${esc(x.id)}" data-price="${x.price}" data-name="${esc(barberName(x.barber_id))}" aria-label="Borrar corte" title="Borrar corte">${ico('trash')}</button>` : ''}</div></div>`;
+}
+function reportText() {
+  const r = lastReport; if (!r) return '';
+  const m = r.m;
+  return `✂️ *CALIFORNIA BARBER*\n👤 ${r.b.name}\n📅 ${r.from} al ${r.to}\n━━━━━━━━━━━━━━━\n💰 Facturación: ${money(m.gross)}\n✂ Cortes: ${m.nCuts} · ${money(m.cutSales)}\n🥤 Productos: ${m.nProds} · ${money(m.prodSales)}\n💵 Efectivo: ${money(m.cash)}\n💳 Débito: ${money(m.debit)}\n📲 Transferencia: ${money(m.transfer)}\n🖐 Recibió el barbero: ${money(m.inBarber)}\n━━━━━━━━━━━━━━━\n💰 Comisión ganada: ${money(m.earned)}\n➖ Descontado de deuda: ${money(m.recovered)}\n✅ *A PAGAR: ${money(m.toPay)}*`;
+}
+function downloadCsv() {
+  const r = lastReport; if (!r) return;
+  const head = ['fecha', 'hora', 'tipo', 'detalle', 'precio', 'medio_pago', 'recibio'];
+  const rows = r.all.map(x => [x.business_date || '', timeLabel(x.created_at), x.product_name ? 'producto' : 'corte', String(x.product_name || 'Corte').replace(/[";\n]/g, ' '), Number(x.price || 0), methodName(x.payment_method), x.received_by === 'house' ? 'casa' : 'barbero']);
+  const blob = new Blob(['﻿' + [head, ...rows].map(l => l.join(';')).join('\n')], { type:'text/csv;charset=utf-8;' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `reporte_${r.b.name.replace(/\s+/g, '_')}_${r.from}_${r.to}.csv`; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+async function deleteCut(btn) {
+  if (!confirm(`¿Borrar este corte?\n\n${btn.dataset.name} · ${money(btn.dataset.price)}\n\nSe quita de facturación, comisión y deuda de caja.`)) return;
+  btn.disabled = true;
+  try {
+    const res = await api('cuts?id=eq.' + encodeURIComponent(btn.dataset.delCut), { method:'DELETE', headers:{ Prefer:'return=representation' } });
+    if (Array.isArray(res) && !res.length) throw new Error('No se borró: tu cuenta no tiene permiso o el corte ya no existe.');
+    toast('Corte borrado');
+    st.range = null; st.debts = null;
+    load(st.route);
+  } catch (e) { btn.disabled = false; toast(e.message, 'err'); }
+}
+
+/* ════════════════ DUEÑO · CAJA ════════════════ */
+function renderCaja(r) {
+  const m = metrics(scoped(r.cuts), scoped(r.products));
+  $('cajaMethods').innerHTML = methodsBlock(m);
+  $('cajaStats').innerHTML = stat('Facturación', money(m.gross), periodText()) + stat('En manos de barberos', money(m.inBarber), 'cobrado por ellos', 'steel') + stat('Recibió la casa', money(m.inHouse), 'directo a caja') + stat('Comisiones a pagar', money(m.toPay), m.recovered ? 'descontó ' + money(m.recovered) : 'del período', 'mint');
+}
+async function renderDebts(force) {
+  $('debtRows').innerHTML = emptyRow('Cargando…'); $('acctRows').innerHTML = emptyRow('Cargando…');
+  try {
+    const d = await ensureDebts(force);
+    $('debtWarn').classList.toggle('hidden', st.hasDebtView);
+    if (!st.hasDebtView) $('debtWarn').innerHTML = 'La deuda se está calculando en tu teléfono porque falta la vista <b>barber_debt</b> en Supabase. Los números son correctos, pero carga más lento.';
+    const list = st.barbers.map(b => ({ b, ...(d[b.id] || { debt: 0, account: 0 }) }));
+    const debtList = [...list].sort((a, z) => z.debt - a.debt), acctList = [...list].sort((a, z) => z.account - a.account);
+    $('debtMeta').textContent = 'Total ' + money(sum(list, 'debt'));
+    $('acctMeta').textContent = 'Total ' + money(sum(list, 'account'));
+    $('debtRows').innerHTML = debtList.map(x => `<div class="row" data-row="${esc(x.b.id)}"><div class="t"><b>${esc(x.b.name)}</b><span>${esc(branchName(x.b.branch_id))}</span></div>
+      <div class="r">${x.debt > 0 ? `<span class="num amt red">${money(x.debt)}</span><button class="btn sm ok" data-settle="${esc(x.b.id)}">Registrar entrega</button>` : '<span class="tag ok">Al día</span>'}</div></div>`).join('') || emptyRow('No hay barberos activos.');
+    $('acctRows').innerHTML = acctList.map(x => `<div class="row" data-row="${esc(x.b.id)}"><div class="t"><b>${esc(x.b.name)}</b><span>${esc(branchName(x.b.branch_id))}</span></div>
+      <div class="r">${x.account > 0 ? `<span class="num amt">${money(x.account)}</span><button class="btn sm" data-abono="${esc(x.b.id)}">Registrar abono</button>` : '<span class="tag neu">Sin saldo</span>'}</div></div>`).join('') || emptyRow('No hay barberos activos.');
+    $('debtRows').querySelectorAll('[data-settle]').forEach(b => b.onclick = () => openSettle(b.dataset.settle));
+    $('acctRows').querySelectorAll('[data-abono]').forEach(b => b.onclick = () => openAbono(b.dataset.abono));
+  } catch (e) { $('debtRows').innerHTML = emptyRow('No se pudo cargar la deuda: ' + esc(e.message)); $('acctRows').innerHTML = ''; }
+}
+function openSettle(id) {
+  const debt = st.debts[id]?.debt || 0, name = barberName(id);
+  const box = openInline($('debtRows').querySelector(`[data-row="${CSS.escape(id)}"]`), `
+    <input class="amount" type="number" inputmode="numeric" min="1" step="500" value="${Math.round(debt)}" aria-label="Monto entregado">
+    <div class="chips"><button data-set="${Math.round(debt)}">Todo ${money(debt)}</button><button data-set="${Math.round(debt / 2)}">Mitad</button><button data-set="">Otro monto</button></div>
+    <div class="field"><label>Nota (opcional)</label><input class="input note-in" maxlength="80" placeholder="Efectivo, transferencia…"></div>
+    <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn ok" data-ok>Registrar entrega</button></div>`);
+  wireInline(box, async (amount, note) => {
+    if (amount > debt && !confirm(`La entrega (${money(amount)}) es mayor que la deuda (${money(debt)}). ¿Registrar igual?`)) return false;
+    if (!confirm(`¿Registrar entrega de ${money(amount)} de ${name}?\n\nQueda guardada con fecha y no se puede editar.`)) return false;
+    try { await post('settlements', { barber_id: id, amount, note: note || null }); }
+    catch (e) { if (e.status === 404 || /settlements/i.test(e.message)) throw new Error('Falta la tabla "settlements" en Supabase.'); throw e; }
+    toast(amount >= debt ? `${name} quedó al día` : `Entrega registrada · resta ${money(debt - amount)}`);
+    return true;
+  });
+}
+function openAbono(id) {
+  const acc = st.debts[id]?.account || 0, name = barberName(id);
+  const box = openInline($('acctRows').querySelector(`[data-row="${CSS.escape(id)}"]`), `
+    <input class="amount" type="number" inputmode="numeric" min="1" step="100" value="${Math.round(acc)}" aria-label="Monto del abono">
+    <div class="chips"><button data-set="${Math.round(acc)}">Todo ${money(acc)}</button><button data-set="">Otro monto</button></div>
+    <div class="field"><label>Detalle</label><input class="input note-in" maxlength="60" value="Abono cuenta"></div>
+    <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn ok" data-ok>Registrar abono</button></div>`);
+  wireInline(box, async (amount, note) => {
+    await post('account_movements', { barber_id: id, kind: 'payment', description: note || 'Abono cuenta', amount });
+    toast(`Abono de ${name} registrado`); return true;
+  });
+}
+function wireInline(box, save) {
+  const amt = box.querySelector('.amount');
+  box.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { amt.value = b.dataset.set; amt.focus(); });
+  box.querySelector('[data-x]').onclick = () => box.remove();
+  const ok = box.querySelector('[data-ok]');
+  ok.onclick = async () => {
+    const amount = Number(amt.value), note = box.querySelector('.note-in').value.trim();
+    if (!amount || amount <= 0) return toast('Ingresa un monto', 'err');
+    ok.disabled = true;
+    try { if (await save(amount, note)) { box.remove(); st.debts = null; renderDebts(true); loadPayHistory(); } }
+    catch (e) { toast(e.message, 'err'); }
+    finally { ok.disabled = false; }
+  };
+}
+async function loadPayHistory() {
+  try {
+    const [s, a] = await Promise.all([
+      st.hasSettlements ? api('settlements?select=*&order=settled_at.desc&limit=20').catch(() => { st.hasSettlements = false; return []; }) : [],
+      api('account_movements?select=*&kind=eq.payment&order=created_at.desc&limit=20').catch(() => [])
+    ]);
+    const rows = [...s.map(x => ({ t: x.settled_at, who: x.barber_id, amt: x.amount, k: 'Entrega de caja', note: x.note })),
+                  ...a.map(x => ({ t: x.created_at, who: x.barber_id, amt: x.amount, k: 'Abono cuenta personal', note: x.description }))]
+      .sort((x, z) => String(z.t).localeCompare(String(x.t))).slice(0, 20);
+    $('payHistory').innerHTML = rows.length ? rows.map(x => `<div class="row"><div class="t"><b>${esc(barberName(x.who))}</b><span>${x.k} · ${stamp(x.t)}${x.note && x.note !== 'Abono cuenta' ? ' · ' + esc(x.note) : ''}</span></div><span class="num amt mint">${money(x.amt)}</span></div>`).join('') : emptyRow('Aún no hay entregas ni abonos registrados.');
+  } catch (e) { $('payHistory').innerHTML = emptyRow(esc(e.message)); }
+}
+
+/* ════════════════ DUEÑO · UTILIDAD Y GASTOS ════════════════ */
+const CATS = ['Arriendo', 'Servicios', 'Insumos', 'Sueldos', 'Marketing', 'Mantención', 'Impuestos', 'Otros'];
+function initExpenses() {
+  $('expBranch').innerHTML = st.branches.map(b => `<option value="${esc(b.id)}">${esc(b.name)}</option>`).join('') + '<option value="">Ambas / general</option>';
+  $('expCats').innerHTML = CATS.map(c => `<button data-c="${c}" class="${c === st.expCat ? 'on' : ''}">${c}</button>`).join('');
+  $('expCats').onclick = e => { const b = e.target.closest('button'); if (!b) return; st.expCat = b.dataset.c; $('expCats').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); };
+  $('expDate').value = iso();
+  $('expSave').onclick = saveExpense;
+  $('expAmount').addEventListener('keydown', e => { if (e.key === 'Enter') $('expDesc').focus(); });
+}
+async function loadUtilidad() {
+  $('pnlList').innerHTML = `<div class="panel">${emptyRow('Calculando…')}</div>`;
+  const [r, exps] = await Promise.all([
+    ensureRange(),
+    api(`expenses?select=*&expense_date=gte.${st.from}&expense_date=lte.${st.to}&order=expense_date.desc`).then(x => { st.hasExpenses = true; return x; }).catch(() => { st.hasExpenses = false; return []; })
+  ]);
+  // Estado de resultados por sucursal
+  const groups = st.branch === 'all' ? st.branches : st.branches.filter(b => b.id === st.branch);
+  const ids = st.branches.map(b => b.id);
+  const lines = groups.map(b => {
+    const c = r.cuts.filter(x => x.branch_id === b.id), p = r.products.filter(x => x.branch_id === b.id);
+    const ingresos = sum(c, 'price') + sum(p, 'price'), comision = sum(c, cutEarned) + sum(p, 'commission'), gastos = sum(exps.filter(x => x.branch_id === b.id), 'amount');
+    return { name: b.name, cortes: c.length, ingresos, comision, gastos, casa: ingresos - comision, util: ingresos - comision - gastos };
+  });
+  const loose = st.branch === 'all' ? sum(exps.filter(x => !x.branch_id || !ids.includes(x.branch_id)), 'amount') : 0;
+  const tot = lines.reduce((a, l) => ({ ingresos: a.ingresos + l.ingresos, comision: a.comision + l.comision, gastos: a.gastos + l.gastos, casa: a.casa + l.casa, util: a.util + l.util, cortes: a.cortes + l.cortes }), { ingresos:0, comision:0, gastos:0, casa:0, util:0, cortes:0 });
+  tot.gastos += loose; tot.util -= loose;
+  const est = r.cuts.length && !r.cuts.some(c => c.base_commission != null);
+  $('pnlWarn').classList.toggle('hidden', !est && st.hasExpenses);
+  $('pnlWarn').innerHTML = (est ? 'La comisión se está estimando al 50% porque falta la columna <b>base_commission</b>. ' : '') + (!st.hasExpenses ? 'Falta la tabla <b>expenses</b> en Supabase, así que los gastos no se están descontando.' : '');
+  const block = (l, title) => `<div class="panel"><div class="pl"><h3>${esc(title)}</h3>
+    <div class="ln"><span>Ingresos · ${plural(l.cortes, 'corte')}</span><b class="num">${money(l.ingresos)}</b></div>
+    <div class="ln"><span>Comisiones a barberos</span><b class="num red">${neg(l.comision)}</b></div>
+    <div class="ln"><span>Queda para la casa</span><b class="num">${money(l.casa)}</b></div>
+    <div class="ln"><span>Gastos</span><b class="num red">${neg(l.gastos)}</b></div>
+    <div class="ln tot"><span>Utilidad</span><b class="num ${l.util >= 0 ? 'mint' : 'red'}">${money(l.util)}</b></div>
+    <div class="mg">Margen ${l.ingresos ? Math.round(l.util / l.ingresos * 100) : 0}% sobre ingresos</div></div></div>`;
+  $('pnlList').innerHTML = (lines.length > 1 ? block(tot, `Total · ${periodText()}`) : '') + lines.map(l => block(l, l.name)).join('')
+    + (loose ? `<div class="panel"><div class="pl"><h3>Gastos generales</h3><div class="ln"><span>Sin sucursal, se descuentan del total</span><b class="num red">${neg(loose)}</b></div></div></div>` : '');
+  // Lista de gastos
+  const shown = st.branch === 'all' ? exps : exps.filter(x => x.branch_id === st.branch);
+  $('expMeta').textContent = `${plural(shown.length, 'gasto')} · ${money(sum(shown, 'amount'))}`;
+  $('expRows').innerHTML = !st.hasExpenses ? emptyRow('Falta crear la tabla <b>expenses</b> en Supabase.') : shown.length ? shown.map(x => `<div class="row"><div class="t"><b>${esc(x.description || x.category || 'Gasto')}</b><span>${esc(x.category || 'Otros')} · ${dayLabel(x.expense_date)} · ${esc(branchName(x.branch_id) || 'General')}</span></div>
+    <div class="r"><span class="num amt red">${neg(x.amount)}</span><button class="btn icon danger" data-del-exp="${esc(x.id)}" aria-label="Borrar gasto">${ico('trash')}</button></div></div>`).join('') : emptyRow('Sin gastos en este período. Registra arriendo, luz o insumos para ver la utilidad real.');
+  $('expRows').querySelectorAll('[data-del-exp]').forEach(b => b.onclick = async () => {
+    if (!confirm('¿Borrar este gasto?')) return;
+    b.disabled = true;
+    try { await api('expenses?id=eq.' + encodeURIComponent(b.dataset.delExp), { method:'DELETE', headers:{ Prefer:'return=minimal' } }); toast('Gasto borrado'); loadUtilidad(); }
+    catch (e) { b.disabled = false; toast(e.message, 'err'); }
+  });
+}
+async function saveExpense() {
+  const amount = Number($('expAmount').value), description = $('expDesc').value.trim();
+  if (!amount || amount <= 0) return toast('Ingresa el monto', 'err');
+  if (!description) return toast('Escribe un detalle', 'err');
+  const b = $('expSave'); b.disabled = true; b.textContent = 'Guardando…';
+  try {
+    await post('expenses', { amount, description, category: st.expCat, branch_id: $('expBranch').value || null, expense_date: $('expDate').value || iso() });
+    $('expAmount').value = ''; $('expDesc').value = '';
+    toast('Gasto registrado'); loadUtilidad();
+  } catch (e) { toast(e.message, 'err'); }
+  finally { b.disabled = false; b.textContent = 'Registrar gasto'; }
+}
+
+/* ════════════════ DUEÑO · STOCK ════════════════ */
+async function loadStock() {
+  $('invRows').innerHTML = emptyRow('Cargando…');
+  try {
+    const rows = await ensureInventory(true);
+    $('stockWarn').classList.add('hidden');
+    const low = rows.filter(x => x.active !== false && isLow(x)), venta = rows.filter(x => x.kind !== 'insumo');
+    $('invStats').innerHTML = stat('Productos', rows.length, `${venta.length} de venta · ${rows.length - venta.length} insumos`) + stat('Por reponer', low.length, low.length ? 'en o bajo el mínimo' : 'todo con stock', low.length ? 'red' : 'mint') + stat('Valor del stock', money(sum(rows, x => Number(x.stock || 0) * Number(x.cost || 0))), 'a precio de costo');
+    $('invMeta').textContent = low.length ? `${low.length} por reponer primero` : '';
+    const sorted = [...rows].sort((a, z) => (isLow(z) - isLow(a)) || String(a.name).localeCompare(z.name));
+    $('invRows').innerHTML = sorted.length ? sorted.map(x => `<div class="row" data-row="${esc(x.id)}"><div class="t"><b>${esc(x.name)}${x.kind === 'insumo' ? ' <span class="tag neu">insumo</span>' : ''}</b>
+      <span>${x.kind === 'insumo' ? '' : money(x.price)}${x.cost ? ' · costo ' + money(x.cost) : ''}${x.cost && x.kind !== 'insumo' ? ' · margen ' + money(x.price - x.cost) : ''} · mínimo ${Number(x.min_stock)}</span></div>
+      <div class="r"><span class="num amt ${isLow(x) ? 'red' : 'mint'}" title="Unidades">${Number(x.stock)}</span><button class="btn sm" data-rep="${esc(x.id)}">${ico('plus')}Reponer</button><button class="btn icon danger" data-del-inv="${esc(x.id)}" aria-label="Quitar producto">${ico('trash')}</button></div></div>`).join('')
+      : emptyRow('Aún no hay productos. Agrega el primero con “Nuevo producto”.');
+    $('invRows').querySelectorAll('[data-rep]').forEach(b => b.onclick = () => openRestock(b.dataset.rep));
+    $('invRows').querySelectorAll('[data-del-inv]').forEach(b => b.onclick = () => deleteInventory(b));
+  } catch (e) {
+    $('invRows').innerHTML = '';
+    $('stockWarn').innerHTML = 'No se pudo leer el stock. Revisa que exista la tabla <b>inventory</b> en Supabase. Detalle: ' + esc(e.message);
+    $('stockWarn').classList.remove('hidden');
+  }
+}
+function openRestock(id) {
+  const it = st.inventory.find(x => x.id == id); if (!it) return;
+  const box = openInline($('invRows').querySelector(`[data-row="${CSS.escape(String(id))}"]`), `
+    <div class="muted" style="font-size:13px;margin-bottom:8px">¿Cuántas unidades de ${esc(it.name)} entraron? Hoy hay ${Number(it.stock)}.</div>
+    <input class="amount" type="number" inputmode="numeric" min="1" step="1" value="" placeholder="0" aria-label="Unidades que entraron">
+    <div class="chips"><button data-set="6">+6</button><button data-set="12">+12</button><button data-set="24">+24</button></div>
+    <div class="acts"><button class="btn" data-x>Cancelar</button><button class="btn ok" data-ok>Sumar al stock</button></div>`);
+  const amt = box.querySelector('.amount');
+  box.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { amt.value = b.dataset.set; });
+  box.querySelector('[data-x]').onclick = () => box.remove();
+  box.querySelector('[data-ok]').onclick = async () => {
+    const add = Math.round(Number(amt.value));
+    if (!add || add <= 0) return toast('Ingresa cuántas unidades', 'err');
+    try {
+      await api('inventory?id=eq.' + encodeURIComponent(id), { method:'PATCH', headers:{ Prefer:'return=minimal' }, body: JSON.stringify({ stock: Number(it.stock) + add, updated_at: new Date().toISOString() }) });
+      toast(`${it.name}: ${Number(it.stock) + add} unidades`); loadStock();
+    } catch (e) { toast(e.message, 'err'); }
+  };
+}
+async function deleteInventory(btn) {
+  if (!confirm('¿Quitar este producto del stock?\n\nLas ventas ya registradas no se borran.')) return;
+  btn.disabled = true;
+  try { await api('inventory?id=eq.' + encodeURIComponent(btn.dataset.delInv), { method:'DELETE', headers:{ Prefer:'return=minimal' } }); toast('Producto quitado'); loadStock(); }
+  catch (e) { btn.disabled = false; toast(e.message, 'err'); }
+}
+async function saveInventory() {
+  const name = $('invName').value.trim();
+  if (!name) return toast('Escribe el nombre del producto', 'err');
+  const b = $('invSave'); b.disabled = true; b.textContent = 'Guardando…';
+  try {
+    await post('inventory', { name, kind: $('invKind').value, price: Number($('invPrice').value) || 0, cost: Number($('invCost').value) || 0, stock: Number($('invStock').value) || 0, min_stock: Number($('invMin').value) || 3 });
+    ['invName', 'invPrice', 'invCost', 'invStock'].forEach(k => $(k).value = '');
+    $('invForm').classList.add('hidden');
+    toast('Producto agregado'); loadStock();
+  } catch (e) { toast(e.message, 'err'); }
+  finally { b.disabled = false; b.textContent = 'Agregar al stock'; }
+}
+
+/* ════════════════ DUEÑO · CORREGIR ════════════════ */
+async function loadFixes() {
+  const date = $('fixDate').value || iso(), bid = $('fixBarber').value || 'all';
+  $('fixRows').innerHTML = emptyRow('Buscando…');
+  try {
+    let path = 'cuts?select=*&business_date=eq.' + encodeURIComponent(date) + '&order=created_at.desc';
+    if (bid !== 'all') path += '&barber_id=eq.' + encodeURIComponent(bid);
+    const [cuts, hist] = await Promise.all([api(path), api('cut_deletions?select=*&order=deleted_at.desc&limit=20').catch(() => [])]);
+    $('fixMeta').textContent = `${plural(cuts.length, 'corte')} · ${dayLabel(date)}`;
+    $('fixRows').innerHTML = cuts.length ? cuts.map(c => `<div class="row"><div class="t"><b>${esc(barberName(c.barber_id))}</b><span>${timeLabel(c.created_at)} · ${methodName(c.payment_method)} · recibió ${c.received_by === 'house' ? 'la casa' : 'el barbero'}</span></div>
+      <div class="r"><span class="num amt">${money(c.price)}</span><button class="btn sm danger" data-del-cut="${esc(c.id)}" data-price="${c.price}" data-name="${esc(barberName(c.barber_id))}">${ico('trash')}Borrar</button></div></div>`).join('') : emptyRow('No hay cortes ese día con ese filtro.');
+    $('fixRows').querySelectorAll('[data-del-cut]').forEach(b => b.onclick = () => deleteCut(b));
+    $('fixHistory').innerHTML = Array.isArray(hist) && hist.length ? hist.map(c => `<div class="row"><div class="t"><b>${esc(barberName(c.barber_id))} · ${money(c.price)}</b><span>Corte del ${dayLabel(c.business_date)} · borrado ${stamp(c.deleted_at)}</span></div><span class="tag neu">Borrado</span></div>`).join('') : emptyRow('Sin cortes borrados.');
+  } catch (e) { $('fixRows').innerHTML = emptyRow(esc(e.message)); }
+}
+
+/* ════════════════ BARBERO · REGISTRAR ════════════════ */
+const PAY_BTNS = `<button data-v="cash">${ico('cash')}Efectivo</button><button data-v="debit">${ico('card')}Débito</button><button data-v="transfer">${ico('phone')}Transfer.</button>`;
+function pickGroup(id, cb) {
+  $(id).querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    $(id).querySelectorAll('button').forEach(x => x.classList.remove('on')); btn.classList.add('on'); cb(btn.dataset.v);
+  }));
+}
+function remember(id, key) {
+  let v = null; try { v = localStorage.getItem(key); } catch (_) {}
+  if (v) $(id).querySelector(`[data-v="${v}"]`)?.click();
+  $(id).querySelectorAll('button').forEach(b => b.addEventListener('click', () => { try { localStorage.setItem(key, b.dataset.v); } catch (_) {} }));
+}
+const receiver = (payment, cash) => payment === 'debit' ? 'house' : payment === 'transfer' ? 'barber' : cash;
+
+function initBarber() {
+  setPreset('month');
+  $('cutPayments').innerHTML = PAY_BTNS; $('productPayments').innerHTML = PAY_BTNS;
+  pickGroup('cutPayments', v => { st.pay.cut = v; $('cutCashReceiverWrap').classList.toggle('hidden', v !== 'cash'); });
+  pickGroup('cutReceivers', v => st.recv.cut = v);
+  pickGroup('productPayments', v => { st.pay.prod = v; $('productCashReceiverWrap').classList.toggle('hidden', v !== 'cash'); });
+  pickGroup('productReceivers', v => st.recv.prod = v);
+  remember('cutPayments', 'cb_last_cut_method'); remember('productPayments', 'cb_last_prod_method');
+  $('rtabs').querySelectorAll('button').forEach(b => b.onclick = () => {
+    $('rtabs').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    ['cut', 'prod', 'acct'].forEach(k => $('r-' + k).classList.toggle('on', k === b.dataset.r));
+    $('r-' + b.dataset.r).querySelector('.amount')?.focus();
+  });
+  $('saveCutBtn').onclick = saveCut; $('saveProductBtn').onclick = saveProduct; $('saveAccountChargeBtn').onclick = saveAccountCharge;
+  $('cutPrice').addEventListener('keydown', e => { if (e.key === 'Enter') saveCut(); });
+  $('stockToggle').onclick = () => { const h = $('stockList').classList.toggle('hidden'); $('stockToggle').textContent = h ? 'Ver stock' : 'Ocultar stock'; };
+  $('reloadShift').innerHTML = ico('refresh'); $('reloadShift').onclick = loadShift;
+  $('exportShiftBtn').innerHTML = ico('share') + 'Enviar mi cierre';
+  $('exportShiftBtn').onclick = () => exportShift(false); $('exportShiftDetailBtn').onclick = () => exportShift(true);
+  loadRecentPrices(); loadBarberInventory();
+}
+async function saveCut() {
+  const price = Number($('cutPrice').value);
+  if (!price || !st.pay.cut) return toast('Ingresa precio y medio de pago', 'err');
+  const b = $('saveCutBtn'); b.disabled = true;
+  try {
+    await post('cuts', { barber_id: st.profile.barber_id, price, payment_method: st.pay.cut, received_by: receiver(st.pay.cut, st.recv.cut) });
+    $('cutPrice').value = ''; toast('Corte guardado · ' + money(price)); loadRecentPrices(); st.shift = null;
+  } catch (e) { toast(e.message, 'err'); }
+  finally { b.disabled = false; }
+}
+async function loadBarberInventory() {
+  try { await ensureInventory(true); } catch (_) { st.inventory = []; }
+  const venta = st.inventory.filter(x => x.kind !== 'insumo' && x.active !== false), sel = $('productPick');
+  sel.innerHTML = venta.length ? '<option value="">Elige un producto</option>' + venta.map(x => `<option value="${esc(x.id)}" data-name="${esc(x.name)}" data-price="${Number(x.price || 0)}">${esc(x.name)}${Number(x.stock) <= 0 ? ' (sin stock)' : ''}</option>`).join('') : '<option value="">Sin productos cargados</option>';
+  sel.onchange = () => {
+    const o = sel.selectedOptions[0];
+    if (!o || !sel.value) { st.prodInvId = null; $('productName').value = ''; return; }
+    st.prodInvId = sel.value; $('productName').value = o.dataset.name;
+    const pr = Number(o.dataset.price || 0); if (pr > 0) $('productPrice').value = pr;
+    $('recentProducts').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.id === sel.value));
+  };
+  $('recentProducts').innerHTML = venta.slice(0, 4).map(x => `<button data-id="${esc(x.id)}">${esc(x.name)}</button>`).join('');
+  $('recentProducts').querySelectorAll('button').forEach(b => b.onclick = () => { sel.value = b.dataset.id; sel.onchange(); });
+  $('stockList').innerHTML = st.inventory.length ? st.inventory.map(x => `<div class="row"><div class="t"><b>${esc(x.name)}</b><span>${x.kind === 'insumo' ? 'insumo' : money(x.price)}${isLow(x) ? ' · reponer' : ''}</span></div><span class="num amt ${isLow(x) ? 'red' : 'mint'}">${Number(x.stock)}</span></div>`).join('') + '<div class="empty" style="padding:12px">Solo lectura. Avisa al dueño si algo se agotó.</div>' : emptyRow('Sin stock cargado.');
+}
+async function saveProduct() {
+  const product_name = $('productName').value.trim(), price = Number($('productPrice').value);
+  if (!product_name || !price || !st.pay.prod) return toast('Elige producto, precio y medio de pago', 'err');
+  const b = $('saveProductBtn'); b.disabled = true;
+  try {
+    await post('products', { barber_id: st.profile.barber_id, product_name, price, inventory_id: st.prodInvId || null, payment_method: st.pay.prod, received_by: receiver(st.pay.prod, st.recv.prod) });
+    $('productName').value = ''; $('productPrice').value = ''; $('productPick').value = ''; st.prodInvId = null;
+    toast('Producto guardado · ' + money(price)); loadBarberInventory(); st.shift = null;
+  } catch (e) { toast(e.message, 'err'); }
+  finally { b.disabled = false; }
+}
+async function saveAccountCharge() {
+  const description = $('accountDesc').value.trim(), amount = Number($('accountAmount').value);
+  if (!description || !amount) return toast('Completa qué sacaste y el monto', 'err');
+  try {
+    await post('account_movements', { barber_id: st.profile.barber_id, kind: 'charge', description, amount });
+    $('accountDesc').value = ''; $('accountAmount').value = ''; toast('Anotado a tu cuenta');
+  } catch (e) { toast(e.message, 'err'); }
+}
+async function loadRecentPrices() {
+  try {
+    const c = await api('cuts?select=price&order=created_at.desc&limit=20');
+    const prices = [...new Set(c.map(x => Number(x.price)))].slice(0, 4);
+    $('recentCutPrices').innerHTML = prices.map(v => `<button data-price="${v}">${money(v)}</button>`).join('');
+    $('recentCutPrices').querySelectorAll('button').forEach(b => b.onclick = () => { $('cutPrice').value = b.dataset.price; });
+  } catch (_) {}
+}
+
+/* ════════════════ BARBERO · MI TURNO ════════════════ */
+async function fetchMyToday() {
+  const date = iso(), me = encodeURIComponent(st.profile.barber_id);
+  const [cuts, products, allCuts, allProducts, allAccount] = await Promise.all([
+    api(`cuts?select=*&business_date=eq.${date}&barber_id=eq.${me}&order=created_at.desc`),
+    api(`products?select=*&business_date=eq.${date}&barber_id=eq.${me}&order=created_at.desc`),
+    apiAll(`cuts?select=debt_generated,debt_recovered&barber_id=eq.${me}&order=id`),
+    apiAll(`products?select=debt_generated&barber_id=eq.${me}&order=id`),
+    apiAll(`account_movements?select=kind,amount&barber_id=eq.${me}&order=id`)
+  ]);
+  let debt = null, account = null;
+  try { const v = await api('barber_debt?select=debt,account&barber_id=eq.' + me); if (Array.isArray(v) && v[0]) { debt = Number(v[0].debt || 0); account = Number(v[0].account || 0); } } catch (_) {}
+  if (debt == null) debt = sum(allCuts, x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(allProducts, 'debt_generated');
+  if (account == null) account = sum(allAccount, x => (x.kind === 'charge' ? 1 : -1) * Number(x.amount || 0));
+  return { date, cuts, products, debt: Math.max(0, debt), account: Math.max(0, account) };
+}
+async function loadShift() {
+  try {
+    const d = st.shift = await fetchMyToday(), m = metrics(d.cuts, d.products), me = barberOf(st.profile.barber_id);
+    $('shiftSubtitle').textContent = `${me?.name || ''} · ${branchName(me?.branch_id)} · ${dayLong(d.date)}`;
+    $('shiftBig').textContent = money(m.gross);
+    $('shiftHeroSub').textContent = `${plural(m.nCuts, 'corte')} · ${plural(m.nProds, 'producto')}`;
+    $('shiftStats').innerHTML = stat('Comisión ganada', money(m.earned), m.recovered ? 'descontó ' + money(m.recovered) : 'hoy')
+      + stat('A pagar en mano', money(m.toPay), '', 'mint')
+      + stat('Dinero en mis manos', money(m.inBarber), 'cobrado por mí hoy', 'steel')
+      + stat('Deuda de caja', money(d.debt), d.debt ? 'por entregar a la casa' : 'al día', d.debt ? 'red' : 'mint')
+      + stat('Mi cuenta personal', money(d.account), 'consumos menos abonos', d.account ? 'red' : 'mint')
+      + stat('Ticket promedio', money(m.ticket), 'por corte');
+    $('shiftMethods').innerHTML = methodsBlock(m);
+    const all = [...d.cuts.map(x => ({ ...x, _k:'cut' })), ...d.products.map(x => ({ ...x, _k:'prod' }))].sort((a, z) => String(z.created_at).localeCompare(String(a.created_at)));
+    $('shiftMeta').textContent = money(m.gross);
+    $('shiftRows').innerHTML = all.length ? all.map(x => moveRow(x, false)).join('') : emptyRow('Aún no registras nada hoy.');
+  } catch (e) { toast(e.message, 'err'); }
+}
+async function exportShift(detail) {
+  try {
+    const d = st.shift || await fetchMyToday(), m = metrics(d.cuts, d.products), b = barberOf(st.profile.barber_id);
+    const fecha = new Date().toLocaleDateString('es-CL', { weekday:'short', day:'numeric', month:'short' });
+    let msg = `✂️ *${b?.name || st.profile.display_name || ''}* · ${fecha}\n${branchName(b?.branch_id)}\n━━━━━━━━━━\n✂ ${d.cuts.length} cortes · ${money(m.cutSales)}\n`;
+    if (d.products.length) msg += `🥤 ${d.products.length} productos · ${money(m.prodSales)}\n`;
+    msg += `💰 *Total ${money(m.gross)}*\n\n💵 ${money(m.cash)}  💳 ${money(m.debit)}  📲 ${money(m.transfer)}\n━━━━━━━━━━\n💰 Comisión ganada: ${money(m.earned)}\n`
+      + (m.recovered ? `➖ Descontado de deuda: ${money(m.recovered)}\n` : '') + `✅ *A PAGAR: ${money(m.toPay)}*\n`;
+    if (d.debt) msg += `🏠 *Entregar a caja: ${money(d.debt)}*\n`;
+    if (d.account) msg += `🧾 Mi cuenta: ${money(d.account)}\n`;
+    if (detail) {
+      msg += '\n*DETALLE*\n';
+      [...d.cuts.map(x => ({ ...x, _n:'Corte' })), ...d.products.map(x => ({ ...x, _n:x.product_name }))]
+        .sort((a, z) => new Date(a.created_at) - new Date(z.created_at))
+        .forEach(x => msg += `${timeLabel(x.created_at)} · ${x._n} · ${money(x.price)} · ${methodName(x.payment_method)}\n`);
+    }
+    shareText('Cierre ' + (b?.name || ''), msg);
+  } catch (e) { toast(e.message, 'err'); }
+}
+
+/* ════════════════ BARBERO · HISTORIAL ════════════════ */
+async function renderHistorial() {
+  const r = await ensureRange(), me = barberOf(st.profile.barber_id);
+  if (!me) return;
+  renderReport($('historialBody'), me, r.cuts.filter(x => x.barber_id === me.id), r.products.filter(x => x.barber_id === me.id), r, false);
+}
+
+/* ════════════════ Compartir ════════════════ */
+function shareText(title, text) {
+  if (navigator.share) navigator.share({ title, text }).catch(err => { if (err?.name !== 'AbortError') copyAndWA(text); });
+  else copyAndWA(text);
+}
+async function copyAndWA(text) {
+  try { if (navigator.clipboard) await navigator.clipboard.writeText(text); } catch (_) {}
+  window.location.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+}
+
+/* ════════════════ Eventos ════════════════ */
+$('loginBtn').onclick = login;
+$('authPassword').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+$('logoutBtn').onclick = logout; $('logoutBtn').textContent = 'Cerrar sesión';
+$('logoutBtnM').onclick = logout;
+
+boot();
 })();
 </script>
 </body>
