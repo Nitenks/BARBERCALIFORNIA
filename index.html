@@ -426,6 +426,7 @@ select.input{appearance:none;background-image:linear-gradient(45deg,transparent 
         <div class="head"><div><h1>Mi turno</h1><p id="shiftSubtitle">Resumen de hoy</p></div><div class="acts"><button id="reloadShift" class="btn icon" aria-label="Actualizar"></button></div></div>
         <div class="grid g2" style="margin-bottom:12px"><button id="exportShiftBtn" class="btn brass" style="min-height:50px">Enviar mi cierre</button><button id="exportShiftDetailBtn" class="btn" style="min-height:50px">Enviar con detalle</button></div>
         <div class="panel"><div class="hero"><div class="lbl">Venta de mi turno</div><div id="shiftBig" class="big">$0</div><div id="shiftHeroSub" class="sub"></div></div><div id="shiftStats" class="stats"></div></div>
+        <div id="withdrawWrap" class="panel hidden" style="margin-top:12px"></div>
         <div class="h2row"><h2>Medios de pago</h2></div>
         <div id="shiftMethods" class="panel"></div>
         <div class="h2row"><h2>Movimientos de hoy</h2><small id="shiftMeta"></small></div>
@@ -770,16 +771,17 @@ async function ensureDebts(force) {
       apiAll('cuts?select=barber_id,debt_generated,debt_recovered&order=id'),
       apiAll('products?select=barber_id,debt_generated&order=id'),
       apiAll('account_movements?select=barber_id,kind,amount&order=id'),
-      st.hasSettlements ? apiAll('settlements?select=barber_id,amount&order=id').catch(() => { st.hasSettlements = false; return []; }) : []
+      st.hasSettlements ? apiAll('settlements?select=barber_id,amount,kind&order=id').catch(() => { st.hasSettlements = false; return []; }) : []
     ]);
     rows = st.barbers.map(b => {
       const f = a => a.filter(x => x.barber_id === b.id);
-      return { barber_id: b.id,
-        debt: sum(f(cuts), x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(f(prods), 'debt_generated') - sum(f(setts), 'amount'),
+      const net = sum(f(cuts), x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(f(prods), 'debt_generated')
+                - sum(f(setts), x => (x.kind === 'retiro' ? -1 : 1) * Number(x.amount || 0));
+      return { barber_id: b.id, debt: Math.max(0, net), credit: Math.max(0, -net),
         account: sum(f(accts), x => (x.kind === 'charge' ? 1 : -1) * Number(x.amount || 0)) };
     });
   }
-  st.debts = Object.fromEntries(rows.map(r => [r.barber_id, { debt: Math.max(0, Number(r.debt || 0)), account: Math.max(0, Number(r.account || 0)) }]));
+  st.debts = Object.fromEntries(rows.map(r => [r.barber_id, { debt: Math.max(0, Number(r.debt || 0)), account: Math.max(0, Number(r.account || 0)), credit: Math.max(0, Number(r.credit || 0)) }]));
   return st.debts;
 }
 async function ensureInventory(force) {
@@ -1016,7 +1018,7 @@ async function renderDebts(force) {
     $('debtMeta').textContent = 'Total ' + money(sum(list, 'debt'));
     $('acctMeta').textContent = 'Total ' + money(sum(list, 'account'));
     $('debtRows').innerHTML = debtList.map(x => `<div class="row" data-row="${esc(x.b.id)}"><div class="t"><b>${esc(x.b.name)}</b><span>${esc(branchName(x.b.branch_id))}</span></div>
-      <div class="r">${x.debt > 0 ? `<span class="num amt red">${money(x.debt)}</span><button class="btn sm ok" data-settle="${esc(x.b.id)}">Registrar entrega</button>` : '<span class="tag ok">Al día</span>'}</div></div>`).join('') || emptyRow('No hay barberos activos.');
+      <div class="r">${x.debt > 0 ? `<span class="num amt red">${money(x.debt)}</span><button class="btn sm ok" data-settle="${esc(x.b.id)}">Registrar entrega</button>` : (x.credit > 0 ? `<span class="num amt mint">A favor ${money(x.credit)}</span>` : '<span class="tag ok">Al día</span>')}</div></div>`).join('') || emptyRow('No hay barberos activos.');
     $('acctRows').innerHTML = acctList.map(x => `<div class="row" data-row="${esc(x.b.id)}"><div class="t"><b>${esc(x.b.name)}</b><span>${esc(branchName(x.b.branch_id))}</span></div>
       <div class="r">${x.account > 0 ? `<span class="num amt">${money(x.account)}</span><button class="btn sm" data-abono="${esc(x.b.id)}">Registrar abono</button>` : '<span class="tag neu">Sin saldo</span>'}</div></div>`).join('') || emptyRow('No hay barberos activos.');
     $('debtRows').querySelectorAll('[data-settle]').forEach(b => b.onclick = () => openSettle(b.dataset.settle));
@@ -1071,10 +1073,10 @@ async function loadPayHistory() {
       st.hasSettlements ? api('settlements?select=*&order=settled_at.desc&limit=20').catch(() => { st.hasSettlements = false; return []; }) : [],
       api('account_movements?select=*&kind=eq.payment&order=created_at.desc&limit=20').catch(() => [])
     ]);
-    const rows = [...s.map(x => ({ t: x.settled_at, who: x.barber_id, amt: x.amount, k: 'Entrega de caja', note: x.note })),
+    const rows = [...s.map(x => ({ t: x.settled_at, who: x.barber_id, amt: x.amount, out: x.kind === 'retiro', k: x.kind === 'retiro' ? 'Retiro de efectivo' : 'Entrega de caja', note: x.note })),
                   ...a.map(x => ({ t: x.created_at, who: x.barber_id, amt: x.amount, k: 'Abono cuenta personal', note: x.description }))]
       .sort((x, z) => String(z.t).localeCompare(String(x.t))).slice(0, 20);
-    $('payHistory').innerHTML = rows.length ? rows.map(x => `<div class="row"><div class="t"><b>${esc(barberName(x.who))}</b><span>${x.k} · ${stamp(x.t)}${x.note && x.note !== 'Abono cuenta' ? ' · ' + esc(x.note) : ''}</span></div><span class="num amt mint">${money(x.amt)}</span></div>`).join('') : emptyRow('Aún no hay entregas ni abonos registrados.');
+    $('payHistory').innerHTML = rows.length ? rows.map(x => `<div class="row"><div class="t"><b>${esc(barberName(x.who))}</b><span>${x.k} · ${stamp(x.t)}${x.note && x.note !== 'Abono cuenta' ? ' · ' + esc(x.note) : ''}</span></div><span class="num amt ${x.out ? 'red' : 'mint'}">${x.out ? '-' : ''}${money(x.amt)}</span></div>`).join('') : emptyRow('Aún no hay entregas ni abonos registrados.');
   } catch (e) { $('payHistory').innerHTML = emptyRow(esc(e.message)); }
 }
 
@@ -1317,10 +1319,11 @@ async function fetchMyToday() {
     apiAll(`account_movements?select=kind,amount&barber_id=eq.${me}&order=id`)
   ]);
   let debt = null, account = null;
-  try { const v = await api('barber_debt?select=debt,account&barber_id=eq.' + me); if (Array.isArray(v) && v[0]) { debt = Number(v[0].debt || 0); account = Number(v[0].account || 0); } } catch (_) {}
+  let credit = 0;
+  try { const v = await api('barber_debt?select=debt,account,credit&barber_id=eq.' + me); if (Array.isArray(v) && v[0]) { debt = Number(v[0].debt || 0); account = Number(v[0].account || 0); credit = Number(v[0].credit || 0); } } catch (_) {}
   if (debt == null) debt = sum(allCuts, x => Number(x.debt_generated || 0) - Number(x.debt_recovered || 0)) + sum(allProducts, 'debt_generated');
   if (account == null) account = sum(allAccount, x => (x.kind === 'charge' ? 1 : -1) * Number(x.amount || 0));
-  return { date, cuts, products, debt: Math.max(0, debt), account: Math.max(0, account) };
+  return { date, cuts, products, debt: Math.max(0, debt), account: Math.max(0, account), credit: Math.max(0, credit) };
 }
 async function loadShift() {
   try {
@@ -1333,13 +1336,45 @@ async function loadShift() {
       + stat('Dinero en mis manos', money(m.inBarber), 'cobrado por mí hoy', 'steel')
       + stat('Deuda de caja', money(d.debt), d.debt ? 'por entregar a la casa' : 'al día', d.debt ? 'red' : 'mint')
       + stat('Mi cuenta personal', money(d.account), 'consumos menos abonos', d.account ? 'red' : 'mint')
+      + (d.credit > 0 ? stat('Saldo a mi favor', money(d.credit), 'puedes retirarlo', 'mint') : '')
       + stat('Ticket promedio', money(m.ticket), 'por corte');
+    renderWithdraw(d.credit);
     $('shiftMethods').innerHTML = methodsBlock(m);
     const all = [...d.cuts.map(x => ({ ...x, _k:'cut' })), ...d.products.map(x => ({ ...x, _k:'prod' }))].sort((a, z) => String(z.created_at).localeCompare(String(a.created_at)));
     $('shiftMeta').textContent = money(m.gross);
     $('shiftRows').innerHTML = all.length ? all.map(x => moveRow(x, false)).join('') : emptyRow('Aún no registras nada hoy.');
   } catch (e) { toast(e.message, 'err'); }
 }
+function renderWithdraw(credit) {
+  const el = $('withdrawWrap');
+  if (!el) return;
+  el.classList.toggle('hidden', !(credit > 0));
+  if (!(credit > 0)) return;
+  el.innerHTML = `<div class="h2row"><h2>Retirar efectivo</h2><small>Disponible ${money(credit)}</small></div>
+    <input id="wdAmount" class="amount" type="number" inputmode="numeric" min="1" step="1000" value="${Math.round(credit)}" aria-label="Monto a retirar">
+    <div class="chips"><button data-set="${Math.round(credit)}">Todo</button><button data-set="${Math.round(credit / 2)}">Mitad</button><button data-set="">Otro</button></div>
+    <div class="field"><label>Nota (opcional)</label><input id="wdNote" class="input" maxlength="80" placeholder="Para qué lo retiras"></div>
+    <button id="wdBtn" class="btn ok" style="width:100%;min-height:50px">Registrar retiro</button>
+    <p class="s" style="margin-top:8px">Queda anotado con fecha y monto. No se puede editar después.</p>`;
+  el.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { $('wdAmount').value = b.dataset.set; $('wdAmount').focus(); });
+  $('wdBtn').onclick = () => doWithdraw(credit);
+}
+
+async function doWithdraw(credit) {
+  const amount = Number($('wdAmount').value), note = $('wdNote').value.trim();
+  if (!amount || amount <= 0) return toast('Ingresa un monto', 'err');
+  if (amount > credit) return toast(`Tu saldo a favor es ${money(credit)}`, 'err');
+  if (!confirm(`¿Retirar ${money(amount)} en efectivo?\n\nQueda registrado con tu nombre, la fecha y el monto.`)) return;
+  const b = $('wdBtn'); b.disabled = true; b.textContent = 'Registrando…';
+  try {
+    const resto = await api('rpc/retirar_efectivo', { method: 'POST', body: JSON.stringify({ p_amount: amount, p_note: note || null }) });
+    toast(`Retiro registrado · te quedan ${money(Number(resto || 0))}`);
+    await loadShift();
+  } catch (e) {
+    toast(/retirar_efectivo|404/i.test(e.message || '') ? 'Falta correr retiros.sql en Supabase' : e.message, 'err');
+  } finally { b.disabled = false; b.textContent = 'Registrar retiro'; }
+}
+
 async function exportShift(detail) {
   try {
     const d = st.shift || await fetchMyToday(), m = metrics(d.cuts, d.products), b = barberOf(st.profile.barber_id);
